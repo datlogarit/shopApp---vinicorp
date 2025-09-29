@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: shop-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop-app-vinicorp
+    username: postgres
+    password: datlogarit2002
+    driver-class-name: org.postgresql.Driver
+mybatis:
+  # nơi định nghĩa các file xml
+  mapper-locations: classpath:mapper/*.xml
+  # package chứa entity để tạo bí danh
+  type-aliases-package: com.example.employee_management.models
