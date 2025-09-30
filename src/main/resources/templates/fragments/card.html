@@ -1,0 +1,21 @@
+<div th:fragment="product_card(url, name, description, price)"
+    style="border-radius: 10px; padding: 10px 15px;height: 360px;width: 250px;display: flex;flex-direction: column;background-color: rgb(216, 213, 213);">
+    <img style="height: 170px; object-fit: cover; border-radius: 5px;" th:src="${url}" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_15_21.png"
+        alt="">
+    <div>
+        <h4 th:text="${name}" id="product-name">Product 1</h4>
+        <span th:text="${description}" style="
+        font-size: 13px;
+        font-weight: 100;
+    ">This is description of product 1. It's cost very height</span>
+    </div>
+    <div th:text="${#numbers.formatInteger(price, 0, 'POINT')} + ' ₫'" style="margin: 10px 0px;">Price: 2000$</div>
+    <div style="
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+">
+        <button class="btn btn-primary">Add to card</button>
+        <button class="btn btn-success">Buy now</button>
+    </div>
+</div>

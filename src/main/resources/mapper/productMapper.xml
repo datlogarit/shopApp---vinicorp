@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop_app.mapper.IProductMapper">
+    <select id="getAllProduct" resultType="Product">
+        select * from products
+    </select>
+</mapper>
+    
+    <!-- <select id="findByUsername" resultType="AuthUser">
+        select * from auth where username = #{username}
+    </select> -->
