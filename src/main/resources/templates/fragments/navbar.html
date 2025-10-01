@@ -1,3 +1,18 @@
+<style>
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: red;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 1000;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+    }
+</style>
 <nav th:fragment="navbar" class="navbar bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand">Vinicorp shop</a>
@@ -11,8 +26,26 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <ion-icon style="font-size: 28px;" name="cart-outline"></ion-icon>
+            <!-- cart-icon -->
+            <div class="dropdown">
+                <ion-icon id="cart-icon" style="font-size: 28px;" name="cart-outline"></ion-icon>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <!-- <a href="#">Item 1</a>
+                    <a href="#">Item 2</a>
+                    <a href="#">Item 3</a> -->
+                </div>
+            </div>
+            <!-- user-icon -->
+            <ion-icon style="font-size: 28px;" name="log-out-outline"></ion-icon>
         </div>
-        
+
     </div>
 </nav>
+<script>
+    document.getElementById('cart-icon').addEventListener("click", function () {
+        document.getElementById('dropdownMenu').classList.toggle('show');
+        // gọi api get cart
+        // tạo thẻ a mới
+        // appendChild vào dropdownMenu
+    });
+</script>

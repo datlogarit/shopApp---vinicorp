@@ -23,7 +23,7 @@ create table product_image(
     foreign key (product_id) references products(id)
 );
 create table orders(
-    order_id varchar(255) primary key,
+    order_id bigserial primary key,
     customer_id bigint, 
     pay_method varchar(255) check (pay_method in ('cod', 'banking', 'momo', 'vnpay')),
     order_status varchar(50) check (order_status in ('ordered', 'shipping', 'delivered')),
@@ -32,11 +32,26 @@ create table orders(
     foreign key (customer_id) references users(id)
 );
 create table order_product(
-    order_id varchar(255),
+    order_id bigint,
     product_id bigint,
     quantity int not null default 1,
     primary key (order_id, product_id), 
     foreign key (order_id) references orders(order_id),
+    foreign key (product_id) references products(id)
+);
+create table cart(
+    id bigserial primary key,
+    user_id bigint,
+    foreign key (user_id) references users(id),
+);
+create table cart_product(
+    cart_id bigint,
+    product_id bigint,
+    quantity int not null default 1,
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
+    primary key (cart_id, product_id),
+    foreign key (cart_id) references cart(id),
     foreign key (product_id) references products(id)
 );
 -- tạo db -> tạo view với tạo backend xử lý đồng thời. theo domain và 
