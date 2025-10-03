@@ -27,6 +27,7 @@ create table orders(
     customer_id bigint, 
     pay_method varchar(255) check (pay_method in ('cod', 'banking', 'momo', 'vnpay')),
     order_status varchar(50) check (order_status in ('ordered', 'shipping', 'delivered')),
+    total_amount bigint, 
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
     foreign key (customer_id) references users(id)

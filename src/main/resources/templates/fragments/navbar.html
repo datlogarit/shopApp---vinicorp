@@ -1,185 +1,182 @@
 <style>
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: rgb(230, 220, 220);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 1000;
-    top: 50px;
-    right: -150%;
-  }
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: azure;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 1000;
+        top: 50px;
+        right: -150%;
+    }
 
-  .dropdown-menu.show {
-    display: flex;
-  }
+    .dropdown-menu.show {
+        display: flex;
+    }
 </style>
 <nav th:fragment="navbar" style="width: 100%" class="navbar bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand">Vinicorp shop</a>
-    <div
-      style="display: flex; flex-direction: row; gap: 20px; align-items: center"
-    >
-      <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <!-- cart-icon -->
-      <div class="dropdown" style="position: relative">
-        <ion-icon
-          id="cart-icon"
-          style="font-size: 28px; margin-top: 5px"
-          name="cart-outline"
-        ></ion-icon>
-        <div
-          style="flex-direction: column; gap: 10px"
-          class="dropdown-menu"
-          id="dropdownMenu"
-        >
-          <div id="product-item">
-            <!-- product item rendered here -->
-          </div>
-          <div
-            id="total"
-            style="
+    <div class="container-fluid">
+        <a class="navbar-brand">Vinicorp shop</a>
+        <div style="display: flex; flex-direction: row; gap: 20px; align-items: center">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <!-- cart-icon -->
+            <div class="dropdown" style="position: relative">
+                <ion-icon id="cart-icon" style="font-size: 28px; margin-top: 5px" name="cart-outline"></ion-icon>
+                <div style="flex-direction: column; gap: 10px" class="dropdown-menu" id="dropdownMenu">
+                    <div id="product-item">
+                        <!-- product item rendered here -->
+                    </div>
+                    <div id="total" style="
               width: 100%;
               display: flex;
               flex-direction: row;
               justify-content: start;
               align-items: center;
-            "
-          >
-            <span style="margin-right: 20px">Total: </span>
-            <span id="total-price" style="font-size: 20px; font-weight: 700"
-              >0</span
-            >
-          </div>
-          <div
-            style="
+            ">
+                        <span style="margin-right: 20px">Total: </span>
+                        <span id="total-price" style="font-size: 20px; font-weight: 700">0</span>
+                    </div>
+                    <div style="
               width: 100%;
               display: flex;
               flex-direction: row;
               justify-content: end;
-            "
-          >
-            <button
-              id="buy-button"
-              style="margin-top: 15px"
-              class="btn btn-primary"
-            >
-              Buy now
-            </button>
-          </div>
+            ">
+                        <button th:action id="buy-button" style="margin-top: 15px" class="btn btn-primary">
+                            Buy now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- user-icon -->
+            <ion-icon style="font-size: 28px" name="log-out-outline"></ion-icon>
         </div>
-      </div>
-      <!-- user-icon -->
-      <ion-icon style="font-size: 28px" name="log-out-outline"></ion-icon>
     </div>
-  </div>
 </nav>
 <script>
-  document.getElementById("cart-icon").addEventListener("click", function () {
-    let dropdownMenu = document.getElementById("dropdownMenu");
-    dropdownMenu.classList.toggle("show");
-    productItem = document.getElementById("product-item");
-    productItem.innerHTML = "";
-    // đăng nhập --> lấy userId
-    fetch(`http://localhost:8080/api/v1/cart/1`)
-      .then((response) => response.json())
-      .then((res) => {
-        res.forEach((element) => {
-          const cartItem = `
+    document.getElementById("cart-icon").addEventListener("click", function () {
+        let dropdownMenu = document.getElementById("dropdownMenu");
+
+        productItem = document.getElementById("product-item");
+        productItem.innerHTML = "";
+        // đăng nhập --> lấy userId
+        fetch(`http://localhost:8080/api/v1/cart/1`)
+            .then((response) => response.json())
+            .then((res) => {
+                res.forEach((element) => {
+                    const cartItem = `
                     <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
                         <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
-                            <input type="checkbox" class="cart-checkbox" data-price="${
-                              element.price
-                            }" data-quantity="${element.quantity}">
-                            <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${
-                              element.displayAvt
-                            }" alt="avt_product">
+                            <input type="checkbox" class="cart-checkbox" data-price="${element.price
+                        }" data-quantity="${element.quantity}">
+                            <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt
+                        }" alt="avt_product">
                             <div style="display: flex;flex-direction: column;justify-content: space-between;">
                                 <h6>${element.productName}</h6>
                                 <span>${element.price.toLocaleString()}</span>
                             </div>
                         </div>
-                        <input class="quantity-input" type="number" value =${
-                          element.quantity
+                        <input class="quantity-input" type="number" value =${element.quantity
                         } style="height: 25px; width: 50px;">
                     </div>
                     `;
-          const wrapper = document.createElement("div");
-          wrapper.innerHTML = cartItem;
-          productItem.appendChild(wrapper);
+                    const wrapper = document.createElement("div");
+                    wrapper.innerHTML = cartItem;
+                    productItem.appendChild(wrapper);
+                });
+                dropdownMenu.classList.toggle("show");
+                attachEventsCheckbox();
+            });
+
+    });
+    function attachEventsCheckbox() {
+        const checkbox = document.querySelectorAll(".cart-checkbox");
+        const quantityInput = document.querySelectorAll(".quantity-input");
+
+        // every time you click call function again
+        checkbox.forEach((cb) => {
+            cb.addEventListener("change", caculator);
         });
-        attachEventsCheckbox();
-      });
-  });
-  function attachEventsCheckbox() {
-    const checkbox = document.querySelectorAll(".cart-checkbox");
-    const quantityInput = document.querySelectorAll(".quantity-input");
 
-    // every time you click call function again
-    checkbox.forEach((cb) => {
-      cb.addEventListener("change", caculator);
-    });
-
-    quantityInput.forEach((input) => {
-      input.addEventListener("input", function () {
-        const row = input.closest(".cart-row");
-        const checkbox = row.querySelector(".cart-checkbox");
-        checkbox.dataset.quantity = input.value;
-        caculator(); // tính lại khi số lượng thay đổi
-      });
-    });
-  }
-  function caculator() {
-    // debug
-    console.log("cacu is running");
-    let total = 0;
-    const checkboxes = document.querySelectorAll(".cart-checkbox");
-    checkboxes.forEach((cb) => {
-      if (cb.checked) {
-        const price = parseFloat(cb.dataset.price);
-        const quantity = parseInt(cb.dataset.quantity);
-        total += price * quantity;
-      }
-    });
-    console.log(total);
-    document.getElementById("total-price").innerText = total.toLocaleString();
-  }
-
-  document.getElementById("buy-button").addEventListener("click", function (e) {
-    e.preventDefault();
-    // check xem đã click vào ô nào chưa ?
-    const selectedProducts = [];
-    const checkboxes = document.querySelectorAll(".cart-checkbox");
-
-    checkboxes.forEach((cb) => {
-      if (cb.checked) {
-        const row = cb.closest(".cart-row");
-        const quantity = parseInt(cb.dataset.quantity);
-        const price = parseFloat(cb.dataset.price);
-        const productName = row.querySelector("h6").innerText;
-
-        selectedProducts.push({
-          productName: productName,
-          price: price,
-          quantity: quantity,
+        quantityInput.forEach((input) => {
+            input.addEventListener("input", function () {
+                const row = input.closest(".cart-row");
+                const checkbox = row.querySelector(".cart-checkbox");
+                checkbox.dataset.quantity = input.value;
+                caculator(); // tính lại khi số lượng thay đổi
+            });
         });
-      }
-    });
-
-    if (selectedProducts.length === 0) {
-      alert("Please select least one product to pay!");
-      return;
-    } else {
-      // redirect to order page with following item.
     }
-  });
+    function caculator() {
+        // debug
+        console.log("cacu is running");
+        let total = 0;
+        const checkboxes = document.querySelectorAll(".cart-checkbox");
+        checkboxes.forEach((cb) => {
+            if (cb.checked) {
+                const price = parseFloat(cb.dataset.price);
+                const quantity = parseInt(cb.dataset.quantity);
+                total += price * quantity;
+            }
+        });
+        console.log(total);
+        document.getElementById("total-price").innerText = total.toLocaleString();
+    }
+
+    document.getElementById("buy-button").addEventListener("click", function (e) {
+        e.preventDefault();
+        // check xem đã click vào ô nào chưa ?
+        const selectedProducts = [];
+        const checkboxes = document.querySelectorAll(".cart-checkbox");
+        const totalCost = parseInt(document.getElementById("total-price").innerHTML);
+        checkboxes.forEach((cb) => {
+            if (cb.checked) {
+                const row = cb.closest(".cart-row");
+                const quantity = parseInt(cb.dataset.quantity);
+                const price = parseFloat(cb.dataset.price);
+                const productName = row.querySelector("h6").innerText;
+
+                selectedProducts.push({
+                    productName: productName,
+                    price: price,
+                    quantity: quantity,
+                });
+            }
+        });
+        const orderData = {
+            products: selectedProducts,
+            totalCost: totalCost
+        };
+        if (selectedProducts.length === 0) {
+            alert("Please select least one product to pay!");
+            return;
+        } else {
+            console.log("triggle buy button")
+            console.log(orderData);
+            // redirect to order page with following item.
+            fetch("http://localhost:8080/api/v1/order", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(orderData)
+            })
+                .then((res) => res.text())
+                .then((response) => {
+                    // document.open();
+                    // document.write(html);
+                    // document.close();
+                    console.log(response);
+                    window.location.href = "order"
+                });
+        }
+    });
+    //   client (gửi thông tin giỏ hàng, đã tích những item nào, giá bao nhiêu) gửi lên server (bắt đc thông tin) --> gửi về lại cho client -->
+    // vấn đề: client gửi bằng ajax (không tự động đổi trang và nó là restAPI)
+    // bài toán: client gửi request --> server chỉ có thể nhận và trả về dưới dạng Json mà không trả về trực tiếp order.html đc
+    // giải pháp: client gửi bằng ajax --> server có dữ liệu
+    // client rederict đến trang order --> render trang với dữ liệu này
+    // vấn đề phát sinh: nếu thế thì phải tạo dữ liệu chuẩn để bind vào view của order (cùng 1 loại dto)
 </script>
