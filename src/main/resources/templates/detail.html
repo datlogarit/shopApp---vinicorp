@@ -13,11 +13,11 @@
 <body>
     <style>
         .active {
-            border: 2px solid #0d6efd;
+            border: 2px solid lightblue;
         }
     </style>
     <div th:replace="~{fragments/navbar}"></div>
-    <h2 style="text-align: center; margin: 20px">This is detail page</h2>
+    <h2 style="text-align: center; margin: 20px">Detail page</h2>
 
     <div style="
         color: white;
@@ -43,7 +43,8 @@
             height: 190px;
             object-fit: cover;
             border-radius: 5px;
-          " src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den.jpg"
+          " th:src="${detailPr.displayAvt}"
+                src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den.jpg"
                 id="current_image" alt="" />
             <div style="
             display: flex;
@@ -51,48 +52,36 @@
             margin-top: 6px;
             justify-content: space-between;
           ">
-                <img class="thumbnails active" onclick="activeThumbnail(this)"
-                    style="width: 50px; height: 50px; border-radius: 2px;"
-                    src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den.jpg"
-                    alt="" />
-                <img class="thumbnails" onclick="activeThumbnail(this)"
-                    style="width: 50px; height: 50px; border-radius: 2px"
-                    src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den-1.jpg"
-                    alt="" />
-                <img class="thumbnails" onclick="activeThumbnail(this)"
-                    style="width: 50px; height: 50px; border-radius: 2px"
-                    src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den-2.jpg"
-                    alt="" />
-                <img class="thumbnails" onclick="activeThumbnail(this)"
-                    style="width: 50px; height: 50px; border-radius: 2px"
-                    src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den-3.jpg"
-                    alt="" />
-                <img class="thumbnails" onclick="activeThumbnail(this)"
-                    style="width: 50px; height: 50px; border-radius: 2px"
-                    src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den-4.jpg"
-                    alt="" />
+                <div th:each="img:${detailPr.images}">
+                    <img class="thumbnails" onclick="activeThumbnail(this)"
+                        style="width: 50px; height: 50px; border-radius: 2px;" th:src="${img}"
+                        src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den.jpg"
+                        alt="" />
+                </div>
             </div>
         </div>
         <div style="display: flex; flex-direction: column; width: 420px">
-            <h4>Tai nghe Sony wh-ch520</h4>
+            <h4 th:text="${detailPr.name}">Tai nghe Sony wh-ch520</h4>
             <div>
                 <span>Description:</span>
-                <span style="font-size: 14px; font-weight: 200">Đây là sản phẩm đạt thương hiệu quốc gia về chất lượng,
+                <span th:text="${detailPr.description}" style="font-size: 14px; font-weight: 200">Đây là sản phẩm
+                    đạt thương hiệu quốc gia về chất lượng,
                     đã được
                     chứng minh qua nhiều quá trình nghiêm ngặt</span>
             </div>
             <div style="margin: 10px 0;">
                 <span>Price: </span>
-                <span>9.000.000đ</span>
+                <span th:text="${#numbers.formatInteger(detailPr.price, 0, 'POINT')} + ' ₫'">9.000.000đ</span>
             </div>
             <div>
-                <button class="btn btn-primary">Add to card</button>
-                <button class="btn btn-success">Buy now</button>
+                <button id="addCartButton" class="btn btn-primary">Add to card</button>
+                <button id="buyNowButton" class="btn btn-success">Buy now</button>
             </div>
-            <input style="width: 100px; margin-top: 20px" type="number" value="1" min="1" max="100" />
+            <input id="quantity" th:max="${detailPr.numAvailable}" style="width: 50px; margin-top: 20px" type="number"
+                value="1" min="1" />
             <div style="margin-top: 10px;">
                 <span>*Avaiable quantity: </span>
-                <span>2002</span>
+                <span th:text="${detailPr.numAvailable}">2002</span>
             </div>
         </div>
     </div>
@@ -104,13 +93,30 @@
 <!-- Ion-icon -->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script>
+<script th:inline="javascript">
     function activeThumbnail(element) {
         document.getElementById("current_image").src = element.src;
         let thumbs = document.querySelectorAll(".thumbnails");
         thumbs.forEach(img => img.classList.remove("active"));
         element.classList.add("active");
     }
+    let addCartButton = document.getElementById("addCartButton");
+    addCartButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        const quantity = document.getElementById('quantity').value;
+        const maxStock = [[${ detailPr.numAvailable }]];
+
+        if (quantity > maxStock) {
+            alert('Số lượng vượt quá tồn kho (' + maxStock + ')');
+            return false; // Ngăn submit
+        }
+        if (quantity < 1) {
+            alert('Số lượng phải lớn hơn 0');
+            return false;
+        }
+        alert("continuing");
+        return true;
+    })
 </script>
 
 </html>

@@ -22,15 +22,16 @@
   <h2 style="margin: 15px 0">Confirm order</h2>
   <div style="width: 650px; background-color: azure; padding: 8px;">
     <div th:each="item:${items.products}" id="product-item">
-      <div style="display: flex; flex-direction: row; justify-content: space-between; height: 100px;padding: 12px;">
+      <div
+        style="display: flex; flex-direction: row; justify-content: space-between; height: 100px;padding: 12px; box-sizing: content-box; border-bottom: 1px solid lightgray;">
         <div style="display: flex; flex-direction: row;">
-          <img style="width: 140px; height: 100px; object-fit: cover; margin-right: 15px;"
-            src="https://iphonethanhnhan.vn/upload/filemanager/iphone%2017/iphone-17-pro-max.jpg" alt="">
+          <img th:src="${item.imgUrl}" style="width: 140px; height: 100px; object-fit: cover; margin-right: 15px;"
+            alt="">
           <div style="display: flex; flex-direction: column;justify-content: space-between;">
-            <h5 th:text="${item.productName}">Iphone 17 pro max</h5>
+            <h5 th:text="${item.productName}">Product name</h5>
             <div>
               <span>Price:</span>
-              <span th:text="${item.price}">2.000.000 đ</span>
+              <span th:text="${item.price}">Specific price</span>
             </div>
           </div>
         </div>

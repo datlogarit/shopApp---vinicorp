@@ -4,8 +4,23 @@
     <select id="getAllProduct" resultType="Product">
         select * from products
     </select>
+
+    <resultMap id="ProductDetailMap" type="com.example.shop_app.DTOs.responses.DetailProductDTO">
+        <id property="id" column="id"/>
+        <result property="description" column="description"/>
+        <result property="name" column="name"/>
+        <result property="numAvailable" column="num_available"/>
+        <result property="price" column="price"/>
+        <result property="displayAvt" column="display_avt"/>
+        <collection property="images" ofType="string">
+            <result column="link_image"/>
+        </collection>
+    </resultMap>
+    <select id="detailProduct" resultMap="ProductDetailMap">
+        select p.id, p.display_avt, p.name, p.price, p.description, p.num_available, pi.link_image
+        from products as p
+        join product_image as pi
+        on p.id = pi.product_id
+        where p.id = #{productId}
+    </select>
 </mapper>
-    
-    <!-- <select id="findByUsername" resultType="AuthUser">
-        select * from auth where username = #{username}
-    </select> -->

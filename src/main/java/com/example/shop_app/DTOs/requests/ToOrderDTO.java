@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartToOrderDTO {
+public class ToOrderDTO {
     private Integer totalCost;
-    private List<CartToOrderFDTO> products;
+    private List<OrderProductDTO> products;
 }

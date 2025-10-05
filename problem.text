@@ -1,0 +1,5 @@
+Thiết kế controller như nào cho hợp lý (theo domain hay theo màn hình)
+1. Dùng thymeleaf trả về view thì nó quá bất tiện, mỗi lần 
+request đến nó nhận xong phải load lại trang để trả về kq
+2. Sử dụng quá nhiều ajax --> thế thì nó cũng giống mới mô hình rest API à ?
+3. Ưu điểm so với dùng mô hình tách biệt

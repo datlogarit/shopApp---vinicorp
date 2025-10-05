@@ -72,7 +72,7 @@
                     <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
                         <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
                             <input type="checkbox" class="cart-checkbox" data-price="${element.price
-                        }" data-quantity="${element.quantity}">
+                        }" data-quantity="${element.quantity}" data-img-product="${element.displayAvt}">
                             <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt
                         }" alt="avt_product">
                             <div style="display: flex;flex-direction: column;justify-content: space-between;">
@@ -129,6 +129,7 @@
 
     document.getElementById("buy-button").addEventListener("click", function (e) {
         e.preventDefault();
+        console.log("button clicked")
         // check xem đã click vào ô nào chưa ?
         const selectedProducts = [];
         const checkboxes = document.querySelectorAll(".cart-checkbox");
@@ -138,9 +139,11 @@
                 const row = cb.closest(".cart-row");
                 const quantity = parseInt(cb.dataset.quantity);
                 const price = parseFloat(cb.dataset.price);
+                const imgUrl = cb.dataset.imgProduct;
                 const productName = row.querySelector("h6").innerText;
 
                 selectedProducts.push({
+                    imgUrl: imgUrl,
                     productName: productName,
                     price: price,
                     quantity: quantity,
