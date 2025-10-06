@@ -5,9 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.shop_app.DTOs.requests.CartDTO;
 import com.example.shop_app.DTOs.responses.CartProductDTO;
 
 @Mapper
 public interface ICartMapper {
     public List<CartProductDTO> getInfoCartByUserId(@Param("userId") Long userId);
+    public Integer existCartByUserId(@Param("userId") Long userId);
+    public void createNewCart(@Param("cartDTO") CartDTO cartDTO);
+    public void addProductToCart(@Param("CartProductDTO") CartProductDTO cartProductDTO);
 }

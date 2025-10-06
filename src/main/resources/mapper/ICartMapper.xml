@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace define the path of interfaceMapper -->
+<mapper namespace="com.example.shop_app.mapper.ICartMapper">
+    <select id="existCartByUserId" resultType="java.lang.Integer">
+        SELECT 1
+        FROM cart
+        WHERE user_id = #{userId}
+        LIMIT 1
+    </select>
+
+    <insert id="createNewCart" useGeneratedKeys="true">
+        insert into cart(user_id) values (#{cartDTO.userId})
+    </insert>
+
+    <insert id="addProductToCart">
+        insert into cart_product(cart_id, product_id, quantity) values (#{cartProduct.cartId}, #{cartProduct.productId}, #{cartProduct.quantity})
+    </insert>
+    <!-- <insert id="addProductToCart">
+        insert into cart_product(cart_id, product_id, quantity) value (#{cartDTO.userId})
+    </insert> -->
+</mapper>

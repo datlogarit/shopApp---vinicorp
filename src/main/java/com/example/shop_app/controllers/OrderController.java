@@ -21,13 +21,13 @@ public class OrderController {
 
     @PostMapping("")
     @ResponseBody
-    private ResponseEntity<?> postCart(@RequestBody ToOrderDTO cartToOrderDTO, HttpSession session) throws Exception {
+    private ResponseEntity<?> cartToOrder(@RequestBody ToOrderDTO cartToOrderDTO, HttpSession session) throws Exception {
         session.setAttribute("result", cartToOrderDTO);
         return ResponseEntity.ok("Bind to server successfully");
     }
 
     @GetMapping("")
-    private String oderPage(Model model, HttpSession session) {
+    private String getOrderPage(Model model, HttpSession session) {
         // gửi ngượi lại cho client
         model.addAttribute("items", session.getAttribute("result"));
         return "order";

@@ -1,5 +1,20 @@
-Thiết kế controller như nào cho hợp lý (theo domain hay theo màn hình)
+Thiết kế controller như nào cho hợp lý (theo domain hay theo view)
 1. Dùng thymeleaf trả về view thì nó quá bất tiện, mỗi lần 
 request đến nó nhận xong phải load lại trang để trả về kq
-2. Sử dụng quá nhiều ajax --> thế thì nó cũng giống mới mô hình rest API à ?
+2. Sử dụng quá nhiều ajax --> thế thì nó cũng giống mới mô hình rest API sao ?
 3. Ưu điểm so với dùng mô hình tách biệt
+
+
+thymeleaf dính đến view --> dữ liệu đẩy lên hay lấy về đều liên quan đến view
+- dữ liệu đẩy lên liên quan đến view
+    - đẩy lên mà liên quan đến nhiều bảng thì sao 
+    - cũng tiến hành nhiều service và trả về dữ liệu full
+    - view thích lấy gì gì lấy
+    - chỉ gửi lên những gì cần thiết --> phải tạo dto mới
+
+
+làm với restAPI và hibernate
+- phân chia dự án theo model, tất cả cấu trúc và thao tác đều xoay quanh model
+- khi POST thì post theo dto và post vào model --> ánh xạ vào dto
+- nếu có POST có liên quan đến nhiều model thì chỉ cần tạo nhiều request đến nhiều model 
+- get liên quan đến nhiều model chỉ cần join, tạo response liên quan và ánh xạ vào là đc

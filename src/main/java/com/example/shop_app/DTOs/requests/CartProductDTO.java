@@ -4,13 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class OrderProductDTO {
-    private String imgUrl;
-    private String productName;
-    private Integer price;
+@NoArgsConstructor
+@AllArgsConstructor
+public class CartProductDTO {
+    private Integer cartId;
+    private Integer productId;
     private Integer quantity;
 }
-
