@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop_app.mapper.ICartMapper">
     <resultMap id="CartProductResultMap" 
-               type="com.example.shop_app.DTOs.responses.CartProductDTO">
+               type="com.example.shop_app.DTOs.responses.CartProductViewDTO">
         <result property="userId" column="user_id"/>
         <result property="cartId" column="cart_id"/>
         <result property="productId" column="product_id"/>

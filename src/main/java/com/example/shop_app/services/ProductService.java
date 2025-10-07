@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.shop_app.DTOs.responses.DetailProductDTO;
+import com.example.shop_app.DTOs.responses.DetailProductViewDTO;
 import com.example.shop_app.domains.Product;
 import com.example.shop_app.mapper.IProductMapper;
 
@@ -19,7 +19,7 @@ public class ProductService {
         return iProductMapper.getAllProduct();
     }
 
-    public DetailProductDTO getDetailProduct(Long productId) {
+    public DetailProductViewDTO getDetailProduct(Long productId) {
         return iProductMapper.detailProduct(productId);
     }
 }

@@ -107,11 +107,11 @@
         const maxStock = [[${ detailPr.numAvailable }]];
 
         if (quantity > maxStock) {
-            alert('Số lượng vượt quá tồn kho (' + maxStock + ')');
+            alert('Quantity exceeding inventory (' + maxStock + ')');
             return false; // Ngăn submit
         }
         if (quantity < 1) {
-            alert('Số lượng phải lớn hơn 0');
+            alert('The number must be greate than 0');
             return false;
         }
         alert("continuing");

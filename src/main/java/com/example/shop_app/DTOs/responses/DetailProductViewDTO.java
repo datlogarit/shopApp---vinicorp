@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class DetailProductDTO {
+public class DetailProductViewDTO {
     private Long id;
     private String name;
     private Long price;
