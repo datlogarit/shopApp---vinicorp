@@ -2,7 +2,7 @@ package com.example.shop_app.mapper;
 
 import java.util.List;
 
-import com.example.shop_app.DTOs.responses.CartProductViewDTO;
+import com.example.shop_app.DTOs.cart.CartProductViewDTO;
 import com.example.shop_app.domains.Cart;
 import com.example.shop_app.domains.CartProduct;
 

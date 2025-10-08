@@ -18,3 +18,9 @@ làm với restAPI và hibernate
 - khi POST thì post theo dto và post vào model --> ánh xạ vào dto
 - nếu có POST có liên quan đến nhiều model thì chỉ cần tạo nhiều request đến nhiều model 
 - get liên quan đến nhiều model chỉ cần join, tạo response liên quan và ánh xạ vào là đc
+
+
+làm với thymeleaf và làm với mybatis
+- thymeleaf: dữ liệu liên quan đến view. vẫn phân chia như bình thường( nếu đặc biệt thì tạo dto mới và đẩy ra dto đó)
+làm với mybatis. là cái để ánh xạ csdl. tất cả mọi request đến db đề phải đc thực hiện thủ công. phải mapper thủ công vào 
+domain tương ứng

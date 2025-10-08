@@ -1,4 +1,4 @@
-package com.example.shop_app.DTOs.responses;
+package com.example.shop_app.DTOs.cart;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartProductViewDTO {
-    private Long userId;
-    private Long cartId;
+    // private Long userId;
+    // private Long cartId;
     private Long productId;
     private String productName;
     private Long price;

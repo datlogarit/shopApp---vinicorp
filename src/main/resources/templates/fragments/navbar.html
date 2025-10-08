@@ -71,8 +71,7 @@
                     const cartItem = `
                     <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
                         <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
-                            <input type="checkbox" class="cart-checkbox" data-price="${element.price
-                        }" data-quantity="${element.quantity}" data-img-product="${element.displayAvt}">
+                            <input type="checkbox" class="cart-checkbox" data-quantity="${element.quantity}" data-product-id="${element.productId}" data-price="${element.price}">
                             <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt
                         }" alt="avt_product">
                             <div style="display: flex;flex-direction: column;justify-content: space-between;">
@@ -138,33 +137,28 @@
             if (cb.checked) {
                 const row = cb.closest(".cart-row");
                 const quantity = parseInt(cb.dataset.quantity);
-                const price = parseFloat(cb.dataset.price);
-                const imgUrl = cb.dataset.imgProduct;
-                const productName = row.querySelector("h6").innerText;
+                const productId = parseInt(cb.dataset.productId);
+                // const price = parseFloat(cb.dataset.price);
+                // const imgUrl = cb.dataset.imgProduct;
+                // const productName = row.querySelector("h6").innerText;
 
                 selectedProducts.push({
-                    imgUrl: imgUrl,
-                    productName: productName,
-                    price: price,
+                    productId: productId,
                     quantity: quantity,
                 });
             }
         });
-        const orderData = {
-            products: selectedProducts,
-            totalCost: totalCost
-        };
         if (selectedProducts.length === 0) {
             alert("Please select least one product to pay!");
             return;
         } else {
             console.log("triggle buy button")
-            console.log(orderData);
+            console.log(selectedProducts)
             // redirect to order page with following item.
             fetch("http://localhost:8080/api/v1/order", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify(orderData)
+                body: JSON.stringify(selectedProducts)
             })
                 .then((res) => res.text())
                 .then((response) => {
@@ -172,7 +166,7 @@
                     // document.write(html);
                     // document.close();
                     console.log(response);
-                    window.location.href = "order"
+                    window.location.href = "/api/v1/order/confirm"
                 });
         }
     });

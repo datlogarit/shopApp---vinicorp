@@ -2,12 +2,12 @@ package com.example.shop_app.services;
 
 import java.util.List;
 
-import com.example.shop_app.DTOs.responses.CartProductViewDTO;
 import com.example.shop_app.domains.Cart;
 import com.example.shop_app.domains.CartProduct;
 
 import org.springframework.stereotype.Service;
 
+import com.example.shop_app.DTOs.cart.CartProductViewDTO;
 import com.example.shop_app.DTOs.requests.CartDTO;
 import com.example.shop_app.DTOs.requests.CartProductDTO;
 import com.example.shop_app.mapper.ICartMapper;

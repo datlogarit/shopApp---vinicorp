@@ -1,16 +1,17 @@
-package com.example.shop_app.DTOs.requests;
+package com.example.shop_app.DTOs.orderConfirm;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OrderProductDTO {
-    private String imgUrl;
+@Builder
+public class OrderConfirmViewDTO {
     private String productName;
-    private Integer price;
+    private Long price;
     private Integer quantity;
+    private String imgUrl;
 }
-

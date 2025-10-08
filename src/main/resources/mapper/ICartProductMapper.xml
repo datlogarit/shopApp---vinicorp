@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop_app.mapper.ICartMapper">
     <resultMap id="CartProductResultMap" 
-               type="com.example.shop_app.DTOs.responses.CartProductViewDTO">
-        <result property="userId" column="user_id"/>
-        <result property="cartId" column="cart_id"/>
+               type="com.example.shop_app.DTOs.cart.CartProductViewDTO">
+        <!-- <result property="userId" column="user_id"/>
+        <result property="cartId" column="cart_id"/> -->
         <result property="productId" column="product_id"/>
         <result property="productName" column="product_name"/>
         <result property="price" column="price"/>
@@ -14,8 +14,8 @@
 
     <select id="getInfoCartByUserId" resultMap="CartProductResultMap">
         select 
-            c.id as cart_id,
-            c.user_id,
+            <!-- c.id as cart_id,
+            c.user_id, -->
             cp.product_id,
             cp.quantity,
             p.display_avt,

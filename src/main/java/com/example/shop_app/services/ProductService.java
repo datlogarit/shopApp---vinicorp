@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.shop_app.DTOs.responses.DetailProductViewDTO;
-import com.example.shop_app.domains.Product;
+import com.example.shop_app.DTOs.product.ProductDetailViewDTO;
+import com.example.shop_app.DTOs.product.ProductHomeViewDTO;
 import com.example.shop_app.mapper.IProductMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
     private final IProductMapper iProductMapper;
 
-    public List<Product> getAllProducts() {
+    public List<ProductHomeViewDTO> getAllProducts() {
         return iProductMapper.getAllProduct();
     }
 
-    public DetailProductViewDTO getDetailProduct(Long productId) {
+    public ProductDetailViewDTO getDetailProduct(Long productId) {
         return iProductMapper.detailProduct(productId);
     }
 }
