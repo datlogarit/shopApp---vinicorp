@@ -3,12 +3,14 @@ package com.example.shop_app.DTOs.product;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class ProductDetailViewDTO {
     private Long id;
     private String name;

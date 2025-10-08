@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.shop_app.DTOs.product.ProductDetailViewDTO;
-import com.example.shop_app.DTOs.product.ProductHomeViewDTO;
+import com.example.shop_app.domains.Product;
 
 @Mapper
 public interface IProductMapper {
-    public List<ProductHomeViewDTO> getAllProduct();
+    public List<Product> getAllProduct();
 
     public ProductDetailViewDTO detailProduct(@Param("productId") Long productId);
 }
