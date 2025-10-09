@@ -1,0 +1,39 @@
+package com.example.shop_app.controllers.APIController;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.shop_app.DTOs.product.ProductNumberDTO;
+import com.example.shop_app.domains.CartProduct;
+import com.example.shop_app.services.CartProductService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/cart-product")
+public class CartProductController {
+    private final CartProductService cartProductService;
+
+    @PostMapping("/add")
+    private ResponseEntity<?> addProductToCart(
+            @RequestParam(name = "userId") Long userId,
+            @RequestBody ProductNumberDTO addToCartRequest) {
+        cartProductService.addToCart(userId, addToCartRequest);
+        return ResponseEntity.ok("Add to cart successfully!");
+    }
+
+    @PutMapping("/update")
+    private ResponseEntity<?> update(
+            @RequestParam("cartId") Long cartId,
+            @RequestParam("productId") Long productId,
+            @RequestBody CartProduct addToCartRequest) {
+        cartProductService.updateCartProduct(cartId, productId, addToCartRequest);
+        return ResponseEntity.ok("Update cartProduct successfully!");
+    }
+}

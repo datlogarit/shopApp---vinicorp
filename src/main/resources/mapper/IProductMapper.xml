@@ -24,5 +24,13 @@
         join product_image as pi
         on p.id = pi.product_id
         where p.id = #{productId}
+    </select>    
+    
+    <select id="getProductById" resultType="com.example.shop_app.domains.Product">
+        SELECT *
+        FROM products
+        WHERE id = #{productId}
     </select>
+
+
 </mapper>

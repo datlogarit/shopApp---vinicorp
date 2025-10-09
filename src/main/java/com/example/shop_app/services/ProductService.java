@@ -18,6 +18,7 @@ public class ProductService {
     private final IProductMapper iProductMapper;
 
     public List<ProductHomeViewDTO> getAllProducts() {
+        // Product ---> ProductHomeViewDTO
         List<Product> newProduct = iProductMapper.getAllProduct();
         List<ProductHomeViewDTO> lProductHomeViewDTO = new ArrayList<ProductHomeViewDTO>();
         for (Product product : newProduct) {
@@ -33,6 +34,7 @@ public class ProductService {
         return lProductHomeViewDTO;
     }
 
+    // Vì có phải join 2 bảng nên trả trực tiếp về view
     public ProductDetailViewDTO getDetailProduct(Long productId) {
         return iProductMapper.detailProduct(productId);
     }

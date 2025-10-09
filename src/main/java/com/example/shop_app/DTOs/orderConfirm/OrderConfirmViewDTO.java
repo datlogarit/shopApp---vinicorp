@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class OrderConfirmViewDTO {
+    private String fullName;
+    private String address;
+    private String phoneNumber;
+        
     private String productName;
     private Long price;
     private Integer quantity;

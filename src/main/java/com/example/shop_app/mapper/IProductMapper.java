@@ -11,6 +11,7 @@ import com.example.shop_app.domains.Product;
 @Mapper
 public interface IProductMapper {
     public List<Product> getAllProduct();
-
+    public Product getProductById(@Param("productId") Long producId);
+    // need join with ProductImage table
     public ProductDetailViewDTO detailProduct(@Param("productId") Long productId);
 }

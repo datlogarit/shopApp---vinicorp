@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.shop_app.DTOs.cart.ProductToConfirm;
+import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.DTOs.orderConfirm.OrderConfirmViewDTO;
 import com.example.shop_app.services.OrderService;
 
@@ -22,16 +22,22 @@ public class OrderConfirmViewController {
 
     @PostMapping("")
     @ResponseBody
-    private ResponseEntity<?> bindToOrderConfirm(@RequestBody List<ProductToConfirm> productToConfirm, HttpSession session) throws Exception {
+    // bind list product to server
+    private ResponseEntity<?> bindToOrderConfirm(@RequestBody List<ProductNumberDTO> productToConfirm,
+            HttpSession session) throws Exception {
         session.setAttribute("result", productToConfirm);
         return ResponseEntity.ok("Bind to server successfully");
     }
 
-//    @SuppressWarnings("unchecked")
+    //server - response
+    @SuppressWarnings("unchecked")
     @GetMapping("confirm")
     private String getOrderPage(Model model, HttpSession session) {
-        List<ProductToConfirm> listProduct =(List<ProductToConfirm>) session.getAttribute("result");
+        List<ProductNumberDTO> listProduct = (List<ProductNumberDTO>) session.getAttribute("result");
+        // ProductNumberDTO to OrderConfirmViewDTO (view)
         List<OrderConfirmViewDTO> orderConfirmViewDTOs = orderService.getDataOrderView(listProduct);
+        Long totalPrice = orderService.caculateTotal(listProduct);
+        model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("items", orderConfirmViewDTOs);
         return "order-confirm";
     }

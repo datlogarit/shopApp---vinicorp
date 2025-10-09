@@ -1,4 +1,4 @@
-package com.example.shop_app.DTOs.requests;
+package com.example.shop_app.DTOs.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartProductDTO {
-    @JsonProperty("cart_id")
-    private Long cartId;
-
+public class ProductNumberDTO {
     @JsonProperty("product_id")
     private Long productId;
 

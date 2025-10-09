@@ -1,4 +1,4 @@
-package com.example.shop_app.DTOs.requests;
+package com.example.shop_app.DTOs.cart;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

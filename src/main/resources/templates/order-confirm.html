@@ -31,12 +31,12 @@
             <h5 th:text="${item.productName}">Product name</h5>
             <div>
               <span>Price:</span>
-              <span th:text="${item.price}">Specific price</span>
+              <span th:text="${#numbers.formatInteger(item.price, 0, 'POINT')} + ' ₫'">Specific price</span>
             </div>
           </div>
         </div>
         <div style="display: flex;align-items: center;">
-          <input style="height: 30px;width: 50px;" type="number" th:value="${item.quantity}" disabled>
+          <input style="height: 30px;width: 70px;" type="number" th:value="${item.quantity}" disabled>
         </div>
       </div>
     </div>
@@ -66,12 +66,36 @@
     </div>
 
     <div id="cost-total" style="margin: 14px 0px;display: flex;flex-direction: row;">
-      <h5>Total cost: </h5>
-      <h5 style="text-decoration: underline; margin-left: 15px;">0đ</h5>
+      <h5>Total price: </h5>
+      <h5 th:text="${#numbers.formatInteger(totalPrice, 0, 'POINT')} + ' ₫'"
+        style="text-decoration: underline; margin-left: 15px;">0đ</h5>
     </div>
 
-    <div id="pay-icon" style="display: flex; flex-direction: row;justify-content: end;">
-      <button class="btn btn-primary">Pay now</button>
+    <div id="persional-info">
+      <h5>Persional infomation</h5>
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex;align-items: center;gap: 15px;">
+          <p style="margin: 0;width: 150px;">Full name:</p>
+          <input class="form-control me-2" type="search" th:value="${items[0].fullName}" />
+          <!-- <input th:value="${item.fullName}" type="text"> -->
+        </div>
+
+        <div style="display: flex;align-items: center;gap: 15px;">
+          <p style="margin: 0;width: 150px;">Address:</p>
+          <input class="form-control me-2" type="search" th:value="${items[0].address}" />
+          <!-- <input th:value="${item.address}" type="text"> -->
+        </div>
+
+        <div style="display: flex;align-items: center;gap: 15px;">
+          <p style="margin: 0;width: 150px;">Phone number:</p>
+          <input class="form-control me-2" type="search" th:value="${items[0].phoneNumber}"/>
+          <!-- <input th:value="${item.phoneNumber}" type="text"> -->
+        </div>
+      </div>
+    </div>
+
+    <div id="pay-icon" style="margin-top: 20px; display: flex; flex-direction: row;justify-content: end;">
+      <button class="btn btn-primary">Buy now</button>
     </div>
   </div>
 </body>

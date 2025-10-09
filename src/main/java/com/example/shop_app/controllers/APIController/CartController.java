@@ -1,12 +1,10 @@
-package com.example.shop_app.controllers;
+package com.example.shop_app.controllers.APIController;
 
 import java.util.List;
 
 import com.example.shop_app.DTOs.cart.CartProductViewDTO;
-import com.example.shop_app.DTOs.requests.CartProductDTO;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.shop_app.services.CartService;
@@ -21,13 +19,7 @@ public class CartController {
 
     @GetMapping("/{userId}")
     private ResponseEntity<?> getInfoCart(@PathVariable Long userId){
-        List<CartProductViewDTO> listCartProductDTOs = cartService.getInfoCart(userId);
+        List<CartProductViewDTO> listCartProductDTOs = cartService.getInfoCartByUserId(userId);
         return ResponseEntity.ok(listCartProductDTOs);
-    }
-
-    @PostMapping("/add")
-    private ResponseEntity<?> addToCart(@RequestParam(name = "userId") Long userId, @RequestBody CartProductDTO cartProductDTO){
-        cartService.addToCart(userId, cartProductDTO);
-        return ResponseEntity.ok("Add to cart successfully!");
     }
 }

@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/home")
 @RequiredArgsConstructor
 public class HomeViewController{
-    // return home page and related home page;
     private final ProductService productService;
 
     @GetMapping("")

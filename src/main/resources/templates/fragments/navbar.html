@@ -17,7 +17,7 @@
 </style>
 <nav th:fragment="navbar" style="width: 100%" class="navbar bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand">Vinicorp shop</a>
+        <a style="cursor: pointer;" href="/api/v1/home" class="navbar-brand">Vinicorp shop</a>
         <div style="display: flex; flex-direction: row; gap: 20px; align-items: center">
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
@@ -60,10 +60,9 @@
 <script>
     document.getElementById("cart-icon").addEventListener("click", function () {
         let dropdownMenu = document.getElementById("dropdownMenu");
-
         productItem = document.getElementById("product-item");
         productItem.innerHTML = "";
-        // đăng nhập --> lấy userId
+        // get cartProductByUserId
         fetch(`http://localhost:8080/api/v1/cart/1`)
             .then((response) => response.json())
             .then((res) => {
@@ -92,6 +91,7 @@
             });
 
     });
+
     function attachEventsCheckbox() {
         const checkbox = document.querySelectorAll(".cart-checkbox");
         const quantityInput = document.querySelectorAll(".quantity-input");
@@ -126,6 +126,7 @@
         document.getElementById("total-price").innerText = total.toLocaleString();
     }
 
+    // toConfirmOrder
     document.getElementById("buy-button").addEventListener("click", function (e) {
         e.preventDefault();
         console.log("button clicked")
@@ -138,12 +139,8 @@
                 const row = cb.closest(".cart-row");
                 const quantity = parseInt(cb.dataset.quantity);
                 const productId = parseInt(cb.dataset.productId);
-                // const price = parseFloat(cb.dataset.price);
-                // const imgUrl = cb.dataset.imgProduct;
-                // const productName = row.querySelector("h6").innerText;
-
                 selectedProducts.push({
-                    productId: productId,
+                    product_id: productId,
                     quantity: quantity,
                 });
             }
@@ -162,18 +159,9 @@
             })
                 .then((res) => res.text())
                 .then((response) => {
-                    // document.open();
-                    // document.write(html);
-                    // document.close();
                     console.log(response);
                     window.location.href = "/api/v1/order/confirm"
                 });
         }
     });
-    //   client (gửi thông tin giỏ hàng, đã tích những item nào, giá bao nhiêu) gửi lên server (bắt đc thông tin) --> gửi về lại cho client -->
-    // vấn đề: client gửi bằng ajax (không tự động đổi trang và nó là restAPI)
-    // bài toán: client gửi request --> server chỉ có thể nhận và trả về dưới dạng Json mà không trả về trực tiếp order.html đc
-    // giải pháp: client gửi bằng ajax --> server có dữ liệu
-    // client rederict đến trang order --> render trang với dữ liệu này
-    // vấn đề phát sinh: nếu thế thì phải tạo dữ liệu chuẩn để bind vào view của order (cùng 1 loại dto)
 </script>

@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.shop_app.mapper.ICartMapper">
-    <resultMap id="CartProductResultMap" 
-               type="com.example.shop_app.DTOs.cart.CartProductViewDTO">
-        <!-- <result property="userId" column="user_id"/>
-        <result property="cartId" column="cart_id"/> -->
-        <result property="productId" column="product_id"/>
-        <result property="productName" column="product_name"/>
-        <result property="price" column="price"/>
-        <result property="displayAvt" column="display_avt"/>
-        <result property="quantity" column="quantity"/>
-    </resultMap>
+<mapper namespace="com.example.shop_app.mapper.ICartProductMapper">
+    <insert id="addProductToCart">
+        insert into cart_product(cart_id, product_id, quantity)
+        values (#{cartProduct.cartId}, #{cartProduct.productId}, #{cartProduct.quantity})
+    </insert>
 
-    <select id="getInfoCartByUserId" resultMap="CartProductResultMap">
-        select 
-            <!-- c.id as cart_id,
-            c.user_id, -->
-            cp.product_id,
-            cp.quantity,
-            p.display_avt,
-            p.name as product_name,
-            p.price
-         from cart c
-         join cart_product cp on c.id = cp.cart_id
-         join products p on p.id = cp.product_id 
-         where c.user_id = #{userId}
+    <select id="checkExistByCartIdAndProductId" resultType="java.lang.Long">
+        SELECT 1
+        FROM cart_product
+        WHERE cart_id = #{cartId} AND product_id = #{productId}
+        LIMIT 1
     </select>
+
+    <select id="getByCartIdAndProductId" resultType="CartProduct">
+        SELECT *
+        FROM cart_product
+        WHERE cart_id = #{cartId} AND product_id = #{productId}
+    </select>
+
+     <update id="updateCartProduct">
+        update cart_product 
+        <set> 
+            <if test="cartProduct.cartId!=null">cart_id = #{cartProduct.cartId}</if>
+
+            <if test="cartProduct.productId!=null">product_id = #{cartProduct.productId}</if>
+
+            <if test="cartProduct.quantity!=null">quantity = #{cartProduct.quantity}</if>
+        </set>
+        where cart_id = #{cartId} and product_id = #{productId}
+    </update>
 </mapper>
