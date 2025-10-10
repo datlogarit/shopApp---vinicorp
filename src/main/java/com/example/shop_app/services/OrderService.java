@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.shop_app.DTOs.order.ConfirmOrderViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
-import com.example.shop_app.DTOs.orderConfirm.OrderConfirmViewDTO;
 import com.example.shop_app.domains.Product;
 import com.example.shop_app.mapper.IProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 public class OrderService {
     private final IProductMapper iProductMapper;
 
-    public List<OrderConfirmViewDTO> getDataOrderView(List<ProductNumberDTO> listProductConfrirm){
-        List<OrderConfirmViewDTO> orderConfirmViewDTOs = new ArrayList<>();
+    public List<ConfirmOrderViewDTO> getDataOrderView(List<ProductNumberDTO> listProductConfrirm){
+        List<ConfirmOrderViewDTO> orderConfirmViewDTOs = new ArrayList<>();
         for (ProductNumberDTO productToConfirm : listProductConfrirm) {
             // productToConfirm --> OrderConfirmViewDTO
             Product product = iProductMapper.getProductById(productToConfirm.getProductId());
-            OrderConfirmViewDTO orderConfirmViewDTO = OrderConfirmViewDTO.builder()
+            ConfirmOrderViewDTO orderConfirmViewDTO = ConfirmOrderViewDTO.builder()
             //load from security context when login;
             .fullName("Doan Minh Dat")
             .address("Hai Chinh - Hai Hau - Nam Dinh")

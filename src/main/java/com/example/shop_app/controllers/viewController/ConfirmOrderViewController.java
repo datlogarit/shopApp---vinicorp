@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.shop_app.DTOs.order.ConfirmOrderViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
-import com.example.shop_app.DTOs.orderConfirm.OrderConfirmViewDTO;
 import com.example.shop_app.services.OrderService;
 
 import jakarta.servlet.http.HttpSession;
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("api/v1/order")
 @RequiredArgsConstructor
-public class OrderConfirmViewController {
+public class ConfirmOrderViewController {
     private final OrderService orderService;
 
     @PostMapping("")
@@ -35,7 +35,7 @@ public class OrderConfirmViewController {
     private String getOrderPage(Model model, HttpSession session) {
         List<ProductNumberDTO> listProduct = (List<ProductNumberDTO>) session.getAttribute("result");
         // ProductNumberDTO to OrderConfirmViewDTO (view)
-        List<OrderConfirmViewDTO> orderConfirmViewDTOs = orderService.getDataOrderView(listProduct);
+        List<ConfirmOrderViewDTO> orderConfirmViewDTOs = orderService.getDataOrderView(listProduct);
         Long totalPrice = orderService.caculateTotal(listProduct);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("items", orderConfirmViewDTOs);
