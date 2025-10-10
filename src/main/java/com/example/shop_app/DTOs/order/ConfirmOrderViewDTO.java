@@ -1,4 +1,4 @@
-package com.example.shop_app.DTOs.orderConfirm;
+package com.example.shop_app.DTOs.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class OrderConfirmViewDTO {
+//response for request confirm page
+public class ConfirmOrderViewDTO {
     private String fullName;
     private String address;
     private String phoneNumber;

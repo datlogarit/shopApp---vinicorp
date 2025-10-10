@@ -9,10 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+//response for request home view 
 public class ProductHomeViewDTO {
     private Long id;
+
     private String name;
+
     private Long price;
+
     private String description;
+
     private String display_avt;
 }

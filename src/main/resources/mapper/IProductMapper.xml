@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop_app.mapper.IProductMapper">
+    <!-- get all product -->
     <select id="getAllProduct" resultType="Product">
         select * from products
     </select>
 
-
-    <!-- mapper the custom result -->
+    <!-- mapping the custom result -->
     <resultMap id="ProductDetailMap" type="com.example.shop_app.DTOs.product.ProductDetailViewDTO">
         <id property="id" column="id"/>
         <result property="description" column="description"/>
@@ -18,6 +18,7 @@
             <result column="link_image"/>
         </collection>
     </resultMap>
+    <!-- get info detail product page  -->
     <select id="detailProduct" resultMap="ProductDetailMap">
         select p.id, p.display_avt, p.name, p.price, p.description, p.num_available, pi.link_image
         from products as p
@@ -26,6 +27,7 @@
         where p.id = #{productId}
     </select>    
     
+    <!-- get product by productId -->
     <select id="getProductById" resultType="com.example.shop_app.domains.Product">
         SELECT *
         FROM products

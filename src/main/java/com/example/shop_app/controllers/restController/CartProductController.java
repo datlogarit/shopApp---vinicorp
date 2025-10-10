@@ -1,4 +1,4 @@
-package com.example.shop_app.controllers.APIController;
+package com.example.shop_app.controllers.restController;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//for request and response need number of product
 public class ProductNumberDTO {
     @JsonProperty("product_id")
     private Long productId;

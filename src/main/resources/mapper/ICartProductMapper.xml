@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop_app.mapper.ICartProductMapper">
+    <!-- add product in the cart -->
     <insert id="addProductToCart">
         insert into cart_product(cart_id, product_id, quantity)
         values (#{cartProduct.cartId}, #{cartProduct.productId}, #{cartProduct.quantity})
     </insert>
 
+    <!-- check the existance of product have already in the cart ? -->
     <select id="checkExistByCartIdAndProductId" resultType="java.lang.Long">
         SELECT 1
         FROM cart_product
@@ -13,12 +15,14 @@
         LIMIT 1
     </select>
 
+    <!-- get product in the cart by id (cartId and productId)-->
     <select id="getByCartIdAndProductId" resultType="CartProduct">
         SELECT *
         FROM cart_product
         WHERE cart_id = #{cartId} AND product_id = #{productId}
     </select>
 
+    <!-- update product in the cart by id (cartId and productId) -->
      <update id="updateCartProduct">
         update cart_product 
         <set> 
