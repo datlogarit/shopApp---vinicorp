@@ -12,15 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Invoice {
-    private Long orderId;
+    private Long id;
 
     private Long customerId;
 
     private String payMethod;
 
     private String orderStatus;
-
-    private Long totalAmount;
 
     private Timestamp createdAt;
 

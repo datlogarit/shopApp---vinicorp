@@ -1,5 +1,3 @@
--- 2 role: nhà bán hàng (đăng nhập, đăng sản phẩm, quản lý sản phẩm (sửa, xóa sản phẩm), chuyên trạng thái đơn hàng (chuyển thành đã giao), xuất thống kê - bấm vào nút để xuất thống kê thông tin mua hàng)
--- người mua hàng: đăng ký, đăng nhập, đặt đơn, theo dõi thông tin đơn, 
 create table users(
 	id bigserial primary key,
 	full_name varchar(255) not null,
@@ -53,6 +51,3 @@ create table cart_product(
     foreign key (cart_id) references cart(id),
     foreign key (product_id) references products(id)
 );
--- tạo db -> tạo view với tạo backend xử lý đồng thời. theo domain và 
--- theo giao diện
--- ->cho xác thực qua OAuth;

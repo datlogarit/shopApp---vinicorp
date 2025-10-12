@@ -4,7 +4,7 @@
 <mapper namespace="com.example.shop_app.mapper.IInvoiceMapper">
     <!-- create a new invoice -->
     <insert id="createInvoice">
-        insert into invoices(customer_id, pay_method, order_status, total_amount)
-        values (#{invoice.customerId}, #{invoice.payMethod}, #{invoice.orderStatus}, #{invoice.totalAmount})
+        insert into invoices(customer_id, pay_method, order_status)
+        values (#{invoice.customerId}, #{invoice.payMethod}, #{invoice.orderStatus})
     </insert>
 </mapper>
