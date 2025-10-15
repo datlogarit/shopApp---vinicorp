@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.shop_app.DTOs.BaseAPIRespone;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.domains.CartProduct;
 import com.example.shop_app.services.CartProductService;
@@ -25,7 +26,7 @@ public class CartProductController {
             @RequestParam(name = "userId") Long userId,
             @RequestBody ProductNumberDTO addToCartRequest) {
         cartProductService.addToCart(userId, addToCartRequest);
-        return ResponseEntity.ok("Add to cart successfully!");
+        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "add product to cart successfully"));
     }
 
     @PutMapping("/update")
@@ -34,6 +35,6 @@ public class CartProductController {
             @RequestParam("productId") Long productId,
             @RequestBody CartProduct addToCartRequest) {
         cartProductService.updateCartProduct(cartId, productId, addToCartRequest);
-        return ResponseEntity.ok("Update cartProduct successfully!");
+        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Update product in cart successfully!"));
     }
 }

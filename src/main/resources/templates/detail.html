@@ -16,7 +16,7 @@
             border: 2px solid lightblue;
         }
     </style>
-    <div th:replace="~{fragments/navbar}"></div>
+    <div th:replace="fragments/navbar :: navbar(userId = ${userId})"></div>
     <h2 style="text-align: center; margin: 20px">Detail page</h2>
 
     <div style="
@@ -44,7 +44,6 @@
             object-fit: cover;
             border-radius: 5px;
           " th:src="${detailPr.displayAvt}"
-                src="https://hdradio.vn/upload/hinhanh/tai-nghe/Sony/WH-CH520/den/tai-nghe-sony-wh-ch520-den.jpg"
                 id="current_image" alt="" />
             <div style="
             display: flex;
@@ -105,7 +104,7 @@
     let addCartButton = document.getElementById("addCartButton");
     addCartButton.addEventListener("click", (e) => {
         e.preventDefault();
-        const userId = 1;
+        const userId = [[${ userId }]];
         const quantity = document.getElementById('quantity').value;
         const maxStock = [[${ detailPr.numAvailable }]];
 
@@ -124,9 +123,9 @@
                     quantity: quantity
                 })
             })
-                .then((res) => res.text())
+                .then((res) => res.json())
                 .then((response) => {
-                    alert(response);
+                    alert(response.data);
                     document.getElementById('quantity').value = 1;
                 })
         }
@@ -139,7 +138,7 @@
         const quantity = document.getElementById('quantity').value;
         console.log("quantity", quantity);
         console.log("productId", productId);
-        if (quantity>maxStock) {
+        if (quantity > maxStock) {
             alert("Order exceeds remaining quantity");
         } else {
             fetch("http://localhost:8080/api/v1/order", {
@@ -152,10 +151,16 @@
                     }
                 ])
             })
-                .then((res) => res.text())
+                .then((res) => res.json())
                 .then((response) => {
-                    console.log(response);
-                    window.location.href = "/api/v1/order/confirm"
+                    if (response.status == 200) {
+                        window.location.href = "/api/v1/order/confirm"
+                    } else {
+                        alert(
+                            response.data
+                        )
+                    }
+
                 });
         }
     });

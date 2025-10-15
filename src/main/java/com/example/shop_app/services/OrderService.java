@@ -3,11 +3,13 @@ package com.example.shop_app.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.shop_app.DTOs.order.ConfirmOrderViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.domains.Product;
+import com.example.shop_app.domains.Users;
 import com.example.shop_app.mapper.IProductMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -17,17 +19,23 @@ public class OrderService {
     private final IProductMapper iProductMapper;
 
     public List<ConfirmOrderViewDTO> getDataOrderView(List<ProductNumberDTO> listProductConfrirm){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof Users)) {
+            throw new RuntimeException("User not authenticated!");
+        }
+        Users user = (Users) principal;
+
         List<ConfirmOrderViewDTO> orderConfirmViewDTOs = new ArrayList<>();
         for (ProductNumberDTO productToConfirm : listProductConfrirm) {
             // productToConfirm --> OrderConfirmViewDTO
             Product product = iProductMapper.getProductById(productToConfirm.getProductId());
             ConfirmOrderViewDTO orderConfirmViewDTO = ConfirmOrderViewDTO.builder()
             //load from security context when login;
-            .fullName("Doan Minh Dat")
-            .address("Hai Chinh - Hai Hau - Nam Dinh")
-            .phoneNumber("0817894581")
+            .fullName(user.getFullName())
+            .address(user.getAddress())
+            .phoneNumber(user.getPhoneNumber())
 
-            .imgUrl(product.getDisplay_avt())
+            .imgUrl(product.getDisplayAvt())
             .price(product.getPrice())
             .productName(product.getName())
             .quantity(productToConfirm.getQuantity())

@@ -2,6 +2,7 @@ package com.example.shop_app.controllers.restController;
 
 import java.util.List;
 
+import com.example.shop_app.DTOs.BaseAPIRespone;
 import com.example.shop_app.DTOs.cart.CartProductViewDTO;
 
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,6 @@ public class CartController {
     @GetMapping("/{userId}")
     private ResponseEntity<?> getInfoCart(@PathVariable Long userId){
         List<CartProductViewDTO> listCartProductDTOs = cartService.getInfoCartByUserId(userId);
-        return ResponseEntity.ok(listCartProductDTOs);
+        return ResponseEntity.ok(new BaseAPIRespone<>(200, "get productCart successfully", listCartProductDTOs));
     }
 }

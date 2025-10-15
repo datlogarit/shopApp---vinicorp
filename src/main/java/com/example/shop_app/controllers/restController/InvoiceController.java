@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.shop_app.DTOs.BaseAPIRespone;
 import com.example.shop_app.DTOs.invoice.InvoiceDTO;
 import com.example.shop_app.services.InvoiceService;
 
@@ -22,6 +23,6 @@ public class InvoiceController {
     public ResponseEntity<?> createInvoice(@RequestBody InvoiceDTO invoiceDTO) {
         invoiceService.createInvoice(invoiceDTO);
         ;
-        return ResponseEntity.ok("create invoice successfully");
+        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "create invoice successfully"));
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Result</title>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -14,7 +14,8 @@
     <div th:replace="fragments/navbar :: navbar(userId = ${userId})"></div>
     <div
         style="justify-content: center;flex-wrap: wrap; gap: 40px;display: flex;flex-direction: row; margin-top: 30px;">
-        <div th:each="product: ${allProduct}">
+        <h4 style="" th:if="${#lists.isEmpty(products)}">No products found</h4>
+        <div th:each="product: ${products}">
             <div
                 th:replace="fragments/card::product_card(url=${product.display_avt}, name=${product.name}, description=${product.description}, price=${product.price}, id=${product.id})">
             </div>

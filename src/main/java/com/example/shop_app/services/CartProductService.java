@@ -22,7 +22,7 @@ public class CartProductService {
     public void addToCart(Long userId, ProductNumberDTO productNumberDTO) {
         // check stock
         Product product = iProductMapper.getProductById(productNumberDTO.getProductId());
-        if (productNumberDTO.getQuantity()> product.getNum_available()) {
+        if (productNumberDTO.getQuantity()> product.getNumAvailable()) {
             throw new RuntimeException("Order exceeds remaining quantity");
         }
         // create cart if cart not exist

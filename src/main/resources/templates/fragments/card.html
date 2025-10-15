@@ -1,12 +1,11 @@
 <div id="product-cart" th:fragment="product_card(id, url, name, description, price)"
     style="border-radius: 10px; padding: 10px 15px;height: 320px;width: 250px;display: flex;flex-direction: column;background-color: rgb(216, 213, 213);">
     <div style="cursor: pointer;"
-     th:onclick="'window.location.href=\'detail/' + ${id} + '\''">
+     th:onclick="'window.location.href=\'/api/v1/detail/' + ${id} + '\''">
             <img style="height: 150px; width: 100%; object-fit: cover; border-radius: 5px;" th:src="${url}"
-            src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_15_21.png"
             alt="">
         <div>
-            <h4 th:text="${name}" id="product-name">Product 1</h4>
+            <h4 th:text="${name}" id="product-name">Product name</h4>
             <span th:text="${description}" style="
                 display: -webkit-box;
                 -webkit-line-clamp: 4;
@@ -17,8 +16,8 @@
                 font-size: 13px;
                 font-weight: 100;
                 min-height: 80px;
-            ">This is description of product 1. It's cost very height</span>
+            ">product detail is rendered here</span>
         </div>
-        <div th:text="${#numbers.formatInteger(price, 0, 'POINT')} + ' ₫'" style="margin: 10px 0px;">Price: 2000$</div>
+        <div th:text="${#numbers.formatInteger(price, 0, 'POINT')} + ' ₫'" style="margin: 10px 0px;">Price of product</div>
     </div>
 </div>

@@ -11,3 +11,6 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   # package chứa entity để tạo bí danh
   type-aliases-package: com.example.shop_app.domains
+  # auto mapping underscore to camel case
+  configuration:
+    map-underscore-to-camel-case: true

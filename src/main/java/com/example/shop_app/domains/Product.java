@@ -18,7 +18,7 @@ public class Product {
 
     private String description;
 
-    private Integer num_available;
+    private Integer numAvailable;
     
-    private String display_avt;
+    private String displayAvt;
 }

@@ -27,7 +27,7 @@ public class ProductService {
                     .name(product.getName())
                     .price(product.getPrice())
                     .description(product.getDescription())
-                    .display_avt(product.getDisplay_avt())
+                    .display_avt(product.getDisplayAvt())
                     .build();
             lProductHomeViewDTO.add(productHomeViewDTO);
         }
@@ -37,5 +37,21 @@ public class ProductService {
     // Vì có phải join 2 bảng nên trả trực tiếp về view
     public ProductDetailViewDTO getDetailProduct(Long productId) {
         return iProductMapper.detailProduct(productId);
+    }
+
+    public List<ProductHomeViewDTO> getProductByName(String keyword){
+         List<Product> listP = iProductMapper.getProductByName(keyword);
+         List<ProductHomeViewDTO> lProductHomeViewDTO = new ArrayList<ProductHomeViewDTO>();
+        for (Product product : listP) {
+            ProductHomeViewDTO productHomeViewDTO = ProductHomeViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .description(product.getDescription())
+                    .display_avt(product.getDisplayAvt())
+                    .build();
+            lProductHomeViewDTO.add(productHomeViewDTO);
+        }
+         return lProductHomeViewDTO;
     }
 }

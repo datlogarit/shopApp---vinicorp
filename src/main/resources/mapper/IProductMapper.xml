@@ -6,6 +6,10 @@
         select * from products
     </select>
 
+    <select id="getProductByName" resultType="Product">
+        select * from products where name ilike CONCAT('%', #{keyword}, '%')
+    </select>
+
     <!-- mapping the custom result -->
     <resultMap id="ProductDetailMap" type="com.example.shop_app.DTOs.product.ProductDetailViewDTO">
         <id property="id" column="id"/>

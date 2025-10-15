@@ -7,23 +7,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.shop_app.services.ProductService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.example.shop_app.DTOs.product.ProductHomeViewDTO;
 import com.example.shop_app.domains.Users;
+import com.example.shop_app.services.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/api/v1/home")
+@RequestMapping("api/v1/search")
 @RequiredArgsConstructor
-public class HomeViewController{
+public class SearchController {
     private final ProductService productService;
 
     @GetMapping("")
-    public String getHome(Model model, @AuthenticationPrincipal Users userDetails) {
-        List<ProductHomeViewDTO> allProduct = productService.getAllProducts();
+    public String getKey(@RequestParam("keyword") String keyword, Model model, @AuthenticationPrincipal Users userDetails){
+        List<ProductHomeViewDTO> result = productService.getProductByName(keyword);
+        model.addAttribute("products", result);
         model.addAttribute("userId", userDetails.getId());
-        model.addAttribute("allProduct", allProduct);
-        return "home";
+        model.addAttribute("keyword", keyword);
+        return "search-view";
     }
 }
