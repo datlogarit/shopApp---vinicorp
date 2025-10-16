@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
+    // api is called when init invoice
     @PostMapping("")
     public ResponseEntity<?> createInvoice(@RequestBody InvoiceDTO invoiceDTO) {
         invoiceService.createInvoice(invoiceDTO);

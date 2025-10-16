@@ -40,6 +40,7 @@ public class ConfirmOrderViewController {
         // ProductNumberDTO to OrderConfirmViewDTO (view)
         List<ConfirmOrderViewDTO> orderConfirmViewDTOs = orderService.getDataOrderView(listProduct);
         Long totalPrice = orderService.caculateTotal(listProduct);
+        model.addAttribute("rawItems", listProduct);
         model.addAttribute("userId", userDetails.getId());
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("items", orderConfirmViewDTOs);

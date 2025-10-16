@@ -1,14 +1,18 @@
-package com.example.shop_app.DTOs.invoiceProduct;
+// package com.example.shop_app.DTOs.invoiceProduct;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+// import com.fasterxml.jackson.annotation.JsonProperty;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class InvoiceProductDTO {
-    private Long invoiceId;
-    private Long productId;
-    private Integer quantity;
-}
+// import lombok.AllArgsConstructor;
+// import lombok.Data;
+// import lombok.NoArgsConstructor;
+
+// @NoArgsConstructor
+// @AllArgsConstructor
+// @Data
+// public class InvoiceProductDTO {
+//     // private Long invoiceId;
+//     @JsonProperty("product_id")
+//     private Long productId;
+
+//     private Integer quantity;
+// }

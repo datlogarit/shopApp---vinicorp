@@ -15,4 +15,5 @@ public interface IProductMapper {
     // need join with ProductImage table
     public ProductDetailViewDTO detailProduct(@Param("productId") Long productId);
     public List<Product> getProductByName(@Param("keyword") String keyword);
+    public void updateProduct(@Param("product") Product product);
 }

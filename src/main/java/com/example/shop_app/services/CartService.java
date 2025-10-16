@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class CartService {
     private final ICartMapper iCartMapper;
 
-    // vì phải join 3 bảng nên trả về view trực tiếp
+    // because have to join 3 table so return the derect view;
     public List<CartProductViewDTO> getInfoCartByUserId(Long userId) {
         return iCartMapper.getInfoCartByUserId(userId);
     }

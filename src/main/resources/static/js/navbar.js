@@ -1,141 +1,135 @@
-console.log("hihi");
+console.log("navbar");
 const userId = document.getElementById("user-info").dataset.userId;
-    document.getElementById("logout-icon").addEventListener("click", function () {
-        document.location.href = "/logout"
-    })
-    document.getElementById("cart-icon").addEventListener("click", function () {
-        let dropdownMenu = document.getElementById("dropdownMenu");
-        productItem = document.getElementById("product-item");
-        productItem.innerHTML = "";
-        // get cartProductByUserId
-        fetch(`http://localhost:8080/api/v1/cart/${userId}`)
-            .then((response) => response.json())
-            .then((res) => {
-                productItem.innerHTML = ""; 
-                if (!res||res.data.length === 0) {
-                    productItem.innerHTML = `<h4 style="text-align:center; color:gray; ">No products found</h4>`;
-                } else {
-                    
-                    res.data.forEach((element) => {
-                            const cartItem = `
+document.getElementById("logout-icon").addEventListener("click", function () {
+    document.location.href = "/logout"
+})
+document.getElementById("cart-icon").addEventListener("click", function () {
+    let dropdownMenu = document.getElementById("dropdownMenu");
+    productItem = document.getElementById("product-item");
+    productItem.innerHTML = "";
+    // get cartProductByUserId
+    fetch(`http://192.168.52.196:8080/api/v1/cart/${userId}`)
+        .then((response) => response.json())
+        .then((res) => {
+            productItem.innerHTML = "";
+            if (!res || res.data.length === 0) {
+                productItem.innerHTML = `<h4 style="text-align:center; color:gray; ">No products found</h4>`;
+            } else {
+
+                res.data.forEach((element) => {
+                    const cartItem = `
                         <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
                             <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
                                 <input type="checkbox" class="cart-checkbox" data-quantity="${element.quantity}" data-product-id="${element.productId}" data-price="${element.price}">
                                 <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt
-                            }" alt="avt_product">
+                        }" alt="avt_product">
                                 <div style="display: flex;flex-direction: column;justify-content: space-between;">
                                     <h6>${element.productName}</h6>
                                     <span>${element.price.toLocaleString()}</span>
                                 </div>
                             </div>
                             <input class="quantity-input" type="number" value =${element.quantity
-                            } style="height: 25px; width: 50px;">
+                        } style="height: 25px; width: 50px;">
                         </div>
                         `;
-                        
-                        
-                        const wrapper = document.createElement("div");
-                        wrapper.innerHTML = cartItem;
-                        productItem.appendChild(wrapper);
-                    });
+
+
+                    const wrapper = document.createElement("div");
+                    wrapper.innerHTML = cartItem;
+                    productItem.appendChild(wrapper);
+                });
+            }
+
+            dropdownMenu.classList.toggle("show");
+            attachEventsCheckbox();
+        });
+
+});
+
+document.addEventListener("click", function (event) {
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const cartIcon = document.getElementById("cart-icon");
+
+    // Nếu menu đang mở
+    if (dropdownMenu.classList.contains("show")) {
+        // Kiểm tra xem click có nằm trong dropdownMenu hoặc cart-icon không
+        const isClickInsideMenu = dropdownMenu.contains(event.target);
+        const isClickOnCartIcon = cartIcon.contains(event.target);
+
+        // Nếu click ra ngoài cả 2 vùng trên thì ẩn menu
+        if (!isClickInsideMenu && !isClickOnCartIcon) {
+            dropdownMenu.classList.remove("show");
+        }
+    }
+});
+function attachEventsCheckbox() {
+    const checkbox = document.querySelectorAll(".cart-checkbox");
+    const quantityInput = document.querySelectorAll(".quantity-input");
+
+    // every time you click call function again
+    checkbox.forEach((cb) => {
+        cb.addEventListener("change", caculator);
+    });
+
+    quantityInput.forEach((input) => {
+        input.addEventListener("input", function () {
+            const row = input.closest(".cart-row");
+            const checkbox = row.querySelector(".cart-checkbox");
+            checkbox.dataset.quantity = input.value;
+            caculator(); // tính lại khi số lượng thay đổi
+        });
+    });
+}
+function caculator() {
+    // debug
+    let total = 0;
+    const checkboxes = document.querySelectorAll(".cart-checkbox");
+    checkboxes.forEach((cb) => {
+        if (cb.checked) {
+            const price = parseFloat(cb.dataset.price);
+            const quantity = parseInt(cb.dataset.quantity);
+            total += price * quantity;
+        }
+    });
+    document.getElementById("total-price").innerText = total.toLocaleString();
+}
+
+// toConfirmOrder
+document.getElementById("buy-button").addEventListener("click", function (e) {
+    e.preventDefault();
+    // check xem đã click vào ô nào chưa ?
+    const selectedProducts = [];
+    const checkboxes = document.querySelectorAll(".cart-checkbox");
+    const totalCost = parseInt(document.getElementById("total-price").innerHTML);
+    checkboxes.forEach((cb) => {
+        if (cb.checked) {
+            const row = cb.closest(".cart-row");
+            const quantity = parseInt(cb.dataset.quantity);
+            const productId = parseInt(cb.dataset.productId);
+            selectedProducts.push({
+                product_id: productId,
+                quantity: quantity,
+            });
+        }
+    });
+    if (selectedProducts.length === 0) {
+        alert("Please select least one product to pay!");
+        return;
+    } else {
+        // redirect to order page with following item.
+        fetch("http://192.168.52.196:8080/api/v1/order", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(selectedProducts)
+        })
+            .then((res) => res.json())
+            .then((response) => {
+                if (response.status == 200) {
+                    window.location.href = "/api/v1/order/confirm"
                 }
-                
-                dropdownMenu.classList.toggle("show");
-                attachEventsCheckbox();
+                else {
+                    alert(response.data)
+                }
             });
-
-    });
-
-    document.addEventListener("click", function (event) {
-        const dropdownMenu = document.getElementById("dropdownMenu");
-        const cartIcon = document.getElementById("cart-icon");
-
-        // Nếu menu đang mở
-        if (dropdownMenu.classList.contains("show")) {
-            // Kiểm tra xem click có nằm trong dropdownMenu hoặc cart-icon không
-            const isClickInsideMenu = dropdownMenu.contains(event.target);
-            const isClickOnCartIcon = cartIcon.contains(event.target);
-
-            // Nếu click ra ngoài cả 2 vùng trên thì ẩn menu
-            if (!isClickInsideMenu && !isClickOnCartIcon) {
-                dropdownMenu.classList.remove("show");
-            }
-        }
-    });
-    function attachEventsCheckbox() {
-        const checkbox = document.querySelectorAll(".cart-checkbox");
-        const quantityInput = document.querySelectorAll(".quantity-input");
-
-        // every time you click call function again
-        checkbox.forEach((cb) => {
-            cb.addEventListener("change", caculator);
-        });
-
-        quantityInput.forEach((input) => {
-            input.addEventListener("input", function () {
-                const row = input.closest(".cart-row");
-                const checkbox = row.querySelector(".cart-checkbox");
-                checkbox.dataset.quantity = input.value;
-                caculator(); // tính lại khi số lượng thay đổi
-            });
-        });
     }
-    function caculator() {
-        // debug
-        console.log("cacu is running");
-        let total = 0;
-        const checkboxes = document.querySelectorAll(".cart-checkbox");
-        checkboxes.forEach((cb) => {
-            if (cb.checked) {
-                const price = parseFloat(cb.dataset.price);
-                const quantity = parseInt(cb.dataset.quantity);
-                total += price * quantity;
-            }
-        });
-        console.log(total);
-        document.getElementById("total-price").innerText = total.toLocaleString();
-    }
-
-    // toConfirmOrder
-    document.getElementById("buy-button").addEventListener("click", function (e) {
-        e.preventDefault();
-        console.log("button clicked")
-        // check xem đã click vào ô nào chưa ?
-        const selectedProducts = [];
-        const checkboxes = document.querySelectorAll(".cart-checkbox");
-        const totalCost = parseInt(document.getElementById("total-price").innerHTML);
-        checkboxes.forEach((cb) => {
-            if (cb.checked) {
-                const row = cb.closest(".cart-row");
-                const quantity = parseInt(cb.dataset.quantity);
-                const productId = parseInt(cb.dataset.productId);
-                selectedProducts.push({
-                    product_id: productId,
-                    quantity: quantity,
-                });
-            }
-        });
-        if (selectedProducts.length === 0) {
-            alert("Please select least one product to pay!");
-            return;
-        } else {
-            console.log("triggle buy button")
-            console.log(selectedProducts)
-            // redirect to order page with following item.
-            fetch("http://localhost:8080/api/v1/order", {
-                method: "POST",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify(selectedProducts)
-            })
-                .then((res) => res.json())
-                .then((response) => {
-                    if (response.status == 200) {
-                        console.log(response);
-                        window.location.href = "/api/v1/order/confirm"
-                    }
-                    else {
-                        alert(response.data)
-                    }
-                });
-        }
-    });
+});
