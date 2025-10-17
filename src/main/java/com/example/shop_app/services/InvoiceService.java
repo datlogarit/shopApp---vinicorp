@@ -1,8 +1,11 @@
 package com.example.shop_app.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.shop_app.DTOs.invoice.InvoiceDTO;
+import com.example.shop_app.DTOs.invoice.InvoiceDetailViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.domains.Invoice;
 import com.example.shop_app.domains.InvoiceProduct;
@@ -49,5 +52,9 @@ public class InvoiceService {
             iInvoiceProductMapper.createInvoiceProduct(newInvoiceProduct);
         }
         
+    }
+
+    public List<InvoiceDetailViewDTO> gInvoiceDetail(Long userId){
+        return iInvoiceMapper.getAllInvoiceByUserId(userId);
     }
 }

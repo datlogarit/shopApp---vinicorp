@@ -7,4 +7,25 @@
         insert into invoices(customer_id, pay_method, order_status, full_name, address, phone_number)
         values (#{invoice.customerId}, #{invoice.payMethod}, #{invoice.orderStatus}, #{invoice.fullName}, #{invoice.address}, #{invoice.phoneNumber})
     </insert>
+
+        <!-- mapping the custom result -->
+    <!-- <resultMap id="ProductDetailMap" type="com.example.shop_app.DTOs.product.ProductDetailViewDTO">
+        <id property="id" column="id"/>
+        <result property="description" column="description"/>
+        <result property="name" column="name"/>
+        <result property="numAvailable" column="num_available"/>
+        <result property="price" column="price"/>
+        <result property="displayAvt" column="display_avt"/>
+        <collection property="images" ofType="string">
+            <result column="link_image"/>
+        </collection>
+    </resultMap> -->
+    <!-- get info detail product page  -->
+    <select id="getAllInvoiceByUserId" resultType="com.example.shop_app.DTOs.invoice.InvoiceDetailViewDTO">
+        select i.id as order_id, i.customer_id, p.id as product_id, p.name as product_name, ip.quantity, i.pay_method, i.order_status, i.created_at, i.updated_at
+        from invoices i
+        join invoice_product ip on ip.invoice_id = i.id
+        join products p on p.id = ip.product_id
+        where i.customer_id  = #{userId};
+    </select>    
 </mapper>

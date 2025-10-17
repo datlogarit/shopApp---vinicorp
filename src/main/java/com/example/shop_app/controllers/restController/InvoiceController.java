@@ -26,4 +26,11 @@ public class InvoiceController {
         ;
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "create invoice successfully"));
     }
+
+    // @GetMapping("/{userId}")
+    // public ResponseEntity<?> getAllInvoice(@PathVariable("userId") Long userId) {
+    //     List<InvoiceDetailViewDTO> listInvoice =  invoiceService.gInvoiceDetail(userId);
+    //     ;
+    //     return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", listInvoice));
+    // }
 }

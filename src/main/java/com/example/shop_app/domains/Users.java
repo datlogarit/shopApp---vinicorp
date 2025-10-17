@@ -2,8 +2,10 @@ package com.example.shop_app.domains;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +26,7 @@ public class Users implements UserDetails {
     private String role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.getRole().toUpperCase()));
     }
 
     @Override

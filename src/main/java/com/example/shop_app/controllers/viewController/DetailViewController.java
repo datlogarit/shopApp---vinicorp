@@ -1,7 +1,6 @@
 package com.example.shop_app.controllers.viewController;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,12 @@ public class DetailViewController {
 
     @GetMapping("/{productId}")
     public String getDetail(Model model, @PathVariable(name = "productId") Long productId, @AuthenticationPrincipal Users userDetails) {
+        if (userDetails!= null) {
+            model.addAttribute("userId", userDetails.getId());
+        }else{
+            model.addAttribute("userId", null);
+        }
         ProductDetailViewDTO detailProduct = productService.getDetailProduct(productId);
-        model.addAttribute("userId", userDetails.getId());
         model.addAttribute("detailPr", detailProduct);
         return "detail";
     }

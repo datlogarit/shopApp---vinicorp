@@ -1,50 +1,72 @@
 console.log("navbar");
 const userId = document.getElementById("user-info").dataset.userId;
-document.getElementById("logout-icon").addEventListener("click", function () {
-    document.location.href = "/logout"
-})
-document.getElementById("cart-icon").addEventListener("click", function () {
-    let dropdownMenu = document.getElementById("dropdownMenu");
-    productItem = document.getElementById("product-item");
-    productItem.innerHTML = "";
-    // get cartProductByUserId
-    fetch(`http://192.168.52.196:8080/api/v1/cart/${userId}`)
-        .then((response) => response.json())
-        .then((res) => {
-            productItem.innerHTML = "";
-            if (!res || res.data.length === 0) {
-                productItem.innerHTML = `<h4 style="text-align:center; color:gray; ">No products found</h4>`;
-            } else {
 
-                res.data.forEach((element) => {
-                    const cartItem = `
-                        <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
-                            <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
-                                <input type="checkbox" class="cart-checkbox" data-quantity="${element.quantity}" data-product-id="${element.productId}" data-price="${element.price}">
-                                <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt
-                        }" alt="avt_product">
-                                <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                                    <h6>${element.productName}</h6>
-                                    <span>${element.price.toLocaleString()}</span>
+const historyIcon = document.getElementById("order-history-icon");
+if (historyIcon) {
+    historyIcon.addEventListener("click", function () {
+        document.location.href = "/api/v1/order-history"
+    })
+}
+
+const logOut = document.getElementById("logout-icon");
+if (logOut) {
+    logOut.addEventListener("click", function () {
+        document.location.href = "/logout"
+    })    
+}
+
+const loginIcon = document.getElementById("login-icon");
+if (loginIcon) { 
+    console.log("hihi");
+  loginIcon.addEventListener("click", function () {
+    document.location.href = "/login";
+  });
+}
+
+const cart = document.getElementById("cart-icon");
+if(cart){
+    cart.addEventListener("click", function () {
+        let dropdownMenu = document.getElementById("dropdownMenu");
+        productItem = document.getElementById("product-item");
+        productItem.innerHTML = "";
+        // get cartProductByUserId
+        fetch(`http://192.168.52.196:8080/api/v1/cart/${userId}`)
+            .then((response) => response.json())
+            .then((res) => {
+                productItem.innerHTML = "";
+                if (!res || res.data.length === 0) {
+                    productItem.innerHTML = `<h5 style="text-align:center; color:gray; ">No products found</h5>`;
+                } else {
+                    res.data.forEach((element) => {
+                        const cartItem = `
+                            <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
+                                <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
+                                    <input type="checkbox" class="cart-checkbox" data-quantity="${element.quantity}" data-product-id="${element.productId}" data-price="${element.price}">
+                                    <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt
+                            }" alt="avt_product">
+                                    <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                                        <h6>${element.productName}</h6>
+                                        <span>${element.price.toLocaleString()}</span>
+                                    </div>
                                 </div>
+                                <input min="1" class="quantity-input" type="number" value =${element.quantity
+                            } style="height: 25px; width: 50px;">
                             </div>
-                            <input class="quantity-input" type="number" value =${element.quantity
-                        } style="height: 25px; width: 50px;">
-                        </div>
-                        `;
+                            <div id="stock" th:attr="data-stock=${element.numAvaiable}"></div>
+                            `;
+                        const wrapper = document.createElement("div");
+                        wrapper.innerHTML = cartItem;
+                        productItem.appendChild(wrapper);
+                    });
+                }
+    
+                dropdownMenu.classList.toggle("show");
+                attachEventsCheckbox();
+            });
+    
+    });
+}
 
-
-                    const wrapper = document.createElement("div");
-                    wrapper.innerHTML = cartItem;
-                    productItem.appendChild(wrapper);
-                });
-            }
-
-            dropdownMenu.classList.toggle("show");
-            attachEventsCheckbox();
-        });
-
-});
 
 document.addEventListener("click", function (event) {
     const dropdownMenu = document.getElementById("dropdownMenu");
@@ -62,6 +84,7 @@ document.addEventListener("click", function (event) {
         }
     }
 });
+
 function attachEventsCheckbox() {
     const checkbox = document.querySelectorAll(".cart-checkbox");
     const quantityInput = document.querySelectorAll(".quantity-input");
@@ -80,6 +103,7 @@ function attachEventsCheckbox() {
         });
     });
 }
+
 function caculator() {
     // debug
     let total = 0;
@@ -95,41 +119,51 @@ function caculator() {
 }
 
 // toConfirmOrder
-document.getElementById("buy-button").addEventListener("click", function (e) {
-    e.preventDefault();
-    // check xem đã click vào ô nào chưa ?
-    const selectedProducts = [];
-    const checkboxes = document.querySelectorAll(".cart-checkbox");
-    const totalCost = parseInt(document.getElementById("total-price").innerHTML);
-    checkboxes.forEach((cb) => {
-        if (cb.checked) {
-            const row = cb.closest(".cart-row");
-            const quantity = parseInt(cb.dataset.quantity);
-            const productId = parseInt(cb.dataset.productId);
-            selectedProducts.push({
-                product_id: productId,
-                quantity: quantity,
-            });
+const buyButton = document.getElementById("buy-button");
+if(buyButton){
+    document.getElementById("buy-button").addEventListener("click", function (e) {
+        e.preventDefault();
+        // check xem đã click vào ô nào chưa ?
+        const selectedProducts = [];
+        const checkboxes = document.querySelectorAll(".cart-checkbox");
+        // const totalCost = parseInt(document.getElementById("total-price").innerHTML);
+        checkboxes.forEach((cb) => {
+            if (cb.checked) {
+                // const row = cb.closest(".cart-row");
+                const quantity = parseInt(cb.dataset.quantity);
+                const productId = parseInt(cb.dataset.productId);
+                selectedProducts.push({
+                    product_id: productId,
+                    quantity: quantity,
+                });
+            }
+        });
+        const stockNumber = document.getElementById("stock").dataset.stock;
+        console.log(stockNumber);
+        // return
+        if (selectedProducts.length === 0) {
+            alert("Please select least one product to pay!");
+            return;
+        }
+        // else if(quantity >stockNumber){
+        //     alert('Quantity exceeding inventory (' + stockNumber + ')');
+        // }
+         else {
+            // redirect to order page with following item.
+            fetch("http://192.168.52.196:8080/api/v1/order", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(selectedProducts)
+            })
+                .then((res) => res.json())
+                .then((response) => {
+                    if (response.status == 200) {
+                        window.location.href = "/api/v1/order/confirm"
+                    }
+                    else {
+                        alert(response.data)
+                    }
+                });
         }
     });
-    if (selectedProducts.length === 0) {
-        alert("Please select least one product to pay!");
-        return;
-    } else {
-        // redirect to order page with following item.
-        fetch("http://192.168.52.196:8080/api/v1/order", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(selectedProducts)
-        })
-            .then((res) => res.json())
-            .then((response) => {
-                if (response.status == 200) {
-                    window.location.href = "/api/v1/order/confirm"
-                }
-                else {
-                    alert(response.data)
-                }
-            });
-    }
-});
+}

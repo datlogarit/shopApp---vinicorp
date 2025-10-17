@@ -27,10 +27,14 @@ public class SecurityConfig {
             .csrf(csrf->csrf.disable())
             .authorizeHttpRequests(
 
-                auth -> auth.requestMatchers("/api/v1/user/signUp", "/api/v1/**").permitAll()
+                auth -> auth
+                // allow public pages
+                .requestMatchers("/", "/login", "/api/v1/user/signUp", "/api/v1/home", "/api/v1/detail/**", "/api/v1/search", "/api/v1/invoice/**").permitAll()
+                // allow static resources
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/static/**").permitAll()
                 .anyRequest().authenticated())
                 .formLogin(
-                    form -> form//.loginPage("/login")
+                    form -> form//.loginPage("/login").permitAll()
                     .defaultSuccessUrl("/api/v1/home", true) 
                 )
                 .logout(

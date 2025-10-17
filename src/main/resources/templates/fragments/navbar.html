@@ -21,12 +21,12 @@
         <a style="cursor: pointer;" href="/api/v1/home" class="navbar-brand">Vinicorp shop</a>
         <div style="display: flex; flex-direction: row; gap: 20px; align-items: center">
             <form method="get" th:action="@{/api/v1/search}" class="d-flex" role="search">
-                <input name="keyword" class="form-control me-2" type="search" placeholder="Search"
+                <input id="search-input" required maxlength="50" name="keyword" class="form-control me-2" type="search" placeholder="Search"
                     aria-label="Search" />
                 <button id="search-button" class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <!-- cart-icon -->
-            <div class="dropdown" style="position: relative">
+            <div th:unless="${userId == null}" class="dropdown" style="position: relative">
                 <ion-icon id="cart-icon" style="font-size: 28px; margin-top: 5px;cursor: pointer;"
                     name="cart-outline"></ion-icon>
                 <div style="flex-direction: column; gap: 10px;" class="dropdown-menu" id="dropdownMenu">
@@ -54,9 +54,13 @@
                         </button>
                     </div>
                 </div>
+           
             </div>
+            <!-- history order icon -->
+            <ion-icon th:unless="${userId == null}" id="order-history-icon" name="archive-outline" style="font-size: 28px; cursor: pointer;"></ion-icon>
             <!-- out-icon -->
-            <ion-icon id="logout-icon" style="font-size: 28px; cursor: pointer;" name="log-out-outline"></ion-icon>
+            <ion-icon  th:unless="${userId == null}" id="logout-icon" style="font-size: 26px; cursor: pointer;" name="log-out-outline"></ion-icon>
+            <ion-icon id="login-icon" th:if="${userId == null}" style="font-size: 26px; cursor: pointer;" name="finger-print-outline"></ion-icon>
         </div>
     </div>
     <div id="user-info" th:attr="data-user-id=${userId}"></div>

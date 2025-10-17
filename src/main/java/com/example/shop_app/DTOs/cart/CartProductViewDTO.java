@@ -18,4 +18,6 @@ public class CartProductViewDTO {
     private String displayAvt;
 
     private Integer quantity;
+
+    private Integer numAvailable;
 }

@@ -23,9 +23,13 @@ public class SearchController {
 
     @GetMapping("")
     public String getKey(@RequestParam("keyword") String keyword, Model model, @AuthenticationPrincipal Users userDetails){
+        if (userDetails!= null) {
+            model.addAttribute("userId", userDetails.getId());
+        }else{
+            model.addAttribute("userId", null);
+        }
         List<ProductHomeViewDTO> result = productService.getProductByName(keyword);
         model.addAttribute("products", result);
-        model.addAttribute("userId", userDetails.getId());
         model.addAttribute("keyword", keyword);
         return "search-view";
     }

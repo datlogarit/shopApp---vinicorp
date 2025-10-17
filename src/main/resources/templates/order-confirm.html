@@ -82,19 +82,19 @@
       <div style="display: flex; flex-direction: column; gap: 15px;">
         <div style="display: flex;align-items: center;gap: 15px;">
           <p style="margin: 0;width: 150px;">Full name:</p>
-          <input id="name-input" class="form-control me-2" type="search" th:value="${items[0].fullName}" />
+          <input maxlength="50" id="name-input" class="form-control me-2" type="text" th:value="${items[0].fullName}" />
           <!-- <input th:value="${item.fullName}" type="text"> -->
         </div>
 
         <div style="display: flex;align-items: center;gap: 15px;">
           <p style="margin: 0;width: 150px;">Address:</p>
-          <input id="address-input" class="form-control me-2" type="search" th:value="${items[0].address}" />
+          <input maxlength="50" id="address-input" class="form-control me-2" type="text" th:value="${items[0].address}" />
           <!-- <input th:value="${item.address}" type="text"> -->
         </div>
 
         <div style="display: flex;align-items: center;gap: 15px;">
           <p style="margin: 0;width: 150px;">Phone number:</p>
-          <input id="phonenumber-input" class="form-control me-2" type="search" th:value="${items[0].phoneNumber}" />
+          <input maxlength="50" id="phonenumber-input" class="form-control me-2" type="number" th:value="${items[0].phoneNumber}" />
           <!-- <input th:value="${item.phoneNumber}" type="text"> -->
         </div>
       </div>

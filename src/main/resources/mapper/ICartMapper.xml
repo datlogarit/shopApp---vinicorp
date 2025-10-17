@@ -30,6 +30,7 @@
         <result property="price" column="price"/>
         <result property="displayAvt" column="display_avt"/>
         <result property="quantity" column="quantity"/>
+         <result property="numAvailable" column="num_available"/>
     </resultMap>
 
     <!-- get product in cart by userId -->
@@ -39,7 +40,8 @@
             cp.quantity,
             p.display_avt,
             p.name as product_name,
-            p.price
+            p.price,
+            p.num_available
          from cart c
          join cart_product cp on c.id = cp.cart_id
          join products p on p.id = cp.product_id 
