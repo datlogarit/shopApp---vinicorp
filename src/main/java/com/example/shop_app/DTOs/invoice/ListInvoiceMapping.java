@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InvoiceDetailViewDTO {
+public class ListInvoiceMapping {
     @JsonProperty("order_id")
     private Long orderId;
 

@@ -65,6 +65,19 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.5.5</version>
 		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version> <!-- Dùng cho xuất PDF -->
+		</dependency>
+
 	</dependencies>
 
 	<build>

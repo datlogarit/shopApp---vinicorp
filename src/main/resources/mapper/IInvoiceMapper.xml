@@ -21,7 +21,7 @@
         </collection>
     </resultMap> -->
     <!-- get info detail product page  -->
-    <select id="getAllInvoiceByUserId" resultType="com.example.shop_app.DTOs.invoice.InvoiceDetailViewDTO">
+    <select id="getAllInvoiceByUserId" resultType="com.example.shop_app.DTOs.invoice.ListInvoiceMapping">
         select i.id as order_id, i.customer_id, p.id as product_id, p.name as product_name, ip.quantity, i.pay_method, i.order_status, i.created_at, i.updated_at
         from invoices i
         join invoice_product ip on ip.invoice_id = i.id

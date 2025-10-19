@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.shop_app.DTOs.invoice.InvoiceDetailViewDTO;
+import com.example.shop_app.DTOs.invoice.ListInvoiceDisplay;
 import com.example.shop_app.domains.Users;
 import com.example.shop_app.services.InvoiceService;
 
@@ -19,10 +19,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderHistoryViewController {
     private final InvoiceService invoiceService;
-    
+
     @GetMapping("")
-    public String getViewOrderHistory(Model model, @AuthenticationPrincipal Users userDetails){
-        List<InvoiceDetailViewDTO> listInvoice =  invoiceService.gInvoiceDetail(userDetails.getId());
+    public String getViewOrderHistory(Model model, @AuthenticationPrincipal Users userDetails) {
+        List<ListInvoiceDisplay> listInvoice = invoiceService.gInvoiceDetail(userDetails.getId());
         ;
         model.addAttribute("listInvoice", listInvoice);
         model.addAttribute("userId", userDetails.getId());

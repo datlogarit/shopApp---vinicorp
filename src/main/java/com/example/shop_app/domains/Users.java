@@ -1,7 +1,6 @@
 package com.example.shop_app.domains;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +23,7 @@ public class Users implements UserDetails {
     private String password;
     private String address;
     private String role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.getRole().toUpperCase()));
@@ -31,14 +31,12 @@ public class Users implements UserDetails {
 
     @Override
     public String getPassword() {
-        // TODO Auto-generated method stub
         return this.password;
     }
 
     @Override
     public String getUsername() {
-        // TODO Auto-generated method stub
         return this.getPhoneNumber();
     }
-    
+
 }

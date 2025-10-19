@@ -13,47 +13,50 @@ import com.example.shop_app.mapper.IUserMapper;
 
 import lombok.RequiredArgsConstructor;
 
-
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final IUserMapper iUserMapper;
+
     // Maybe throw exception when config
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpFilter) throws Exception{
-            httpFilter
-            .cors().and()
-            .csrf(csrf->csrf.disable())
-            .authorizeHttpRequests(
+    public SecurityFilterChain filterChain(HttpSecurity httpFilter) throws Exception {
+        httpFilter
+                .cors().and()
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(
 
-                auth -> auth
-                // allow public pages
-                .requestMatchers("/", "/login", "/api/v1/user/signUp", "/api/v1/home", "/api/v1/detail/**", "/api/v1/search", "/api/v1/invoice/**").permitAll()
-                // allow static resources
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/static/**").permitAll()
-                .anyRequest().authenticated())
+                        auth -> auth
+                                // allow public pages
+                                .requestMatchers("/", "/login", "/api/v1/user/signUp", "/api/v1/home",
+                                        "/api/v1/detail/**", "/api/v1/search", "/api/v1/invoice/**",
+                                        "/api/v1/invoice/export",
+                                        "/api/v1/cart/**")
+                                .permitAll()
+                                // allow static resources
+                                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/static/**")
+                                .permitAll()
+                                .anyRequest().authenticated())
                 .formLogin(
-                    form -> form//.loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/api/v1/home", true) 
-                )
+                        form -> form// .loginPage("/login").permitAll()
+                                .defaultSuccessUrl("/api/v1/home", true))
                 .logout(
-                    form -> form.logoutUrl("/logout")
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll()
-                );
-                return httpFilter.build();
+                        form -> form.logoutUrl("/logout")
+                                .logoutSuccessUrl("/login?logout")
+                                .permitAll());
+        return httpFilter.build();
     }
-    
+
     // Config encoder password
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     // Config UserDetailService - handle load user task from db
     @Bean
-    public UserDetailsService userDetailsService(){
-        return phoneNumber -> iUserMapper.getUserByPhoneNumber(phoneNumber); 
+    public UserDetailsService userDetailsService() {
+        return phoneNumber -> iUserMapper.getUserByPhoneNumber(phoneNumber);
     }
 }
