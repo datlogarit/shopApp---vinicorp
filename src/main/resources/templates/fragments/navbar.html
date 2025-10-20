@@ -20,8 +20,8 @@
     <div class="container-fluid">
         <a style="cursor: pointer;" href="/api/v1/home" class="navbar-brand">Vinicorp shop</a>
         <div style="display: flex; flex-direction: row; gap: 20px; align-items: center">
-            <form method="get" th:action="@{/api/v1/search}" class="d-flex" role="search">
-                <input id="search-input" required maxlength="50" name="keyword" class="form-control me-2" type="search" placeholder="Search"
+            <form id="search-form" method="get" th:action="@{/api/v1/search}" class="d-flex" role="search">
+                <input id="search-input" required maxlength="50" name="keyword" class="form-control me-2" type="search" placeholder="Search product"
                     aria-label="Search" />
                 <button id="search-button" class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -66,3 +66,5 @@
     <div id="user-info" th:attr="data-user-id=${userId}"></div>
     <script th:src="@{/js/navbar.js}" defer></script>
 </nav>
+
+

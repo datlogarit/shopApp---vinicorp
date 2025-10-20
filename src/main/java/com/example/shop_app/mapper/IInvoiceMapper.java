@@ -13,4 +13,6 @@ public interface IInvoiceMapper {
     public void createInvoice(@Param("invoice") Invoice invoice);
 
     public List<ListInvoiceMapping> getAllInvoiceByUserId(@Param("userId") Long userId);
+
+    public List<ListInvoiceMapping> exportInvoice(@Param("orderId") Long orderId);
 }

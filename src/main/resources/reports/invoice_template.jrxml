@@ -12,19 +12,37 @@
               topMargin="20"
               bottomMargin="20">
 
-    <parameter name="customerName" class="java.lang.String"/>
+    <style name="BaseStyle"
+            fontName="DejaVu Sans"
+            isPdfEmbedded="true"
+            pdfFontName="DejaVuSans.ttf"
+            pdfEncoding="Identity-H"
+            isDefault="true"/>
+
+    <!-- <parameter name="customerName" class="java.lang.String"/>
     <parameter name="customerAddress" class="java.lang.String"/>
     <parameter name="customerPhone" class="java.lang.String"/>
-    <parameter name="totalAmount" class="java.lang.Double"/>
+    <parameter name="totalAmount" class="java.lang.Double"/> -->
 
-    <field name="name" class="java.lang.String"/>
-    <field name="numAvailable" class="java.lang.Integer"/>
-    <field name="price" class="java.lang.Long"/>
+    <field name="orderId" class="java.lang.Long"/>
+    <field name="customerId" class="java.lang.Long"/>
+    <field name="fullName" class="java.lang.String"/>
+    <field name="phoneNumber" class="java.lang.String"/>
+    <field name="address" class="java.lang.String"/>
+    <field name="totalAmount" class="java.lang.Long"/>
+    <field name="payMethod" class="java.lang.String"/>
+    <field name="orderStatus" class="java.lang.String"/>
+    <!-- <field name="price" class="java.lang.Long"/>
+    <field name="name" class="java.lang.String"/> -->
+    <field name="createdAt" class="java.sql.Timestamp"/>
+    <field name="updatedAt" class="java.sql.Timestamp"/>
+    <field name="productName" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Integer"/>
+    <field name="price" class="java.lang.Integer"/>
 
     <title>
         <band height="70">
             <textField>
-               
                 <reportElement x="0" y="0" width="555" height="20"/>
                 <textFieldExpression><![CDATA["HÓA ĐƠN THANH TOÁN"]]></textFieldExpression>
             </textField>
@@ -41,7 +59,7 @@
             <textField>
                 
                 <reportElement x="120" y="0" width="200" height="20"/>
-                <textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{fullName}]]></textFieldExpression>
             </textField>
 
             <staticText>
@@ -52,7 +70,7 @@
             <textField>
                
                 <reportElement x="120" y="25" width="300" height="20"/>
-                <textFieldExpression><![CDATA[$P{customerAddress}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
             </textField>
 
             <staticText>
@@ -63,7 +81,7 @@
             <textField>
         
                 <reportElement x="120" y="50" width="200" height="20"/>
-                <textFieldExpression><![CDATA[$P{customerPhone}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{phoneNumber}]]></textFieldExpression>
             </textField>
         </band>
     </pageHeader>
@@ -78,8 +96,8 @@
 
     <detail>
         <band height="20">
-            <textField><reportElement x="0" y="0" width="200" height="20"/><textFieldExpression><![CDATA[$F{name}]]></textFieldExpression></textField>
-            <textField><reportElement x="220" y="0" width="100" height="20"/><textFieldExpression><![CDATA[$F{numAvailable}]]></textFieldExpression></textField>
+            <textField><reportElement x="0" y="0" width="200" height="20"/><textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression></textField>
+            <textField><reportElement x="220" y="0" width="100" height="20"/><textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression></textField>
             <textField><reportElement x="350" y="0" width="100" height="20"/><textFieldExpression><![CDATA[$F{price}]]></textFieldExpression></textField>
         </band>
     </detail>
@@ -87,7 +105,7 @@
     <summary>
         <band height="30">
             <staticText><reportElement x="0" y="0" width="100" height="20"/><text><![CDATA[Tổng tiền:]]></text></staticText>
-            <textField><reportElement x="120" y="0" width="200" height="20"/><textFieldExpression><![CDATA[$P{totalAmount}]]></textFieldExpression></textField>
+            <textField><reportElement x="120" y="0" width="200" height="20"/><textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression></textField>
         </band>
     </summary>
 

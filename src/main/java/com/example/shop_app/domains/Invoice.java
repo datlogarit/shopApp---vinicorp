@@ -29,4 +29,6 @@ public class Invoice {
     private String address;
 
     private String phoneNumber;
+
+    private Long totalAmount;
 }

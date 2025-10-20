@@ -1,6 +1,16 @@
 console.log("navbar");
 const userId = document.getElementById("user-info").dataset.userId;
 
+document.getElementById("search-form").addEventListener("submit", function (event) {
+  const value = document.getElementById("search-input").value.trim();
+  const regex =  /^[a-zA-Z0-9\s]+$/;
+  if (!regex.test(value)) {
+    alert("Key word only have to contain number, space and text!");
+    event.preventDefault();
+    return;
+  }
+})
+
 const historyIcon = document.getElementById("order-history-icon");
 if (historyIcon) {
   historyIcon.addEventListener("click", function () {
@@ -39,29 +49,22 @@ if (cart) {
         } else {
           res.data.forEach((element) => {
             const cartItem = `
-                            <div class="cart-row" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 0">
-                                <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
-                                    <input type="checkbox" class="cart-checkbox" data-quantity="${
-                                      element.quantity
-                                    }" data-product-id="${
-              element.productId
-            }" data-price="${element.price}">
-                                    <img style="width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${
-                                      element.displayAvt
-                                    }" alt="avt_product">
-                                    <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                                        <h6>${element.productName}</h6>
-                                        <span>${element.price.toLocaleString()}</span>
-                                    </div>
-                                </div>
-                                <input min="1" class="quantity-input" type="number" value =${
-                                  element.quantity
-                                } style="height: 25px; width: 50px;">
-                            </div>
-                            <div id="stock" th:attr="data-stock=${
-                              element.numAvaiable
-                            }"></div>
-                            `;
+            <div class="cart-row" style="border-bottom: 1px solid #5f9ea0; display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 8px 0">
+              <div style="width: 300px; display: flex;flex-direction: row; justify-content: start;">
+                <input type="checkbox" class="cart-checkbox" data-quantity="${element.quantity}" data-product-id="${element.productId}" data-price="${element.price}">
+                <img onclick="goDetail(${element.productId})" style="cursor: pointer;width: 130px; height: 70px;object-fit: cover; margin: 0 15px;" src="${element.displayAvt}" alt="avt_product">
+                <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                    <h6>${element.productName}</h6>
+                    <span>${element.price.toLocaleString()}</span>
+                </div>
+              </div>
+              <div style="display: flex;flex-direction: column; justify-content: space-between; height: 65px;">
+                <input min="1" class="quantity-input" type="number" value =${element.quantity} style="height: 25px; width: 50px;">
+                <button onclick="deleteProduct(${element.productId})" style="border-radius: 5px;border: none;font-size: 10px;background-color: #dc3545;padding: 3px;">Delete</button>
+              </div>
+            </div>
+            <div id="stock" th:attr="data-stock=${element.numAvaiable}"></div>
+            `;
             const wrapper = document.createElement("div");
             wrapper.innerHTML = cartItem;
             productItem.appendChild(wrapper);
@@ -72,6 +75,21 @@ if (cart) {
         attachEventsCheckbox();
       });
   });
+}
+
+function deleteProduct(productId) {
+  fetch(`http://localhost:8080/api/v1/cart-product/delete/${productId}`, {
+    method: "DELETE"
+  }).then((response)=>response.json())
+  .then((res)=>{
+    alert(res.data);
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    dropdownMenu.classList.remove("show");
+  })
+}
+
+function goDetail(productId) {
+  document.location.href = `/api/v1/detail/${productId}`
 }
 
 document.addEventListener("click", function (event) {

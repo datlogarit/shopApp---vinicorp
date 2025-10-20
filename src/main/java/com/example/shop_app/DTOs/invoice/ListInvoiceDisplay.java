@@ -22,6 +22,17 @@ public class ListInvoiceDisplay {
     @JsonProperty("customer_id")
     private Long customerId;
 
+    @JsonProperty("full_name")
+    private String fullName;
+
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+
+    @JsonProperty("address")
+    private String address;
+
+    @JsonProperty("total_amount")
+    private Long totalAmount;
     // @JsonProperty("product_id")
     // private Long productId;
 
@@ -41,6 +52,7 @@ public class ListInvoiceDisplay {
 
     public static class ProductInfo {
         public Long productId;
+        public Integer price;
         public String productName;
         public int quantity;
     }

@@ -41,7 +41,7 @@ btnBuyConfirm.addEventListener("click", function () {
       .then((res) => {
         if (res.status == 200) {
           alert("order successfully");
-          document.location.href = "/api/v1/home";
+          document.location.href = "/api/v1/order-history";
         } else {
           alert("have error occurred");
         }

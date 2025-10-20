@@ -18,6 +18,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Product</th>
+          <th scope="col">Total amount</th>
           <th scope="col">Pay method</th>
           <th scope="col">Order status</th>
           <th scope="col">Time of order</th>
@@ -40,29 +41,19 @@
               <br>
             </div>
           </td>
+          <td th:text="${#numbers.formatInteger(invoice.totalAmount, 0, 'POINT')} + ' ₫'">pay method</td>
           <!-- <td>product name</td> -->
           <td th:text="${invoice.payMethod}">pay method</td>
           <td th:text="${invoice.orderStatus}">orderStatus</td>
-          <td th:text="${invoice.createdAt}">created at</td>
-          <td th:text="${invoice.updatedAt}">updated at</td>
-          <td><ion-icon data-bs-toggle="tooltip" data-bs-placement="left" title="Export invoice" name="download-outline"
+          <td th:text="${#dates.format(invoice.createdAt, 'dd/MM/yyyy HH:mm:ss')}">created at</td>
+          <td th:text="${#dates.format(invoice.updatedAt, 'dd/MM/yyyy HH:mm:ss')}">updated at</td>
+          <td><ion-icon th:onclick="'exportInvoice(' + ${invoice.orderId} + ')'" data-bs-toggle="tooltip" data-bs-placement="left" title="Export invoice" name="download-outline"
               style="font-size: 30px; cursor: pointer;"></ion-icon></td>
         </tr>
       </tbody>
     </table>
 
   </div>
-  <!-- <div
-        style="justify-content: center;flex-wrap: wrap; gap: 40px;display: flex;flex-direction: row; margin-top: 30px;">
-        <div th:each="product: ${allProduct}">
-            <div
-                th:replace="fragments/card::product_card(url=${product.display_avt}, name=${product.name}, description=${product.description}, price=${product.price}, id=${product.id})">
-            </div>
-        </div>
-    </div> -->
-  <!-- <div style="display: flex; flex-direction: row; justify-content: center; margin-top: 30px;">
-        <div th:replace="fragments/pagination::pagination"></div>
-    </div> -->
 </body>
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -70,5 +61,10 @@
 <!-- Ion-icon -->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+<script>
+    function exportInvoice(orderId) {
+      console.log(orderId);
+      document.location.href = `/api/v1/invoice/export/${orderId}`;
+    }
+</script>
 </html>

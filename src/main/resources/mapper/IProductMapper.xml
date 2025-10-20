@@ -3,7 +3,7 @@
 <mapper namespace="com.example.shop_app.mapper.IProductMapper">
     <!-- get all product -->
     <select id="getAllProduct" resultType="Product">
-        select * from products
+        select * from products order by id
     </select>
 
     <select id="getProductByName" resultType="Product">
@@ -35,7 +35,7 @@
     <select id="getProductById" resultType="com.example.shop_app.domains.Product">
         SELECT *
         FROM products
-        WHERE id = #{productId}
+        WHERE id = #{productId} 
     </select>
 
     <update id="updateProduct">

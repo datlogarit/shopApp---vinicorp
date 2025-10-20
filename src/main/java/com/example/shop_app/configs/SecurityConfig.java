@@ -29,9 +29,9 @@ public class SecurityConfig {
 
                         auth -> auth
                                 // allow public pages
-                                .requestMatchers("/", "/login", "/api/v1/user/signUp", "/api/v1/home",
+                                .requestMatchers("/", "/login","/register", "/api/v1/user/signUp", "/api/v1/home",
                                         "/api/v1/detail/**", "/api/v1/search", "/api/v1/invoice/**",
-                                        "/api/v1/invoice/export",
+                                        "/api/v1/invoice/export/**",
                                         "/api/v1/cart/**")
                                 .permitAll()
                                 // allow static resources
@@ -40,7 +40,9 @@ public class SecurityConfig {
                                 .anyRequest().authenticated())
                 .formLogin(
                         form -> form// .loginPage("/login").permitAll()
-                                .defaultSuccessUrl("/api/v1/home", true))
+                                .defaultSuccessUrl("/api/v1/home", true)
+                                .loginPage("/login") // trang custom
+                                .loginProcessingUrl("/login")) // url để submit form)
                 .logout(
                         form -> form.logoutUrl("/logout")
                                 .logoutSuccessUrl("/login?logout")

@@ -56,5 +56,11 @@ public class CartProductService {
     public void updateCartProduct(Long cartId, Long productId, CartProduct cartProduct){
         iCartProductMapper.updateCartProduct(cartId, productId, cartProduct);
     }
+
+    public void deleteProductToCart(Long userId, Long productId){
+        //tìm cartId theo userId
+        Long cartId = iCartMapper.getCartByUserId(userId);
+        iCartProductMapper.deleteProductToCart(cartId, productId);
+    }
     
 }

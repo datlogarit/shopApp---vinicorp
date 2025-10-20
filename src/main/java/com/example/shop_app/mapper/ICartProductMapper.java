@@ -9,6 +9,8 @@ import com.example.shop_app.domains.CartProduct;
 public interface ICartProductMapper {
     public void addProductToCart(@Param("cartProduct") CartProduct cartProduct);
 
+    public void deleteProductToCart(@Param("cartId") Long cartId, @Param("productId") Long productId);
+
     public Long checkExistByCartIdAndProductId(@Param("cartId") Long cartId, @Param("productId") Long productId);
 
     public void updateCartProduct(@Param("cartId") Long cartId,

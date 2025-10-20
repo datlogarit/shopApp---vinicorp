@@ -22,6 +22,16 @@ public class OrderHistoryViewController {
 
     @GetMapping("")
     public String getViewOrderHistory(Model model, @AuthenticationPrincipal Users userDetails) {
+        // Giả lập dữ liệu
+        // List<Product> products = List.of(
+        //         new Product(1L, "Kính cận", 100000L, "this is test", 2002, "avt"),
+        //         new Product(2L, "Kính cận 2", 100000L, "this is test", 2001, "avt"));
+
+        // Map<String, Object> params = new HashMap<>();
+        // params.put("customerName", "Nguyễn Văn A");
+        // params.put("customerAddress", "123 Trần Hưng Đạo, Hà Nội");
+        // params.put("customerPhone", "0123456789");
+        // params.put("totalAmount", 700000.0);
         List<ListInvoiceDisplay> listInvoice = invoiceService.gInvoiceDetail(userDetails.getId());
         ;
         model.addAttribute("listInvoice", listInvoice);

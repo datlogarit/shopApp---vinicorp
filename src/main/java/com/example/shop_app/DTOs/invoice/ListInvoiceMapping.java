@@ -18,6 +18,15 @@ public class ListInvoiceMapping {
     @JsonProperty("customer_id")
     private Long customerId;
 
+    @JsonProperty("full_name")
+    private String fullName;
+
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+
+    @JsonProperty("address")
+    private String address;
+
     @JsonProperty("product_id")
     private Long productId;
 
@@ -25,6 +34,11 @@ public class ListInvoiceMapping {
     private String productName;
 
     private Integer quantity;
+
+    private Integer price;
+
+    @JsonProperty("total_amount")
+    private Long totalAmount;
 
     @JsonProperty("pay_method")
     private String payMethod;
