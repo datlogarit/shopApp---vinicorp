@@ -17,48 +17,51 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final IUserMapper iUserMapper;
+        private final IUserMapper iUserMapper;
 
-    // Maybe throw exception when config
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpFilter) throws Exception {
-        httpFilter
-                .cors().and()
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(
+        // Maybe throw exception when config
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity httpFilter) throws Exception {
+                httpFilter
+                                .cors().and()
+                                .csrf(csrf -> csrf.disable())
+                                .authorizeHttpRequests(
 
-                        auth -> auth
-                                // allow public pages
-                                .requestMatchers("/", "/login","/register", "/api/v1/user/signUp", "/api/v1/home",
-                                        "/api/v1/detail/**", "/api/v1/search", "/api/v1/invoice/**",
-                                        "/api/v1/invoice/export/**",
-                                        "/api/v1/cart/**")
-                                .permitAll()
-                                // allow static resources
-                                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/static/**")
-                                .permitAll()
-                                .anyRequest().authenticated())
-                .formLogin(
-                        form -> form// .loginPage("/login").permitAll()
-                                .defaultSuccessUrl("/api/v1/home", true)
-                                .loginPage("/login") // trang custom
-                                .loginProcessingUrl("/login")) // url để submit form)
-                .logout(
-                        form -> form.logoutUrl("/logout")
-                                .logoutSuccessUrl("/login?logout")
-                                .permitAll());
-        return httpFilter.build();
-    }
+                                                auth -> auth
+                                                                // allow public pages
+                                                                .requestMatchers("/", "/login", "/register",
+                                                                                "/api/v1/user/signUp", "/api/v1/home",
+                                                                                "/api/v1/detail/**", "/api/v1/search",
+                                                                                "/api/v1/invoice/**",
+                                                                                "/api/v1/invoice/export/**",
+                                                                                "/api/v1/cart/**")
+                                                                .permitAll()
+                                                                // allow static resources
+                                                                .requestMatchers("/css/**", "/js/**", "/images/**",
+                                                                                "/webjars/**", "/static/**")
+                                                                .permitAll()
+                                                                .anyRequest().authenticated())
+                                .formLogin(
+                                                form -> form// .loginPage("/login").permitAll()
+                                                                .defaultSuccessUrl("/api/v1/home", true)
+                                                                .loginPage("/login") // trang custom
+                                                                .loginProcessingUrl("/login")) // url để submit form)
+                                .logout(
+                                                form -> form.logoutUrl("/logout")
+                                                                .logoutSuccessUrl("/login?logout")
+                                                                .permitAll());
+                return httpFilter.build();
+        }
 
-    // Config encoder password
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        // Config encoder password
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    // Config UserDetailService - handle load user task from db
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return phoneNumber -> iUserMapper.getUserByPhoneNumber(phoneNumber);
-    }
+        // Config UserDetailService - handle load user task from db
+        @Bean
+        public UserDetailsService userDetailsService() {
+                return phoneNumber -> iUserMapper.getUserByPhoneNumber(phoneNumber);
+        }
 }
