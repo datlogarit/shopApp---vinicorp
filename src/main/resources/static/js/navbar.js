@@ -40,7 +40,7 @@ if (cart) {
     productItem = document.getElementById("product-item");
     productItem.innerHTML = "";
     // get cartProductByUserId
-    fetch(`http://192.168.52.196:8080/api/v1/cart/${userId}`)
+    fetch(`http://192.168.52.196:8080/api/v1/cart-product`)
       .then((response) => response.json())
       .then((res) => {
         productItem.innerHTML = "";

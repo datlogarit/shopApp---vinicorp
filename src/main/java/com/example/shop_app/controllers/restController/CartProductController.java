@@ -1,8 +1,11 @@
 package com.example.shop_app.controllers.restController;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.shop_app.DTOs.BaseAPIRespone;
+import com.example.shop_app.DTOs.cart.CartProductViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.domains.CartProduct;
 import com.example.shop_app.domains.Users;
@@ -25,12 +29,18 @@ import lombok.RequiredArgsConstructor;
 public class CartProductController {
     private final CartProductService cartProductService;
 
+    @GetMapping("")
+    private ResponseEntity<?> getInfoCart(@AuthenticationPrincipal Users userDetails){
+        List<CartProductViewDTO> cartProducts = cartProductService.getProductInCart(userDetails.getId());
+        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", cartProducts));
+    }
+
     @PostMapping("/add")
     private ResponseEntity<?> addProductToCart(
-            @RequestParam(name = "userId") Long userId,
-            @RequestBody ProductNumberDTO addToCartRequest) {
-        cartProductService.addToCart(userId, addToCartRequest);
-        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "add product to cart successfully"));
+            @AuthenticationPrincipal Users userDetails,
+            @RequestBody ProductNumberDTO productInfo) {
+        cartProductService.addProductToCart(userDetails.getId(), productInfo);
+        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Add product to cart successfully"));
     }
 
     @DeleteMapping("/delete/{productId}")

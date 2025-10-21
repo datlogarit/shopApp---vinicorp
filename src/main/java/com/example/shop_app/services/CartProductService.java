@@ -1,7 +1,10 @@
 package com.example.shop_app.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.example.shop_app.DTOs.cart.CartProductViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.domains.Cart;
 import com.example.shop_app.domains.CartProduct;
@@ -19,7 +22,11 @@ public class CartProductService {
     private final ICartMapper iCartMapper;
     private final IProductMapper iProductMapper;
 
-    public void addToCart(Long userId, ProductNumberDTO productNumberDTO) {
+    public List<CartProductViewDTO> getProductInCart(Long userId) {
+        return iCartProductMapper.getInfoCartByUserId(userId);
+    }
+
+    public void addProductToCart(Long userId, ProductNumberDTO productNumberDTO) {
         // check stock
         Product product = iProductMapper.getProductById(productNumberDTO.getProductId());
         if (productNumberDTO.getQuantity() > product.getNumAvailable()) {

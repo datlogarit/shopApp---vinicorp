@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ICartMapper {
-    public List<CartProductViewDTO> getInfoCartByUserId(@Param("userId") Long userId);
+    // public List<CartProductViewDTO> getInfoCartByUserId(@Param("userId") Long userId);
     
     public Long existCartByUserId(@Param("userId") Long userId);
 

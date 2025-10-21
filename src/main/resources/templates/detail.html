@@ -119,7 +119,7 @@
         } else if (userId == null) {
             document.location.href = "/login";
         } else {
-            fetch(`http://192.168.52.196:8080/api/v1/cart-product/add?userId=${userId}`, {
+            fetch(`http://192.168.52.196:8080/api/v1/cart-product/add`, {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({

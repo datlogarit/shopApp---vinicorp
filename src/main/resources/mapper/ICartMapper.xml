@@ -21,30 +21,4 @@
     <insert id="createNewCart" useGeneratedKeys="true">
         insert into cart(user_id) values (#{cart.userId})
     </insert>
-
-    <!-- mapping result in the DTO -->
-    <resultMap id="CartProductResultMap" 
-               type="com.example.shop_app.DTOs.cart.CartProductViewDTO">
-        <result property="productId" column="product_id"/>
-        <result property="productName" column="product_name"/>
-        <result property="price" column="price"/>
-        <result property="displayAvt" column="display_avt"/>
-        <result property="quantity" column="quantity"/>
-         <result property="numAvailable" column="num_available"/>
-    </resultMap>
-
-    <!-- get product in cart by userId -->
-    <select id="getInfoCartByUserId" resultMap="CartProductResultMap">
-        select
-            cp.product_id,
-            cp.quantity,
-            p.display_avt,
-            p.name as product_name,
-            p.price,
-            p.num_available
-         from cart c
-         join cart_product cp on c.id = cp.cart_id
-         join products p on p.id = cp.product_id 
-         where c.user_id = #{userId}
-    </select>
 </mapper>
