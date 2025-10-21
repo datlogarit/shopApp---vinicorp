@@ -31,7 +31,7 @@
     </select>    
 
     <select id="exportInvoice" resultType="com.example.shop_app.DTOs.invoice.ListInvoiceMapping">
-        select i.id as order_id, i.customer_id, u.full_name, u.phone_number, u.address, p.id as product_id, p.name as product_name, p.price, ip.quantity, i.total_amount , i.pay_method, i.order_status, i.created_at, i.updated_at
+        select i.id as order_id, i.customer_id, i.full_name, i.phone_number, i.address, p.id as product_id, p.name as product_name, p.price, ip.quantity, i.total_amount , i.pay_method, i.order_status, i.created_at, i.updated_at
         from invoices i
         join invoice_product ip on ip.invoice_id = i.id
         join products p on p.id = ip.product_id

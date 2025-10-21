@@ -40,7 +40,7 @@ if (cart) {
     productItem = document.getElementById("product-item");
     productItem.innerHTML = "";
     // get cartProductByUserId
-    fetch(`http://localhost:8080/api/v1/cart/${userId}`)
+    fetch(`http://192.168.52.196:8080/api/v1/cart/${userId}`)
       .then((response) => response.json())
       .then((res) => {
         productItem.innerHTML = "";
@@ -59,7 +59,7 @@ if (cart) {
                 </div>
               </div>
               <div style="display: flex;flex-direction: column; justify-content: space-between; height: 65px;">
-                <input min="1" class="quantity-input" type="number" value =${element.quantity} style="height: 25px; width: 50px;">
+                <input min="1" id="quan-ipnut" class="quantity-input" type="number" value =${element.quantity} style="height: 25px; width: 50px;">
                 <button onclick="deleteProduct(${element.productId})" style="border-radius: 5px;border: none;font-size: 10px;background-color: #dc3545;padding: 3px;">Delete</button>
               </div>
             </div>
@@ -78,7 +78,7 @@ if (cart) {
 }
 
 function deleteProduct(productId) {
-  fetch(`http://localhost:8080/api/v1/cart-product/delete/${productId}`, {
+  fetch(`http://192.168.52.196:8080/api/v1/cart-product/delete/${productId}`, {
     method: "DELETE"
   }).then((response)=>response.json())
   .then((res)=>{
@@ -147,6 +147,12 @@ const buyButton = document.getElementById("buy-button");
 if (buyButton) {
   document.getElementById("buy-button").addEventListener("click", function (e) {
     e.preventDefault();
+    const onlyNum = /^\d+$/;
+    let quanInput = document.getElementById("quan-ipnut").value;
+    if (!onlyNum.test(quanInput)) {
+      alert("Quantity input only accept the number");
+      return;
+    }
     // check xem đã click vào ô nào chưa ?
     const selectedProducts = [];
     const checkboxes = document.querySelectorAll(".cart-checkbox");
@@ -174,7 +180,7 @@ if (buyButton) {
     // }
     else {
       // redirect to order page with following item.
-      fetch("http://localhost:8080/api/v1/order", {
+      fetch("http://192.168.52.196:8080/api/v1/order", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(selectedProducts),

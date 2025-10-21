@@ -12,9 +12,8 @@
         <div class="card mx-auto" style="max-width: 450px;">
             <div class="card-body">
                 <h4 class="card-title text-center mb-4">Register</h4>
-
                 <!-- Form đăng ký -->
-                <form th:action="@{/register}" method="post">
+                <form id="form-register" th:action="@{/register}" method="post">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
                         <input maxlength="15" type="text" id="phone" name="phone" class="form-control" required />
@@ -43,16 +42,58 @@
                 <div class="text-center mt-3">
                     <a href="/login">Already have an account? Login now</a>
                 </div>
-
-                <div th:if="${param.error}" class="text-danger mt-3 text-center">
+                <!-- <div th:if="${param.error}" class="text-danger mt-3 text-center">
                     Registration failed. Please try again.
                 </div>
                 <div th:if="${param.success}" class="text-success mt-3 text-center">
                     Registration successful! You can now log in.
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 </body>
+<script>
+    document.getElementById("form-register").addEventListener("submit", function (e) {
+        e.preventDefault();
+        //validation
+        let phone = document.getElementById("phone").value.trim();
+        let password = document.getElementById("password").value.trim();
+        let retypePassword = document.getElementById("retype-password").value.trim();
+        let fullName = document.getElementById("fullname").value.trim();
+        let address = document.getElementById("address").value.trim();
+        if (password == "" || retypePassword == "" || fullName == "" || address == "") {
+            alert("Please fill in requred fields");
+            return;
+        }
+        const regex = /^\+?[1-9]\d{1,14}$/;
+        if (phone == null || phone == "" || !regex.test(phone)) {
+            alert("Please enter a valid phone number: only contain character '+'' or number, length from 1 to 14 char");
+            e.preventDefault();
+            return;
+        }
+        if (password != retypePassword) {
+            alert("Password and retype password not match");
+            return;
+        }
+        console.log("fetching");
+        fetch(`http://192.168.52.196:8080/api/v1/user/signUp`,{
+            method:"POST",
+            headers:{"Content-type":"application/json"},
+            body:JSON.stringify({
+                full_name: fullName,
+                phone_number:phone,
+                password:password,
+                address:address
+            })
+        }).then((response)=>response.json())
+        .then((res)=>{
+            alert(res.data);
+            if (res.message == "success") {
+                document.location.href = "/login";
+            }
+            document.getElementById("form-register").reset();
+        })
+    })
+</script>
 
 </html>

@@ -75,6 +75,9 @@ public class InvoiceService {
             //update quantity product
             Product existProduct = iProductMapper.getProductById(invoiceProducts.getProductId());
             Integer newQuantity = existProduct.getNumAvailable() - invoiceProducts.getQuantity();
+            if (newQuantity<0) {
+                throw new RuntimeException("This product is currently out of stock due to high demand. Please try again.");
+            }
             Product newProduct = Product.builder()
                     .id(existProduct.getId())
                     .numAvailable(newQuantity)
@@ -157,7 +160,6 @@ public class InvoiceService {
 
         // get Infor invoice for export invoice
         // List<ListInvoiceDisplay> listInvoiceDisplay = gInvoiceDetailByOrderId(orderId);
-
 
         List<ListInvoiceMapping> invoiceExported = gInvoiceDetailByOrderId(orderId);
 

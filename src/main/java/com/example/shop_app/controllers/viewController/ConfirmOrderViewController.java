@@ -28,6 +28,7 @@ public class ConfirmOrderViewController {
     // bind list product to server
     private ResponseEntity<?> bindToOrderConfirm(@RequestBody List<ProductNumberDTO> productToConfirm,
             HttpSession session) throws Exception {
+                orderService.checkQuantityInput(productToConfirm);
         session.setAttribute("result", productToConfirm);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Bind to server successfully"));
     }

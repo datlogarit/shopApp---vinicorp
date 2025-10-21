@@ -16,12 +16,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public void createUser(UserDTO userDTO){
+        Users existUsers = iUserMapper.getUserByPhoneNumber(userDTO.getPhoneNumber());
+        if(existUsers!=null) throw new RuntimeException("The phone number already in user");
         Users users = Users.builder()
         .fullName(userDTO.getFullName())
         .phoneNumber(userDTO.getPhoneNumber())
         .password(passwordEncoder.encode(userDTO.getPassword()))
         .address(userDTO.getAddress())
-        .role(userDTO.getRole())
+        .role("customer")
         .build();
         iUserMapper.crateNewUser(users);
     }

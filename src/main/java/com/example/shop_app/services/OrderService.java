@@ -54,4 +54,19 @@ public class OrderService {
         }
         return totalCost;
     }
+
+    public void checkQuantityInput(List<ProductNumberDTO> productToConfirm){
+        for (ProductNumberDTO productNumberDTO : productToConfirm) {
+            Product existProduct = iProductMapper.getProductById(productNumberDTO.getProductId());
+            if (productNumberDTO.getQuantity() < 1) {
+                throw new RuntimeException("The number of product must be greate than 0");
+            }
+            if (productNumberDTO.getQuantity() > existProduct.getNumAvailable()) {
+                throw new RuntimeException("The number of product "+ existProduct.getName() +" exceed the stock. (Max: "+ existProduct.getNumAvailable()+"). Please check again");
+            }
+        }
+    }
 }
+
+
+

@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.shop_app.services.CartService;
 
-import lombok.RequiredArgsConstructor;
+    import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("api/v1/cart")
-@RequiredArgsConstructor
-public class CartController {
-    private final CartService cartService;
+    @RestController
+    @RequestMapping("api/v1/cart")
+    @RequiredArgsConstructor
+    public class CartController {
+        private final CartService cartService;
 
-    @GetMapping("/{userId}")
-    private ResponseEntity<?> getInfoCart(@PathVariable Long userId){
-        List<CartProductViewDTO> listCartProductDTOs = cartService.getInfoCartByUserId(userId);
-        return ResponseEntity.ok(new BaseAPIRespone<>(200, "get productCart successfully", listCartProductDTOs));
+        @GetMapping("/{userId}")
+        private ResponseEntity<?> getInfoCart(@PathVariable Long userId){
+            List<CartProductViewDTO> listCartProductDTOs = cartService.getInfoCartByUserId(userId);
+            return ResponseEntity.ok(new BaseAPIRespone<>(200, "get productCart successfully", listCartProductDTOs));
+        }
     }
-}

@@ -12,6 +12,16 @@ btnBuyConfirm.addEventListener("click", function () {
   console.log(phonenumberInput);
   const selected = document.querySelector('input[name="radioDefault"]:checked');
   const payMethod = selected ? selected.value : null;
+  const regex =  /^[\p{L}0-9\s]+$/u;
+  if (!regex.test(addressInput)||!regex.test(nameInput)) {
+    alert("Key word only have to contain number, space and text!");
+    return;
+  }
+  const regexPhonenumber = /^\+?[1-9]\d{1,14}$/;
+        if (phonenumberInput == "" || !regexPhonenumber.test(phonenumberInput)) {
+            alert("Please enter a valid phone number");
+            return;
+        }
   if (!payMethod) {
     alert("Please choose the pay mothod");
     return;
@@ -25,7 +35,7 @@ btnBuyConfirm.addEventListener("click", function () {
     var listProduct = window && window.RAW_ITEMS ? window.RAW_ITEMS : [];
     var userId = window && window.USER_ID;
     console.log("[order-confirm] listProduct:", listProduct);
-    fetch(`http://localhost:8080/api/v1/invoice`, {
+    fetch(`http://192.168.52.196:8080/api/v1/invoice`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
