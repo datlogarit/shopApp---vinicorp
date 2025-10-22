@@ -65,7 +65,7 @@
             alert("Please fill in requred fields");
             return;
         }
-        const regex = /^\+?[1-9]\d{1,14}$/;
+        const regex = /^\+?[0-9]\d{1,14}$/;
         if (phone == null || phone == "" || !regex.test(phone)) {
             alert("Please enter a valid phone number: only contain character '+'' or number, length from 1 to 14 char");
             e.preventDefault();

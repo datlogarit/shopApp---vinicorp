@@ -34,7 +34,7 @@ public class ProductService {
         return lProductHomeViewDTO;
     }
 
-    // Vì có phải join 2 bảng nên trả trực tiếp về view
+    // Because have to join 2 table so return riderect view;
     public ProductDetailViewDTO getDetailProduct(Long productId) {
         return iProductMapper.detailProduct(productId);
     }

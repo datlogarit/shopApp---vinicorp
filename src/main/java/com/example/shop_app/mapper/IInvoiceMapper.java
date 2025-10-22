@@ -6,13 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.shop_app.DTOs.invoice.ListInvoiceMapping;
+import com.example.shop_app.DTOs.invoice.ListInvoiceView;
 import com.example.shop_app.domains.Invoice;
 
 @Mapper
 public interface IInvoiceMapper {
     public void createInvoice(@Param("invoice") Invoice invoice);
 
-    public List<ListInvoiceMapping> getAllInvoiceByUserId(@Param("userId") Long userId);
+    public List<ListInvoiceView> getAllInvoiceByUserId(@Param("userId") Long userId);
 
-    public List<ListInvoiceMapping> exportInvoice(@Param("orderId") Long orderId);
+    public List<ListInvoiceMapping> getInfoExportInvoice(@Param("orderId") Long orderId);
 }

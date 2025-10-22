@@ -26,16 +26,17 @@ public class ConfirmOrderViewController {
     @PostMapping("")
     @ResponseBody
     // bind list product to server
-    private ResponseEntity<?> bindToOrderConfirm(@RequestBody List<ProductNumberDTO> productToConfirm,
+    private ResponseEntity<?> bindToOrderConfirm(
+            @RequestBody List<ProductNumberDTO> productToConfirm,
             HttpSession session) throws Exception {
-                orderService.checkQuantityInput(productToConfirm);
+        orderService.checkQuantityInput(productToConfirm); // validate
         session.setAttribute("result", productToConfirm);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Bind to server successfully"));
     }
 
-    //server - response
-    @SuppressWarnings("unchecked")
+    // //server - response
     @GetMapping("confirm")
+    @SuppressWarnings("unchecked")
     private String getOrderPage(Model model, HttpSession session, @AuthenticationPrincipal Users userDetails) {
         List<ProductNumberDTO> listProduct = (List<ProductNumberDTO>) session.getAttribute("result");
         // ProductNumberDTO to OrderConfirmViewDTO (view)

@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop_app.mapper.ICartProductMapper">
-<!-- mapping result in the DTO -->
-    <resultMap id="CartProductResultMap" 
-               type="com.example.shop_app.DTOs.cart.CartProductViewDTO">
-        <result property="productId" column="product_id"/>
-        <result property="productName" column="product_name"/>
-        <result property="price" column="price"/>
-        <result property="displayAvt" column="display_avt"/>
-        <result property="quantity" column="quantity"/>
-        <result property="numAvailable" column="num_available"/>
-    </resultMap>
 
     <!-- get product in cart by userId -->
-    <select id="getInfoCartByUserId" resultMap="CartProductResultMap">
+    <select id="getInfoCartByUserId" resultType="com.example.shop_app.DTOs.cart.CartProductViewDTO">
         select
             cp.product_id,
             cp.quantity,
@@ -33,7 +23,7 @@
         values (#{cartProduct.cartId}, #{cartProduct.productId}, #{cartProduct.quantity})
     </insert>
 
-    <delete id="deleteProductToCart">
+    <delete id="deleteProductIntoCart">
         delete from cart_product where cart_id = #{cartId} and product_id = #{productId}
     </delete>
 

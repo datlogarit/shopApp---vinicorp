@@ -8,16 +8,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.shop_app.DTOs.BaseAPIRespone;
 import com.example.shop_app.DTOs.cart.CartProductViewDTO;
 import com.example.shop_app.DTOs.product.ProductNumberDTO;
-import com.example.shop_app.domains.CartProduct;
 import com.example.shop_app.domains.Users;
 import com.example.shop_app.services.CartProductService;
 
@@ -51,12 +48,12 @@ public class CartProductController {
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "delete product to cart successfully"));
     }
 
-    @PutMapping("/update")
-    private ResponseEntity<?> update(
-            @RequestParam("cartId") Long cartId,
-            @RequestParam("productId") Long productId,
-            @RequestBody CartProduct addToCartRequest) {
-        cartProductService.updateCartProduct(cartId, productId, addToCartRequest);
-        return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Update product in cart successfully!"));
-    }
+    // @PutMapping("/update")
+    // private ResponseEntity<?> update(
+    //         @RequestParam("cartId") Long cartId,
+    //         @RequestParam("productId") Long productId,
+    //         @RequestBody CartProduct addToCartRequest) {
+    //     cartProductService.updateCartProduct(cartId, productId, addToCartRequest);
+    //     return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Update product in cart successfully!"));
+    // }
 }

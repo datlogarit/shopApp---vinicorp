@@ -39,24 +39,27 @@ public class CartProductService {
             iCartMapper.createNewCart(newCart);
         }
 
+        // get cartId
         Long cartId = iCartMapper.getCartByUserId(userId);
+        // Insert product into the cart
         if (iCartProductMapper.checkExistByCartIdAndProductId(cartId, productNumberDTO.getProductId()) != null) {
-            // if product have aready in cart then update quantity
+            // if product have aready in cart --> update quantity
             CartProduct oldCartProduct = iCartProductMapper.getByCartIdAndProductId(cartId,
                     productNumberDTO.getProductId());
             Integer updatedQuantity = productNumberDTO.getQuantity() + oldCartProduct.getQuantity();
-            if (updatedQuantity > product.getNumAvailable()) {
+            if (updatedQuantity > product.getNumAvailable()) { // updateQuantity exceed numAvailable
                 updatedQuantity = product.getNumAvailable();
                 CartProduct newCartProduct = CartProduct.builder()
                         .quantity(updatedQuantity)
                         .build();
                 updateCartProduct(cartId, productNumberDTO.getProductId(), newCartProduct);
                 throw new RuntimeException("Currently, the quantity of products in your shopping cart is at the maximum in stock.");
+            }else{//updateQuantity no exceed numAvailable
+                CartProduct newCartProduct = CartProduct.builder()
+                        .quantity(updatedQuantity)
+                        .build();
+                updateCartProduct(cartId, productNumberDTO.getProductId(), newCartProduct);
             }
-            CartProduct newCartProduct = CartProduct.builder()
-                    .quantity(updatedQuantity)
-                    .build();
-            updateCartProduct(cartId, productNumberDTO.getProductId(), newCartProduct);
         } else {// create new product in cart
             CartProduct cartProduct = CartProduct.builder()
                     .cartId(cartId)
@@ -68,14 +71,13 @@ public class CartProductService {
     }
 
     // update product in the cart
-    public void updateCartProduct(Long cartId, Long productId, CartProduct cartProduct) {
-        iCartProductMapper.updateCartProduct(cartId, productId, cartProduct);
+    public void updateCartProduct(Long cartId, Long productId, CartProduct newCartProduct) {
+        iCartProductMapper.updateCartProduct(cartId, productId, newCartProduct);
     }
 
     public void deleteProductToCart(Long userId, Long productId) {
-        // tìm cartId theo userId
+        // find cartId by userId
         Long cartId = iCartMapper.getCartByUserId(userId);
-        iCartProductMapper.deleteProductToCart(cartId, productId);
+        iCartProductMapper.deleteProductIntoCart(cartId, productId);
     }
-
 }

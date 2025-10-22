@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class InvoiceDTO {
-    @JsonProperty("customer_id")
-    private Long customerId;
+    // @JsonProperty("customer_id")
+    // private Long customerId;
 
     @JsonProperty("pay_method")
     private String payMethod;

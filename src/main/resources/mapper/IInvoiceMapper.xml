@@ -8,29 +8,44 @@
         values (#{invoice.customerId}, #{invoice.payMethod}, #{invoice.orderStatus}, #{invoice.fullName}, #{invoice.address}, #{invoice.phoneNumber}, #{invoice.totalAmount})
     </insert>
 
-        <!-- mapping the custom result -->
-    <!-- <resultMap id="ProductDetailMap" type="com.example.shop_app.DTOs.product.ProductDetailViewDTO">
-        <id property="id" column="id"/>
-        <result property="description" column="description"/>
-        <result property="name" column="name"/>
-        <result property="numAvailable" column="num_available"/>
-        <result property="price" column="price"/>
-        <result property="displayAvt" column="display_avt"/>
-        <collection property="images" ofType="string">
-            <result column="link_image"/>
-        </collection>
-    </resultMap> -->
-    <!-- get info detail product page  -->
-    <select id="getAllInvoiceByUserId" resultType="com.example.shop_app.DTOs.invoice.ListInvoiceMapping">
-        select i.id as order_id, i.customer_id, p.id as product_id, p.name as product_name, ip.quantity, i.total_amount, i.pay_method, i.order_status, i.created_at, i.updated_at
-        from invoices i
-        join invoice_product ip on ip.invoice_id = i.id
-        join products p on p.id = ip.product_id
-        where i.customer_id  = #{userId}
-        order by i.created_at desc;
-    </select>    
+    <select id="getAllInvoiceByUserId" resultMap="ListInvoiceResultMap">
+        SELECT 
+            i.id AS order_id,
+            i.customer_id,
+            i.total_amount,
+            i.pay_method,
+            i.order_status,
+            i.created_at,
+            i.updated_at,
+            p.id AS product_id,
+            p.name AS product_name,
+            ip.quantity
+        FROM invoices i
+        JOIN invoice_product ip ON ip.invoice_id = i.id
+        JOIN products p ON p.id = ip.product_id
+        WHERE i.customer_id = #{userId}
+        ORDER BY i.created_at DESC
+    </select>
 
-    <select id="exportInvoice" resultType="com.example.shop_app.DTOs.invoice.ListInvoiceMapping">
+    <resultMap id="ListInvoiceResultMap" type="com.example.shop_app.DTOs.invoice.ListInvoiceView">
+        <id property="orderId" column="order_id"/>
+        <result property="customerId" column="customer_id"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="payMethod" column="pay_method"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+
+        <!-- ánh xạ danh sách sản phẩm -->
+        <collection property="listProduct" ofType="com.example.shop_app.DTOs.invoice.ListInvoiceView$ProductInfo">
+            <id property="productId" column="product_id"/>
+            <result property="productName" column="product_name"/>
+            <result property="quantity" column="quantity"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getInfoExportInvoice" resultType="com.example.shop_app.DTOs.invoice.ListInvoiceMapping">
         select i.id as order_id, i.customer_id, i.full_name, i.phone_number, i.address, p.id as product_id, p.name as product_name, p.price, ip.quantity, i.total_amount , i.pay_method, i.order_status, i.created_at, i.updated_at
         from invoices i
         join invoice_product ip on ip.invoice_id = i.id

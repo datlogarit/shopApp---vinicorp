@@ -17,7 +17,7 @@ btnBuyConfirm.addEventListener("click", function () {
     alert("Key word only have to contain number, space and text!");
     return;
   }
-  const regexPhonenumber = /^\+?[1-9]\d{1,14}$/;
+  const regexPhonenumber = /^\+?[0-9]\d{1,14}$/;
         if (phonenumberInput == "" || !regexPhonenumber.test(phonenumberInput)) {
             alert("Please enter a valid phone number");
             return;

@@ -5,13 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.shop_app.DTOs.BaseAPIRespone;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+// use to for handle exception
 public class GlobalExceptionHandler {
 
     // Xử lý lỗi dữ liệu không hợp lệ

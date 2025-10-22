@@ -46,14 +46,6 @@ public class SecurityConfig {
                                                                 .defaultSuccessUrl("/api/v1/home", true)
                                                                 .loginPage("/login") // custom page
                                                                 .loginProcessingUrl("/login")) //login url
-                                // .sessionManagement(session -> session
-                                //                 // Giới hạn chỉ 1 session mỗi user
-                                //                 .maximumSessions(1)
-                                //                 // Khi đăng nhập mới, session cũ bị vô hiệu
-                                //                 .maxSessionsPreventsLogin(false)
-                                // // Nếu muốn chặn đăng nhập mới thay vì đá session cũ:
-                                // // .maxSessionsPreventsLogin(true)
-                                // ) // url để submit form)
                                 .logout(
                                                 form -> form.logoutUrl("/logout")
                                                                 .logoutSuccessUrl("/login?logout")

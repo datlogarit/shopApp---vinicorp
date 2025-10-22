@@ -49,7 +49,7 @@
 <script>
     document.getElementById("form-login").addEventListener("submit", function (e) {
         let usernameIn = document.getElementById("username-input").value.trim();
-        const regex = /^\+?[1-9]\d{1,14}$/;
+        const regex = /^\+?[0-9]\d{1,14}$/;
         if (usernameIn == null || usernameIn == "" || !regex.test(usernameIn)) {
             alert("Please enter a valid phone number");
             e.preventDefault();

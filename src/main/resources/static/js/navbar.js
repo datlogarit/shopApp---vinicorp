@@ -59,7 +59,7 @@ if (cart) {
                 </div>
               </div>
               <div style="display: flex;flex-direction: column; justify-content: space-between; height: 65px;">
-                <input min="1" id="quan-ipnut" class="quantity-input" type="number" value =${element.quantity} style="height: 25px; width: 50px;">
+                <input min="1" id="quan-ipnut" class="quantity-input" type="number" value =${element.quantity} style="height: 25px; width: 60px;">
                 <button onclick="deleteProduct(${element.productId})" style="border-radius: 5px;border: none;font-size: 10px;background-color: #dc3545;padding: 3px;">Delete</button>
               </div>
             </div>
@@ -175,9 +175,6 @@ if (buyButton) {
       alert("Please select least one product to pay!");
       return;
     }
-    // else if(quantity >stockNumber){
-    //     alert('Quantity exceeding inventory (' + stockNumber + ')');
-    // }
     else {
       // redirect to order page with following item.
       fetch("http://192.168.52.196:8080/api/v1/order", {

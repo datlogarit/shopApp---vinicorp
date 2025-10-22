@@ -41,13 +41,13 @@
     <update id="updateProduct">
         update products
         <set>
-            <if test="product.name!=null">name = #{product.name}</if>
+            <if test="product.name!=null">name = #{product.name},</if>
 
-            <if test="product.price!=null">price = #{product.price}</if>
+            <if test="product.price!=null">price = #{product.price},</if>
 
-            <if test="product.description!=null">description = #{product.description}</if>
+            <if test="product.description!=null">description = #{product.description},</if>
 
-            <if test="product.numAvailable!=null">num_available = #{product.numAvailable}</if>
+            <if test="product.numAvailable!=null">num_available = #{product.numAvailable},</if>
 
             <if test="product.displayAvt!=null">display_avt = #{product.displayAvt}</if>
         </set>

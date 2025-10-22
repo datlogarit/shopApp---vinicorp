@@ -14,7 +14,7 @@ public interface ICartProductMapper {
 
     public void addProductToCart(@Param("cartProduct") CartProduct cartProduct);
 
-    public void deleteProductToCart(@Param("cartId") Long cartId, @Param("productId") Long productId);
+    public void deleteProductIntoCart(@Param("cartId") Long cartId, @Param("productId") Long productId);
 
     public Long checkExistByCartIdAndProductId(@Param("cartId") Long cartId, @Param("productId") Long productId);
 

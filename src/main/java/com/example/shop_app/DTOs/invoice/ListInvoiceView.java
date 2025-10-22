@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class ListInvoiceDisplay {
+public class ListInvoiceView {
     @JsonProperty("order_id")
     private Long orderId;
 
@@ -33,8 +33,6 @@ public class ListInvoiceDisplay {
 
     @JsonProperty("total_amount")
     private Long totalAmount;
-    // @JsonProperty("product_id")
-    // private Long productId;
 
     public List<ProductInfo> listProduct = new ArrayList<>();
 
