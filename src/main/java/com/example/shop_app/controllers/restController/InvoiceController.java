@@ -15,6 +15,7 @@ import com.example.shop_app.DTOs.invoice.InvoiceDTO;
 import com.example.shop_app.domains.Users;
 import com.example.shop_app.services.InvoiceService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 // invoice entity equivalent order entity
@@ -26,14 +27,14 @@ public class InvoiceController {
 
     // api is called when init invoice
     @PostMapping("")
-    public ResponseEntity<?> createInvoice(@AuthenticationPrincipal Users userDetails, @RequestBody InvoiceDTO invoiceDTO) {
+    public ResponseEntity<?> createInvoice(@AuthenticationPrincipal Users userDetails, @Valid @RequestBody InvoiceDTO invoiceDTO) {
         invoiceService.createInvoice(userDetails.getId(), invoiceDTO);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "create invoice successfully"));
     }
 
-    @GetMapping("/export/{orderId}")
-    public ResponseEntity<byte[]> exportInvoice(@PathVariable("orderId") Long orderId) throws Exception {
-        byte[] pdfBytes = invoiceService.exportInvoice(orderId);
+    @GetMapping("/export/{invoiceId}")
+    public ResponseEntity<byte[]> exportInvoice(@PathVariable("invoiceId") Long invoiceId, @AuthenticationPrincipal Users userDetails) throws Exception {
+        byte[] pdfBytes = invoiceService.exportInvoice(invoiceId, userDetails.getId());
         return ResponseEntity.ok()
                 .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf")
                 .contentType(org.springframework.http.MediaType.APPLICATION_PDF)

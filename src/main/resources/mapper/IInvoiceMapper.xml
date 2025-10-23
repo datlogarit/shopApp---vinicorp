@@ -51,6 +51,10 @@
         join invoice_product ip on ip.invoice_id = i.id
         join products p on p.id = ip.product_id
         join users u on u.id = i.customer_id 
-        where i.id = ${orderId};
+        where i.id = ${invoiceId};
     </select>   
+
+    <select id="checkExistByInvoiceIdAndUserId" resultType="java.lang.Long">
+        select 1 from invoices where id = #{invoiceId} and customer_id = #{userId} limit 1
+    </select> 
 </mapper>

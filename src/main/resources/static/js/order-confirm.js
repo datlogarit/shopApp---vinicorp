@@ -33,13 +33,13 @@ btnBuyConfirm.addEventListener("click", function () {
     alert("Please fill out all required fields");
   } else {
     var listProduct = window && window.RAW_ITEMS ? window.RAW_ITEMS : [];
-    var userId = window && window.USER_ID;
+    // var userId = window && window.USER_ID;
     console.log("[order-confirm] listProduct:", listProduct);
     fetch(`http://192.168.52.196:8080/api/v1/invoice`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        customer_id: userId,
+        // customer_id: userId,
         pay_method: payMethod,
         full_name: nameInput,
         address: addressInput,

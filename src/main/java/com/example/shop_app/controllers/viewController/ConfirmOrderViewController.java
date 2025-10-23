@@ -15,6 +15,7 @@ import com.example.shop_app.domains.Users;
 import com.example.shop_app.services.OrderService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -27,7 +28,7 @@ public class ConfirmOrderViewController {
     @ResponseBody
     // bind list product to server
     private ResponseEntity<?> bindToOrderConfirm(
-            @RequestBody List<ProductNumberDTO> productToConfirm,
+            @Valid @RequestBody List<ProductNumberDTO> productToConfirm,
             HttpSession session) throws Exception {
         orderService.checkQuantityInput(productToConfirm); // validate
         session.setAttribute("result", productToConfirm);

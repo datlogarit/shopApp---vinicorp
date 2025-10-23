@@ -18,6 +18,7 @@ import com.example.shop_app.DTOs.product.ProductNumberDTO;
 import com.example.shop_app.domains.Users;
 import com.example.shop_app.services.CartProductService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,7 +36,7 @@ public class CartProductController {
     @PostMapping("/add")
     private ResponseEntity<?> addProductToCart(
             @AuthenticationPrincipal Users userDetails,
-            @RequestBody ProductNumberDTO productInfo) {
+            @Valid @RequestBody ProductNumberDTO productInfo) {
         cartProductService.addProductToCart(userDetails.getId(), productInfo);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Add product to cart successfully"));
     }
@@ -47,13 +48,4 @@ public class CartProductController {
         cartProductService.deleteProductToCart(userDetails.getId(), productId);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "delete product to cart successfully"));
     }
-
-    // @PutMapping("/update")
-    // private ResponseEntity<?> update(
-    //         @RequestParam("cartId") Long cartId,
-    //         @RequestParam("productId") Long productId,
-    //         @RequestBody CartProduct addToCartRequest) {
-    //     cartProductService.updateCartProduct(cartId, productId, addToCartRequest);
-    //     return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Update product in cart successfully!"));
-    // }
 }

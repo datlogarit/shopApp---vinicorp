@@ -26,7 +26,6 @@ public class AlreadyLoggedInFilter extends OncePerRequestFilter {
                 return;
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }
