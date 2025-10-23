@@ -16,7 +16,7 @@
         style="justify-content: center;flex-wrap: wrap; gap: 40px;display: flex;flex-direction: row; margin-top: 30px;">
         <div th:each="product: ${allProduct}">
             <div
-                th:replace="fragments/card::product_card(url=${product.display_avt}, name=${product.name}, description=${product.description}, price=${product.price}, id=${product.id})">
+                th:replace="fragments/card :: product_card(url=${product.display_avt}, name=${product.name}, description=${product.description}, price=${product.price}, id=${product.id})">
             </div>
         </div>
     </div>

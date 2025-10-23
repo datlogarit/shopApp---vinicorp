@@ -2,11 +2,8 @@ package com.example.shop_app.services;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -95,12 +92,16 @@ public class InvoiceService {
         return iInvoiceMapper.getInfoExportInvoice(orderId);
     }
 
-    public byte[] exportInvoice(Long orderId) throws JRException, IOException {
+    public byte[] exportInvoice(Long invoiceId, Long userId) throws JRException, IOException {
+        //xem invoice có thuộc người dùng hiện tại không ?
+        if (iInvoiceMapper.checkExistByInvoiceIdAndUserId(userId, invoiceId)==null) {
+            throw new RuntimeException("You do not have permission to access this file");
+        }
         // Load file jrxml from to path of jrxml file.
         InputStream inputStream = getClass().getResourceAsStream("/reports/invoice_template.jrxml");
 
         // product invoice
-        List<ListInvoiceMapping> invoiceExported = gInvoiceDetailByOrderId(orderId);
+        List<ListInvoiceMapping> invoiceExported = gInvoiceDetailByOrderId(invoiceId);
 
         // Compile
         JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
