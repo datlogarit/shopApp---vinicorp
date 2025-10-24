@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.shop_app.DTOs.invoice.InvoiceDTO;
 import com.example.shop_app.DTOs.invoice.ListInvoiceView;
@@ -38,17 +39,25 @@ public class InvoiceService {
     private final ICartProductMapper iCartProductMapper;
     private final ICartMapper iCartMapper;
 
+    // các cách để giải quyết vấn đề race condition
+    // 1. update database để kiểm tra số lượng sản phẩm tồn kho trực tiếp trong db
+    // 2. khóa bi quan - khóa lạc quan: khóa khi gặp luồng thực thi có thể gây race condition
+    // 3. 
+    @Transactional
     public void createInvoice(Long customerId, InvoiceDTO invoiceDTO) {
         //caculate total amount 
         Long totalAmount = 0L;
         for (ProductNumberDTO productNumberDTO : invoiceDTO.getListProduct()) {
-            Product existProduct = iProductMapper.getProductById(productNumberDTO.getProductId());
+            // 🔒 Lấy bản ghi có khóa
+            Product existProduct = iProductMapper.getProductByIdForUpdate(productNumberDTO.getProductId());
+            
             if (productNumberDTO.getQuantity() > existProduct.getNumAvailable()) {
                 throw new RuntimeException("This product is currently out of stock due to high demand. Please try again.");
-            }else{
+            } else {
                 totalAmount += existProduct.getPrice() * productNumberDTO.getQuantity();
             }
         }
+        
         // create a invoice
         Invoice newInvoice = Invoice.builder()
                 // should be auto get from backend
@@ -65,22 +74,29 @@ public class InvoiceService {
         for (ProductNumberDTO invoiceProducts : invoiceDTO.getListProduct()) {
             Long cartId = iCartMapper.getCartByUserId(customerId);
             iCartProductMapper.deleteProductIntoCart(cartId, invoiceProducts.getProductId());
-            //update quantity product
-            Product existProduct = iProductMapper.getProductById(invoiceProducts.getProductId());
+        
+            // 🔒 Lấy lại bản ghi có khóa để chắc chắn chưa thay đổi
+            Product existProduct = iProductMapper.getProductByIdForUpdate(invoiceProducts.getProductId());
             Integer newQuantity = existProduct.getNumAvailable() - invoiceProducts.getQuantity();
+            
+            if (newQuantity < 0) {
+                throw new RuntimeException("This product just went out of stock, please refresh your cart.");
+            }
+        
             Product newProduct = Product.builder()
                     .id(existProduct.getId())
                     .numAvailable(newQuantity)
                     .build();
             iProductMapper.updateProduct(newProduct);
-            // create a product into invoice
+        
+            // create invoice product
             InvoiceProduct newInvoiceProduct = InvoiceProduct.builder()
                     .invoiceId(newInvoice.getId())
                     .productId(invoiceProducts.getProductId())
                     .quantity(invoiceProducts.getQuantity())
                     .build();
             iInvoiceProductMapper.createInvoiceProduct(newInvoiceProduct);
-        }
+        }        
     }
 
     public List<ListInvoiceView> gListInvoiceDetail(Long userId) {

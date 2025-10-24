@@ -53,7 +53,7 @@ btnBuyConfirm.addEventListener("click", function () {
           alert("order successfully");
           document.location.href = "/api/v1/order-history";
         } else {
-          alert("have error occurred");
+          alert(res.data);
         }
       });
   }

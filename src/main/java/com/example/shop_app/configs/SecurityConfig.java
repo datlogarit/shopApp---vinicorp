@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+        // giảm giá --> nhiều người mua hàng --> hết hàng: thông báo đến cho người dùng
         private final IUserMapper iUserMapper;
 
         // Maybe throw exception when config
@@ -32,8 +33,8 @@ public class SecurityConfig {
                                                 // allow public pages
                                                 .requestMatchers("/", "/login", "/register",
                                                                 "/api/v1/user/signUp", "/api/v1/home",
-                                                                "/api/v1/detail/**", "/api/v1/search"
-                                                                // "/api/v1/invoice/**",
+                                                                "/api/v1/detail/**", "/api/v1/search",
+                                                                "/api/v1/invoice/**"
                                                                 // "/api/v1/invoice/export/**",
                                                                 // "/api/v1/cart/**"
                                                                 ).permitAll()

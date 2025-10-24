@@ -23,4 +23,4 @@ public class AuthViewController {
         return "register";
     }
 }
-
+//đặt hàng xong thì cập nhật số lượng
