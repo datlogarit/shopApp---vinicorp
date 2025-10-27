@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-        // giảm giá --> nhiều người mua hàng --> hết hàng: thông báo đến cho người dùng
         private final IUserMapper iUserMapper;
 
         // Maybe throw exception when config
