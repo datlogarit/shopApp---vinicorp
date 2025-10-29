@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//response for request cart products view
+//view of cart
 public class CartProductViewDTO {   
     private Long productId;
 

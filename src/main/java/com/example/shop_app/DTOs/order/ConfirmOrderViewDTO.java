@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-//response for request confirm page
+//confirm order view
 public class ConfirmOrderViewDTO {
     private String fullName;
     private String address;

@@ -38,6 +38,13 @@
         WHERE id = #{productId} 
     </select>
 
+    <select id="getProductByIdForUpdate" resultType="com.example.shop_app.domains.Product">
+        SELECT *
+        FROM products
+        WHERE id = #{productId}
+        FOR UPDATE
+    </select>
+
     <update id="updateProduct">
         update products
         <set>

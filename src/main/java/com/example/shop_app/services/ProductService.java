@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.shop_app.DTOs.product.ProductDTO;
 import com.example.shop_app.DTOs.product.ProductDetailViewDTO;
 import com.example.shop_app.DTOs.product.ProductHomeViewDTO;
 import com.example.shop_app.domains.Product;
@@ -53,5 +54,13 @@ public class ProductService {
             lProductHomeViewDTO.add(productHomeViewDTO);
         }
          return lProductHomeViewDTO;
+    }
+
+    public void updateQuantityProduct(ProductDTO productDTO){
+        Product existProduct = Product.builder()
+        .id(productDTO.getId())
+        .numAvailable(productDTO.getNumAvailable())
+        .build();
+        iProductMapper.updateProduct(existProduct);
     }
 }

@@ -12,6 +12,8 @@ import com.example.shop_app.domains.Product;
 public interface IProductMapper {
     public List<Product> getAllProduct();
     public Product getProductById(@Param("productId") Long producId);
+    // transaction
+    public Product getProductByIdForUpdate(Long productId);
     // need join with ProductImage table
     public ProductDetailViewDTO detailProduct(@Param("productId") Long productId);
     public List<Product> getProductByName(@Param("keyword") String keyword);

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-// use to for handle exception
+// used to for handle exception
 public class GlobalExceptionHandler {
     // use to handle invalid Arg
     @ExceptionHandler(MethodArgumentNotValidException.class)
