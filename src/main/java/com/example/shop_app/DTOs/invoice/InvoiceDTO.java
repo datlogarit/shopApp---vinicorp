@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+//request to create new invoice
 public class InvoiceDTO {
     @NotBlank(message = "This field cannot be left blank.")
     @JsonProperty("pay_method")

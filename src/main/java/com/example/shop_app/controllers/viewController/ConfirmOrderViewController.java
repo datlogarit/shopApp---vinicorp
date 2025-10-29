@@ -35,17 +35,16 @@ public class ConfirmOrderViewController {
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Bind to server successfully"));
     }
 
-    // //server - response
+    // go go confirm page
     @GetMapping("confirm")
     @SuppressWarnings("unchecked")
     private String getOrderPage(Model model, HttpSession session, @AuthenticationPrincipal Users userDetails) {
         List<ProductNumberDTO> listProduct = (List<ProductNumberDTO>) session.getAttribute("result");
         // ProductNumberDTO to OrderConfirmViewDTO (view)
         List<ConfirmOrderViewDTO> orderConfirmViewDTOs = orderService.getDataOrderView(listProduct);
-        Long totalPrice = orderService.caculateTotal(listProduct);
         model.addAttribute("rawItems", listProduct);
         model.addAttribute("userId", userDetails.getId());
-        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("totalPrice", orderService.caculateTotal(listProduct));
         model.addAttribute("items", orderConfirmViewDTOs);
         return "order-confirm";
     }

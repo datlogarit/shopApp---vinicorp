@@ -15,6 +15,7 @@ public interface IInvoiceMapper {
 
     public List<ListInvoiceView> getAllInvoiceByUserId(@Param("userId") Long userId);
 
+    // check permission
     public Long checkExistByInvoiceIdAndUserId(@Param("userId") Long userId, @Param("invoiceId") Long invoiceId);
 
     public List<ListInvoiceMapping> getInfoExportInvoice(@Param("invoiceId") Long invoiceId);

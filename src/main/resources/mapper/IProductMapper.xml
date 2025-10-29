@@ -45,7 +45,6 @@
         FOR UPDATE
     </select>
 
-
     <update id="updateProduct">
         update products
         <set>

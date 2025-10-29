@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+//register request
 public class UserDTO {
     @NotBlank(message = "This field cannot be left blank.")
     @JsonProperty("full_name")

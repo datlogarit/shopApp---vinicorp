@@ -18,20 +18,21 @@ import com.example.shop_app.services.InvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-// invoice entity equivalent order entity
 @RestController
 @RequestMapping("api/v1/invoice")
 @RequiredArgsConstructor
+//handle requests related invoice
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
-    // api is called when init invoice
+    // create a new invoice
     @PostMapping("")
-    public ResponseEntity<?> createInvoice(@AuthenticationPrincipal Users userDetails, @Valid @RequestBody InvoiceDTO invoiceDTO) {
+    public ResponseEntity<?> createInvoice(@AuthenticationPrincipal Users userDetails, @Valid @RequestBody InvoiceDTO invoiceDTO) throws InterruptedException {
         invoiceService.createInvoice(userDetails.getId(), invoiceDTO);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "create invoice successfully"));
     }
 
+    // export invoice by invoiceId
     @GetMapping("/export/{invoiceId}")
     public ResponseEntity<byte[]> exportInvoice(@PathVariable("invoiceId") Long invoiceId, @AuthenticationPrincipal Users userDetails) throws Exception {
         byte[] pdfBytes = invoiceService.exportInvoice(invoiceId, userDetails.getId());

@@ -1,3 +1,4 @@
+<!-- card of product -->
 <div id="product-cart" th:fragment="product_card(id, url, name, description, price)"
     style="border-radius: 10px; padding: 10px 15px;height: 320px;width: 250px;display: flex;flex-direction: column;background-color: rgb(216, 213, 213);">
     <div style="cursor: pointer;"
@@ -16,7 +17,7 @@
                 font-size: 13px;
                 font-weight: 100;
                 min-height: 80px;
-            ">product detail is rendered here</span>
+            ">product description is rendered here</span>
         </div>
         <div th:text="${#numbers.formatInteger(price, 0, 'POINT')} + ' ₫'" style="margin: 10px 0px;">Price of product</div>
     </div>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//response for request home view 
+// home view 
 public class ProductHomeViewDTO {
     private Long id;
 

@@ -21,11 +21,8 @@ public class DetailViewController {
 
     @GetMapping("/{productId}")
     public String getDetail(Model model, @PathVariable(name = "productId") Long productId, @AuthenticationPrincipal Users userDetails) {
-        if (userDetails!= null) {
-            model.addAttribute("userId", userDetails.getId());
-        }else{
-            model.addAttribute("userId", null);
-        }
+        model.addAttribute("userId", userDetails != null ? userDetails.getId() : null);
+
         ProductDetailViewDTO detailProduct = productService.getDetailProduct(productId);
         model.addAttribute("detailPr", detailProduct);
         return "detail";

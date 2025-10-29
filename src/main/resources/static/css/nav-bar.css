@@ -1,0 +1,15 @@
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: azure;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000;
+    top: 50px;
+    right: -150%;
+}
+
+.dropdown-menu.show {
+    display: flex;
+}

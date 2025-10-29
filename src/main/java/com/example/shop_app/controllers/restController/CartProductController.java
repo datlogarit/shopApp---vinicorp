@@ -24,15 +24,18 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/cart-product")
+// handle requests related to products in the shopping cart
 public class CartProductController {
     private final CartProductService cartProductService;
 
+    // get product in shopping cart
     @GetMapping("")
     private ResponseEntity<?> getInfoCart(@AuthenticationPrincipal Users userDetails){
         List<CartProductViewDTO> cartProducts = cartProductService.getProductInCart(userDetails.getId());
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", cartProducts));
     }
 
+    // add product to shopping cart
     @PostMapping("/add")
     private ResponseEntity<?> addProductToCart(
             @AuthenticationPrincipal Users userDetails,
@@ -41,6 +44,7 @@ public class CartProductController {
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Add product to cart successfully"));
     }
 
+    //delete product in the shoping cart
     @DeleteMapping("/delete/{productId}")
     private ResponseEntity<?> deleteProductToCart(
             @AuthenticationPrincipal Users userDetails,

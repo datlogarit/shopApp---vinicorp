@@ -1,5 +1,5 @@
 console.log("navbar");
-const userId = document.getElementById("user-info").dataset.userId;
+// const userId = document.getElementById("user-info").dataset.userId;
 
 document.getElementById("search-form").addEventListener("submit", function (event) {
   const value = document.getElementById("search-input").value.trim();

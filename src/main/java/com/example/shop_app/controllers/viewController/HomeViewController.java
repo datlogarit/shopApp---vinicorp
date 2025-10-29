@@ -21,11 +21,7 @@ public class HomeViewController{
 
     @GetMapping("")
     public String getHome(Model model, @AuthenticationPrincipal Users userDetails) {
-        if (userDetails!= null) {
-            model.addAttribute("userId", userDetails.getId());
-        }else{
-            model.addAttribute("userId", null);
-        }
+        model.addAttribute("userId", userDetails != null ? userDetails.getId() : null);
         List<ProductHomeViewDTO> allProduct = productService.getAllProducts();
        
         model.addAttribute("allProduct", allProduct);

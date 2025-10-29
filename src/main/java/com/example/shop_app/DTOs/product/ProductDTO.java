@@ -1,18 +1,18 @@
 package com.example.shop_app.DTOs.product;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Builder
-// product detail view
-public class ProductDetailViewDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+//update quantity
+public class ProductDTO {
     private Long id;
 
     private String name;
@@ -21,9 +21,8 @@ public class ProductDetailViewDTO {
 
     private String description;
 
+    @JsonProperty("num_available")
     private Integer numAvailable;
-
+    
     private String displayAvt;
-
-    private List<String> images;
 }
