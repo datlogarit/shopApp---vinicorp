@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.env
+problem.text
+/src/main/resources/application.YAML
