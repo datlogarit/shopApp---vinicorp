@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * info used to for confirm order page
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-//confirm order view
 public class ConfirmOrderViewDTO {
     private String fullName;
     private String address;

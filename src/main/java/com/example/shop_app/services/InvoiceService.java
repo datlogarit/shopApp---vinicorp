@@ -39,7 +39,12 @@ public class InvoiceService {
     private final ICartProductMapper iCartProductMapper;
     private final ICartMapper iCartMapper;
 
-    // create new invoice;
+    /**
+     * create new invoice;
+     * @param customerId
+     * @param invoiceDTO
+     * @throws InterruptedException
+     */
     public void createInvoice(Long customerId, InvoiceDTO invoiceDTO) throws InterruptedException {
     ReentrantLock fairLock = new ReentrantLock(true); // ensure first come, first served 
         fairLock.lock();// lock thread
@@ -98,13 +103,21 @@ public class InvoiceService {
         }
     }
 
-    // get all invoice by userId
+    /**
+     * get all invoice by userId
+     * @param userId
+     * @return
+     */
     public List<ListInvoiceView> gListInvoiceDetail(Long userId) {
         List<ListInvoiceView> listInvoiceMapping = iInvoiceMapper.getAllInvoiceByUserId(userId);
         return listInvoiceMapping;
     }
 
-    //get specific invoice
+    /**
+     * get specific invoice
+     * @param orderId
+     * @return
+     */
     public List<ListInvoiceMapping> gInvoiceDetailByOrderId(Long orderId) {
         return iInvoiceMapper.getInfoExportInvoice(orderId);
     }

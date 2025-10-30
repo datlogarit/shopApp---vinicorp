@@ -21,18 +21,32 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/v1/invoice")
 @RequiredArgsConstructor
-//handle requests related invoice
+/**
+ * Handle requests about invoice, product in invoice
+ */
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
-    // create a new invoice
+    /**
+     * Create a new invoice
+     * @param userDetails - user object authenticated
+     * @param invoiceDTO - data request from client
+     * @return
+     * @throws InterruptedException - throws when hava invalid param
+     */
     @PostMapping("")
     public ResponseEntity<?> createInvoice(@AuthenticationPrincipal Users userDetails, @Valid @RequestBody InvoiceDTO invoiceDTO) throws InterruptedException {
         invoiceService.createInvoice(userDetails.getId(), invoiceDTO);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "create invoice successfully"));
     }
 
-    // export invoice by invoiceId
+    /**
+     * export invoice by invoiceId
+     * @param invoiceId - id of invoice
+     * @param userDetails - user object authenticated
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/export/{invoiceId}")
     public ResponseEntity<byte[]> exportInvoice(@PathVariable("invoiceId") Long invoiceId, @AuthenticationPrincipal Users userDetails) throws Exception {
         byte[] pdfBytes = invoiceService.exportInvoice(invoiceId, userDetails.getId());

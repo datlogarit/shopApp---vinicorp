@@ -7,11 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * data for add, update product
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//update quantity
 public class ProductDTO {
     private Long id;
 

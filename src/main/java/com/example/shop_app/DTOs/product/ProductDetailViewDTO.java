@@ -7,11 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * infor for detail pages
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-// product detail view
 public class ProductDetailViewDTO {
     private Long id;
 

@@ -15,6 +15,9 @@ import com.example.shop_app.mapper.IProductMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * handle requests related to products in the shopping cart
+ */
 @Service
 @RequiredArgsConstructor
 public class CartProductService {
@@ -22,6 +25,11 @@ public class CartProductService {
     private final ICartMapper iCartMapper;
     private final IProductMapper iProductMapper;
 
+    /**
+     * get all product in the cart
+     * @param userId
+     * @return
+     */
     public List<CartProductViewDTO> getProductInCart(Long userId) {
         return iCartProductMapper.getInfoCartByUserId(userId);
     }

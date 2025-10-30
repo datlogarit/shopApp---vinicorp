@@ -21,21 +21,33 @@ import com.example.shop_app.services.CartProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/cart-product")
-// handle requests related to products in the shopping cart
+/**
+ * handle request about cart and product in cart
+ */
 public class CartProductController {
     private final CartProductService cartProductService;
 
-    // get product in shopping cart
+    /**
+     * Get product in shopping cart
+     * @param userDetails - user object authenticated
+     * @return
+     */
     @GetMapping("")
     private ResponseEntity<?> getInfoCart(@AuthenticationPrincipal Users userDetails){
         List<CartProductViewDTO> cartProducts = cartProductService.getProductInCart(userDetails.getId());
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", cartProducts));
     }
 
-    // add product to shopping cart
+    /**
+     * Add product to shopping cart
+     * @param userDetails - user object authenticated
+     * @param productInfo - products and quantity
+     * @return
+     */
     @PostMapping("/add")
     private ResponseEntity<?> addProductToCart(
             @AuthenticationPrincipal Users userDetails,
@@ -44,7 +56,12 @@ public class CartProductController {
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Add product to cart successfully"));
     }
 
-    //delete product in the shoping cart
+    /**
+     * Delete product in the shoping cart
+     * @param userDetails - user object authenticated
+     * @param productId
+     * @return
+     */
     @DeleteMapping("/delete/{productId}")
     private ResponseEntity<?> deleteProductToCart(
             @AuthenticationPrincipal Users userDetails,

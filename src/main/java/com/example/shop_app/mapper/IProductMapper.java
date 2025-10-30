@@ -11,10 +11,21 @@ import com.example.shop_app.domains.Product;
 @Mapper
 public interface IProductMapper {
     public List<Product> getAllProduct();
+
     public Product getProductById(@Param("productId") Long producId);
-    // transaction
+    
+    /**
+     * get product by productId with transaction (lock db)
+     * @param productId
+     * @return
+     */
     public Product getProductByIdForUpdate(Long productId);
-    // need join with ProductImage table
+    
+    /**
+     * get detail infor of product (join product - productImage)
+     * @param productId
+     * @return
+     */
     public ProductDetailViewDTO detailProduct(@Param("productId") Long productId);
     public List<Product> getProductByName(@Param("keyword") String keyword);
     public void updateProduct(@Param("product") Product product);

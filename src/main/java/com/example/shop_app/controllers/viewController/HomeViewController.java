@@ -13,12 +13,21 @@ import com.example.shop_app.domains.Users;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * requests related home page
+ */
 @Controller
 @RequestMapping("/api/v1/home")
 @RequiredArgsConstructor
 public class HomeViewController{
     private final ProductService productService;
 
+    /**
+     * request to home page
+     * @param model
+     * @param userDetails
+     * @return
+     */
     @GetMapping("")
     public String getHome(Model model, @AuthenticationPrincipal Users userDetails) {
         model.addAttribute("userId", userDetails != null ? userDetails.getId() : null);

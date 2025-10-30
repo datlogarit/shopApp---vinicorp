@@ -10,8 +10,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-
-// filter handle login page access when user is logged in
+/**
+ * Filter handle login page access when user is logged in
+ */
 public class AlreadyLoggedInFilter extends OncePerRequestFilter {
     @SuppressWarnings("null")
     @Override

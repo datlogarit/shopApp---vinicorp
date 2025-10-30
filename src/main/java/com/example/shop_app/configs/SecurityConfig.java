@@ -23,11 +23,18 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-// security config with spring security
+/**
+ * config security with spring security
+ */
 public class SecurityConfig {
         private final IUserMapper iUserMapper;
 
-        // filter chanin config
+        /**
+         * Config filterchain
+         * @param httpFilter
+         * @return
+         * @throws Exception when config has error
+         */
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity httpFilter) throws Exception {
                 httpFilter
@@ -60,7 +67,10 @@ public class SecurityConfig {
                 return httpFilter.build();
         }
 
-        // Cors config
+        /**
+         * config sors
+         * @return
+         */
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
@@ -73,13 +83,19 @@ public class SecurityConfig {
                 return source;
         }
 
-        // Config encoder password
+        /**
+         * Config encoder password
+         * @return
+         */
         @Bean
         public PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
         }
 
-        // Config UserDetailService - handle load user from db
+        /**
+         * Config UserDetailService - handle load user from db
+         * @return
+         */
         @Bean
         public UserDetailsService userDetailsService() {
                 return phoneNumber -> iUserMapper.getUserByPhoneNumber(phoneNumber);

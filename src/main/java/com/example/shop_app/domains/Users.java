@@ -12,6 +12,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * user domain (implemented UserDetail)
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

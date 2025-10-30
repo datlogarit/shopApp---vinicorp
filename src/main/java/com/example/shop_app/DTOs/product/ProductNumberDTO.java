@@ -9,11 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * number of specific product
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-// number of product
 public class ProductNumberDTO {
     @NotNull(message = "This field cannot be left blank.")
     @JsonProperty("product_id")

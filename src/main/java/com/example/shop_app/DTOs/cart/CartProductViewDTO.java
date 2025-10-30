@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * infor required to display the shopping cart
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//view of cart
 public class CartProductViewDTO {   
     private Long productId;
 

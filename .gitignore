@@ -35,3 +35,4 @@ build/
 .env
 problem.text
 /src/main/resources/application.YAML
+/src/main/**/Example.java

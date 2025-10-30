@@ -16,9 +16,18 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/api/v1/detail")
 @RequiredArgsConstructor
+/**
+ * detail of product page
+ */
 public class DetailViewController {
     private final ProductService productService;
-
+    /**
+     * request product detail page
+     * @param model
+     * @param productId
+     * @param userDetails
+     * @return
+     */
     @GetMapping("/{productId}")
     public String getDetail(Model model, @PathVariable(name = "productId") Long productId, @AuthenticationPrincipal Users userDetails) {
         model.addAttribute("userId", userDetails != null ? userDetails.getId() : null);

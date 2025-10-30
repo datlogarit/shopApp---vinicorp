@@ -15,12 +15,22 @@ import com.example.shop_app.services.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * request related search page
+ */
 @Controller
 @RequestMapping("api/v1/search")
 @RequiredArgsConstructor
 public class SearchController {
     private final ProductService productService;
 
+    /**
+     * search by key request
+     * @param keyword - keyword need to search
+     * @param model
+     * @param userDetails
+     * @return
+     */
     @GetMapping("")
     public String getKey(@RequestParam("keyword") String keyword, Model model, @AuthenticationPrincipal Users userDetails){
         model.addAttribute("userId", userDetails != null ? userDetails.getId() : null);

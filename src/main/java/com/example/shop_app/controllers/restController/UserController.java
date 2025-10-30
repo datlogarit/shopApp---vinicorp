@@ -15,9 +15,17 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/v1/user")
 @RequiredArgsConstructor
+/**
+ * handle request related authenticate user
+ */
 public class UserController {
     private final UserService userService;
 
+    /**
+     * 
+     * @param userDTO
+     * @return
+     */
     @PostMapping("signUp")
     public ResponseEntity<?> signUp(@RequestBody UserDTO userDTO){
          userService.createUser(userDTO);;

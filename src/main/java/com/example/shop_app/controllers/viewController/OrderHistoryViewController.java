@@ -14,12 +14,21 @@ import com.example.shop_app.services.InvoiceService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * request related history of order
+ */
 @Controller
 @RequestMapping("api/v1/order-history")
 @RequiredArgsConstructor
 public class OrderHistoryViewController {
     private final InvoiceService invoiceService;
 
+    /**
+     * request get order history page
+     * @param model
+     * @param userDetails
+     * @return
+     */
     @GetMapping("")
     public String getViewOrderHistory(Model model, @AuthenticationPrincipal Users userDetails) {
         List<ListInvoiceView> listInvoiceV = invoiceService.gListInvoiceDetail(userDetails.getId());

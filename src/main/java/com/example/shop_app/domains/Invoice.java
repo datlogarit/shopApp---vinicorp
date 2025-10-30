@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// invoice == order
+/**
+ * invoice (= order) domain;
+ */
 @Data
 @Builder
 @NoArgsConstructor

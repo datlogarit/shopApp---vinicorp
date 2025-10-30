@@ -10,10 +10,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * handle exception centrally
+ */
 @RestControllerAdvice
-// used to for handle exception
 public class GlobalExceptionHandler {
-    // use to handle invalid Arg
+    /**
+     * handle invalid param exception
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -24,31 +30,52 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    // Xử lý lỗi dữ liệu không hợp lệ
+    /**
+     * handle data invalide exception
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    // Xử lý lỗi RuntimeException (ưu tiên xử lý trước Exception để không bị bắt nhầm)
+    /**
+     * Handle runtime exception
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    // Xử lý lỗi đọc/ghi file
+    /**
+     * Handle read/write files
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(IOException.class)
     public ResponseEntity<Map<String, Object>> handleIOException(IOException ex) {
         return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error while process file: " + ex.getMessage());
     }
 
-    // Xử lý lỗi chung (nếu chưa bị các handler trên bắt)
+    /**
+     * handle other exceptions
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneralException(Exception ex) {
         return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error system: " + ex.getMessage());
     }
 
-    // Hàm hỗ trợ tạo JSON lỗi
+    /**
+     * Response to error request
+     * @param status - status of request
+     * @param message - message to client
+     * @return
+     */
     private ResponseEntity<Map<String, Object>> buildErrorResponse(HttpStatus status, String message) {
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("message", "error");

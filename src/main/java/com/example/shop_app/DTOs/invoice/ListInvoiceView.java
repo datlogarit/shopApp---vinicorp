@@ -11,6 +11,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * all info relate invoice (product are grouped by order)
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
