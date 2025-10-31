@@ -26,10 +26,10 @@ public class SearchController {
 
     /**
      * search by key request
-     * @param keyword - keyword need to search
+     * @param keyword - keyword to search
      * @param model
-     * @param userDetails
-     * @return
+     * @param userDetails - authentiacted user object
+     * @return search results page
      */
     @GetMapping("")
     public String getKey(@RequestParam("keyword") String keyword, Model model, @AuthenticationPrincipal Users userDetails){

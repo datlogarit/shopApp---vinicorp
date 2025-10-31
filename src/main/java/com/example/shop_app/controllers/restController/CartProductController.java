@@ -22,19 +22,19 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("api/v1/cart-product")
 /**
  * handle request about cart and product in cart
  */
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/cart-product")
 public class CartProductController {
     private final CartProductService cartProductService;
 
     /**
-     * Get product in shopping cart
-     * @param userDetails - user object authenticated
-     * @return
+     * Get info product in shopping cart
+     * @param userDetails - authenticated user object
+     * @return list info product in the cart
      */
     @GetMapping("")
     private ResponseEntity<?> getInfoCart(@AuthenticationPrincipal Users userDetails){
@@ -45,8 +45,8 @@ public class CartProductController {
     /**
      * Add product to shopping cart
      * @param userDetails - user object authenticated
-     * @param productInfo - products and quantity
-     * @return
+     * @param productInfo - productId and quantity of product
+     * @return handle message 
      */
     @PostMapping("/add")
     private ResponseEntity<?> addProductToCart(
@@ -59,8 +59,8 @@ public class CartProductController {
     /**
      * Delete product in the shoping cart
      * @param userDetails - user object authenticated
-     * @param productId
-     * @return
+     * @param productId - id of product what to delete
+     * @return handle message
      */
     @DeleteMapping("/delete/{productId}")
     private ResponseEntity<?> deleteProductToCart(

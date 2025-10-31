@@ -13,11 +13,18 @@ import com.example.shop_app.mapper.IProductMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * service handle related domain product
+ */
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final IProductMapper iProductMapper;
 
+    /**
+     * get all product to display on view
+     * @return list product information needed for home page
+     */
     public List<ProductHomeViewDTO> getAllProducts() {
         // Product ---> ProductHomeViewDTO
         List<Product> newProduct = iProductMapper.getAllProduct();
@@ -35,11 +42,20 @@ public class ProductService {
         return lProductHomeViewDTO;
     }
 
-    // Because have to join 2 table so return riderect view;
+    /**
+     * get info in detail page of product
+     * @param productId 
+     * @return infor needed for detail pages
+     */
     public ProductDetailViewDTO getDetailProduct(Long productId) {
         return iProductMapper.detailProduct(productId);
     }
 
+    /**
+     * get product by name
+     * @param keyword for search
+     * @return list infor needed for home page
+     */
     public List<ProductHomeViewDTO> getProductByName(String keyword){
          List<Product> listP = iProductMapper.getProductByName(keyword);
          List<ProductHomeViewDTO> lProductHomeViewDTO = new ArrayList<ProductHomeViewDTO>();
@@ -56,6 +72,10 @@ public class ProductService {
          return lProductHomeViewDTO;
     }
 
+    /**
+     * update the quantity in the stock of product
+     * @param productDTO - data needed for add, update product
+     */
     public void updateQuantityProduct(ProductDTO productDTO){
         Product existProduct = Product.builder()
         .id(productDTO.getId())

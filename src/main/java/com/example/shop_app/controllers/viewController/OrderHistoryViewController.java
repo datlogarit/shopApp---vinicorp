@@ -26,8 +26,8 @@ public class OrderHistoryViewController {
     /**
      * request get order history page
      * @param model
-     * @param userDetails
-     * @return
+     * @param userDetails authenticated user object
+     * @return history of order page
      */
     @GetMapping("")
     public String getViewOrderHistory(Model model, @AuthenticationPrincipal Users userDetails) {

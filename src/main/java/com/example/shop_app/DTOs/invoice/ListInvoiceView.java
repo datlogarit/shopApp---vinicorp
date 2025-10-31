@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * all info relate invoice (product are grouped by order)
+ * all invoice information (product are grouped by order)
  */
 @NoArgsConstructor
 @AllArgsConstructor

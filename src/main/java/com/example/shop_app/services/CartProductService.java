@@ -28,12 +28,17 @@ public class CartProductService {
     /**
      * get all product in the cart
      * @param userId
-     * @return
+     * @return infor required to display the shopping cart
      */
     public List<CartProductViewDTO> getProductInCart(Long userId) {
         return iCartProductMapper.getInfoCartByUserId(userId);
     }
 
+    /**
+     * add new product into cart
+     * @param userId 
+     * @param productNumberDTO - id and quantity of specific product
+     */
     public void addProductToCart(Long userId, ProductNumberDTO productNumberDTO) {
         // check stock
         Product product = iProductMapper.getProductById(productNumberDTO.getProductId());
@@ -78,11 +83,21 @@ public class CartProductService {
         }
     }
 
-    // update product in the cart
+    /**
+     * update product in the cart
+     * @param cartId - id of cart
+     * @param productId - id of product
+     * @param newCartProduct - new info about cart product(new quantity)
+     */
     public void updateCartProduct(Long cartId, Long productId, CartProduct newCartProduct) {
         iCartProductMapper.updateCartProduct(cartId, productId, newCartProduct);
     }
 
+    /**
+     * delete specific item from card
+     * @param userId - id of authenticated user
+     * @param productId - id of product to delete
+     */
     public void deleteProductToCart(Long userId, Long productId) {
         // find cartId by userId
         Long cartId = iCartMapper.getCartByUserId(userId);

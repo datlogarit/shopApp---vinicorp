@@ -18,21 +18,21 @@ import com.example.shop_app.services.InvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("api/v1/invoice")
-@RequiredArgsConstructor
 /**
  * Handle requests about invoice, product in invoice
  */
+@RestController
+@RequestMapping("api/v1/invoice")
+@RequiredArgsConstructor
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
     /**
      * Create a new invoice
      * @param userDetails - user object authenticated
-     * @param invoiceDTO - data request from client
-     * @return
-     * @throws InterruptedException - throws when hava invalid param
+     * @param invoiceDTO - invoice data request from client
+     * @return handle message
+     * @throws InterruptedException throws when have invalid param
      */
     @PostMapping("")
     public ResponseEntity<?> createInvoice(@AuthenticationPrincipal Users userDetails, @Valid @RequestBody InvoiceDTO invoiceDTO) throws InterruptedException {
@@ -42,10 +42,10 @@ public class InvoiceController {
 
     /**
      * export invoice by invoiceId
-     * @param invoiceId - id of invoice
-     * @param userDetails - user object authenticated
-     * @return
-     * @throws Exception
+     * @param invoiceId - id of invoice, received from client
+     * @param userDetails - authenticated user object 
+     * @return PDF file as byte array
+     * @throws Exception happens in service
      */
     @GetMapping("/export/{invoiceId}")
     public ResponseEntity<byte[]> exportInvoice(@PathVariable("invoiceId") Long invoiceId, @AuthenticationPrincipal Users userDetails) throws Exception {

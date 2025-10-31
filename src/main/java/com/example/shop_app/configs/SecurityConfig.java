@@ -20,20 +20,20 @@ import com.example.shop_app.mapper.IUserMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Config security with spring security
+ */
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-/**
- * config security with spring security
- */
 public class SecurityConfig {
         private final IUserMapper iUserMapper;
 
         /**
          * Config filterchain
-         * @param httpFilter
-         * @return
-         * @throws Exception when config has error
+         * @param httpFilter Instance of HttpSecurity
+         * @return SecurityFilterChain build HttpSecurity
+         * @throws Exception Config error
          */
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity httpFilter) throws Exception {
@@ -68,8 +68,9 @@ public class SecurityConfig {
         }
 
         /**
-         * config sors
-         * @return
+         * Config CORS
+         * Allow brower to send requests from config domains
+         * @return UrlBasedCorsConfigurationSource contain registered config CORS 
          */
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
@@ -85,7 +86,8 @@ public class SecurityConfig {
 
         /**
          * Config encoder password
-         * @return
+         * Used to hash password
+         * @return new instance of BCryptPasswordEncoder;
          */
         @Bean
         public PasswordEncoder passwordEncoder() {
@@ -94,7 +96,7 @@ public class SecurityConfig {
 
         /**
          * Config UserDetailService - handle load user from db
-         * @return
+         * @return User (domain) - instance of UserDetailServices
          */
         @Bean
         public UserDetailsService userDetailsService() {

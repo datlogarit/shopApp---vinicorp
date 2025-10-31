@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * data for add, update product
+ * data needed for add, update product
  */
 @Data
 @Builder

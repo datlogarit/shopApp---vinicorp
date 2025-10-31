@@ -14,6 +14,10 @@ import java.io.IOException;
  * Filter handle login page access when user is logged in
  */
 public class AlreadyLoggedInFilter extends OncePerRequestFilter {
+
+    /**
+     * filter logic
+     */
     @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request,

@@ -17,16 +17,18 @@ public interface IProductMapper {
     /**
      * get product by productId with transaction (lock db)
      * @param productId
-     * @return
+     * @return product (domain)
      */
     public Product getProductByIdForUpdate(Long productId);
     
     /**
      * get detail infor of product (join product - productImage)
      * @param productId
-     * @return
+     * @return info of detail product
      */
     public ProductDetailViewDTO detailProduct(@Param("productId") Long productId);
+
     public List<Product> getProductByName(@Param("keyword") String keyword);
+    
     public void updateProduct(@Param("product") Product product);
 }

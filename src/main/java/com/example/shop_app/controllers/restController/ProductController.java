@@ -11,19 +11,19 @@ import com.example.shop_app.services.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("api/v1/product")
-@RestController
-@RequiredArgsConstructor
 /**
  * handle requests related product
  */
+@RequestMapping("api/v1/product")
+@RestController
+@RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
     /**
      * edit the number in the stock of product
-     * @param productDTO - info what need change
-     * @return
+     * @param productDTO - info product what need change
+     * @return handle message
      */
     @PutMapping("")
     public ResponseEntity<?> updateQuantity(@RequestBody ProductDTO productDTO){

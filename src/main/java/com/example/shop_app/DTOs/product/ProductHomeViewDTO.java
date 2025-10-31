@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * infor needed for home page 
+ */ 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-// home view 
 public class ProductHomeViewDTO {
     private Long id;
 

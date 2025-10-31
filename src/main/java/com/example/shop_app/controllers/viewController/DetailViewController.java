@@ -13,20 +13,21 @@ import com.example.shop_app.services.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * handle request in detail of product page
+ */
 @Controller
 @RequestMapping("/api/v1/detail")
 @RequiredArgsConstructor
-/**
- * detail of product page
- */
 public class DetailViewController {
     private final ProductService productService;
+
     /**
      * request product detail page
      * @param model
-     * @param productId
+     * @param productId id of product to delete
      * @param userDetails
-     * @return
+     * @return detail page
      */
     @GetMapping("/{productId}")
     public String getDetail(Model model, @PathVariable(name = "productId") Long productId, @AuthenticationPrincipal Users userDetails) {

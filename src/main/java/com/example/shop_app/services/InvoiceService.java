@@ -1,6 +1,5 @@
 package com.example.shop_app.services;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +41,9 @@ public class InvoiceService {
     /**
      * create new invoice;
      * @param customerId
-     * @param invoiceDTO
-     * @throws InterruptedException
+     * @param invoiceDTO - request from client to create new invoice
      */
-    public void createInvoice(Long customerId, InvoiceDTO invoiceDTO) throws InterruptedException {
+    public void createInvoice(Long customerId, InvoiceDTO invoiceDTO) {
     ReentrantLock fairLock = new ReentrantLock(true); // ensure first come, first served 
         fairLock.lock();// lock thread
         try {
@@ -106,7 +104,7 @@ public class InvoiceService {
     /**
      * get all invoice by userId
      * @param userId
-     * @return
+     * @return all invoice information (product are grouped by order)
      */
     public List<ListInvoiceView> gListInvoiceDetail(Long userId) {
         List<ListInvoiceView> listInvoiceMapping = iInvoiceMapper.getAllInvoiceByUserId(userId);
@@ -116,13 +114,20 @@ public class InvoiceService {
     /**
      * get specific invoice
      * @param orderId
-     * @return
+     * @return all invoice infomation (direct mapping from query db)
      */
     public List<ListInvoiceMapping> gInvoiceDetailByOrderId(Long orderId) {
         return iInvoiceMapper.getInfoExportInvoice(orderId);
     }
 
-    public byte[] exportInvoice(Long invoiceId, Long userId) throws JRException, IOException {
+    /**
+     * 
+     * @param invoiceId
+     * @param userId
+     * @return pdf file as array byte;
+     * @throws JRException occurred for can't compiler resource from input stream
+     */
+    public byte[] exportInvoice(Long invoiceId, Long userId) throws JRException{
         // authorize user
         if (iInvoiceMapper.checkExistByInvoiceIdAndUserId(userId, invoiceId) == null) {
             throw new RuntimeException("You do not have permission to access this file");

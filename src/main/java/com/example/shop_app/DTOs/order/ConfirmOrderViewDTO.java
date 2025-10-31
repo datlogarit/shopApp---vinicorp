@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * info used to for confirm order page
+ * info needed for confirm order page
  */
 @AllArgsConstructor
 @NoArgsConstructor

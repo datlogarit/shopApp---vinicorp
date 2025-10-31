@@ -25,8 +25,8 @@ public class HomeViewController{
     /**
      * request to home page
      * @param model
-     * @param userDetails
-     * @return
+     * @param userDetails authenticated user object 
+     * @return home page
      */
     @GetMapping("")
     public String getHome(Model model, @AuthenticationPrincipal Users userDetails) {

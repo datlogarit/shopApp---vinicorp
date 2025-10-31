@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * request to create new invoice
+ * request from client to create new invoice
  */
 @NoArgsConstructor
 @AllArgsConstructor

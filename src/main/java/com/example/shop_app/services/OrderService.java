@@ -13,11 +13,19 @@ import com.example.shop_app.domains.Users;
 import com.example.shop_app.mapper.IProductMapper;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * service handle function related order
+ */
 @Service
 @RequiredArgsConstructor
 public class OrderService {
     private final IProductMapper iProductMapper;
 
+    /**
+     * get data for order view
+     * @param listProductConfrirm - list product is send by client
+     * @return info needed for confirm order page
+     */
     public List<ConfirmOrderViewDTO> getDataOrderView(List<ProductNumberDTO> listProductConfrirm){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(principal instanceof Users)) {
@@ -45,6 +53,11 @@ public class OrderService {
         return orderConfirmViewDTOs;
     }
 
+    /**
+     * caculate total money of order
+     * @param productNumberDTO number of specific product
+     * @return total cost
+     */
     public Long caculateTotal(List<ProductNumberDTO> productNumberDTO){
         Long totalCost = 0L;
         for (ProductNumberDTO pNumberDTO : productNumberDTO) {

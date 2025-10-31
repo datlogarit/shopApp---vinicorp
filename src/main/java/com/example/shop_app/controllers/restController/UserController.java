@@ -12,19 +12,19 @@ import com.example.shop_app.services.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("api/v1/user")
-@RequiredArgsConstructor
 /**
  * handle request related authenticate user
  */
+@RestController
+@RequestMapping("api/v1/user")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
     /**
-     * 
-     * @param userDTO
-     * @return
+     * create a new user
+     * @param userDTO - user info for register
+     * @return handle message
      */
     @PostMapping("signUp")
     public ResponseEntity<?> signUp(@RequestBody UserDTO userDTO){

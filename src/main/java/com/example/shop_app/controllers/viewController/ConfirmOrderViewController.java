@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 /**
- * handle funtion in confirm order page
+ * handle funtion related confirm order page
  */
 @Controller
 @RequestMapping("api/v1/order")
@@ -27,29 +27,28 @@ import lombok.RequiredArgsConstructor;
 public class ConfirmOrderViewController {
     private final OrderService orderService;
 
+    /**
+     * receive product information ordered from customer
+     * @param productToConfirm - list product information (productId, quantity) 
+     * @param session - where data product is stored
+     * @return handle message
+     */
     @PostMapping("")
     @ResponseBody
-    /**
-     * receive info product what orderd from client
-     * @param productToConfirm - product that need to certified 
-     * @param session - where data is stored
-     * @return
-     * @throws Exception
-     */
     private ResponseEntity<?> bindToOrderConfirm(
             @Valid @RequestBody List<ProductNumberDTO> productToConfirm,
-            HttpSession session) throws Exception {
+            HttpSession session) {
         orderService.checkQuantityInput(productToConfirm); // validate
         session.setAttribute("result", productToConfirm);
         return ResponseEntity.ok(new BaseAPIRespone<>(200, "success", "Bind to server successfully"));
     }
 
     /**
-     * request confirm page
+     * request confirm order page
      * @param model - where bind data to UI
-     * @param session - where data is stored
+     * @param session - where contain the data
      * @param userDetails - user object authenticated
-     * @return
+     * @return order confirm page
      */
     @GetMapping("confirm")
     @SuppressWarnings("unchecked")

@@ -17,8 +17,8 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     /**
      * handle invalid param exception
-     * @param ex
-     * @return
+     * @param ex - message of exception
+     * @return message response (error field ,error message)
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -32,8 +32,8 @@ public class GlobalExceptionHandler {
 
     /**
      * handle data invalide exception
-     * @param ex
-     * @return
+     * @param ex - message of exception
+     * @return response entity with message and status code
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
@@ -42,8 +42,8 @@ public class GlobalExceptionHandler {
 
     /**
      * Handle runtime exception
-     * @param ex
-     * @return
+     * @param ex - message of error
+     * @return response entity with message and status code
      */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex) {
@@ -52,8 +52,8 @@ public class GlobalExceptionHandler {
 
     /**
      * Handle read/write files
-     * @param ex
-     * @return
+     * @param ex - message of error
+     * @return response entity with message and status code
      */
     @ExceptionHandler(IOException.class)
     public ResponseEntity<Map<String, Object>> handleIOException(IOException ex) {
@@ -62,8 +62,8 @@ public class GlobalExceptionHandler {
 
     /**
      * handle other exceptions
-     * @param ex
-     * @return
+     * @param ex - message of error
+     * @return response entity with message and status code
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneralException(Exception ex) {
@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
      * Response to error request
      * @param status - status of request
      * @param message - message to client
-     * @return
+     * @return responseEntity with message and status code
      */
     private ResponseEntity<Map<String, Object>> buildErrorResponse(HttpStatus status, String message) {
         Map<String, Object> errorResponse = new HashMap<>();

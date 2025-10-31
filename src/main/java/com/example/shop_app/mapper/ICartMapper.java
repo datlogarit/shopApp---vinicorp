@@ -10,7 +10,7 @@ public interface ICartMapper {
     /**
      * check existion of cart by userId
      * @param userId
-     * @return
+     * @return the number represent existance of cart (1 - exist, null - does not exist)
      */
     public Long existCartByUserId(@Param("userId") Long userId);
 

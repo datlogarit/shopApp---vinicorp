@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * infor for detail pages
+ * infor needed for detail pages
  */
 @NoArgsConstructor
 @AllArgsConstructor

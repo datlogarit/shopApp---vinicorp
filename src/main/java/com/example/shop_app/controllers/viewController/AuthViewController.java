@@ -3,14 +3,14 @@ package com.example.shop_app.controllers.viewController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
 /**
- * handle scren authen - login, register
+ * handle scren authen - login, register page
  */
+@Controller
 public class AuthViewController {
     /**
      * redirect to home page when user just new access webpage
-     * @return
+     * @return home page
     */
     @GetMapping("/")
     public String redirectToHome() {
@@ -19,7 +19,7 @@ public class AuthViewController {
     
     /**
      * request login page
-     * @return
+     * @return login page
      */
     @GetMapping("/login")
     public String showLoginPage() {
@@ -28,7 +28,7 @@ public class AuthViewController {
 
     /**
      * request register page
-     * @return
+     * @return register page
      */
     @GetMapping("/register")
     public String showRegisterPage() {

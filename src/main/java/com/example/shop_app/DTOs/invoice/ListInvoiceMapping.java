@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * all info relate invoice (direct mapping from query db)
+ * all invoice infomation (direct mapping from query db)
  */
 @Data
 @NoArgsConstructor
